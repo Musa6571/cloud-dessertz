@@ -89,6 +89,14 @@ body {
 /* ---- Logo - Left ---- */
 .logo-area {
     flex-shrink: 0;
+    background-color: transparent;
+    padding: 5px 0;
+    border-radius: 8px;
+}
+
+/* Dark theme logo area fix */
+body.dark-theme .logo-area {
+    background-color: transparent;
 }
 
 .logo-area img {
