@@ -1,1 +1,473 @@
-/* Cloud Dessertz - Main Stylesheet */
+/* ============================================ */
+/* GOOGLE FONTS ARE LOADED IN HTML              */
+/* ============================================ */
+
+/* ============================================ */
+/* CSS CUSTOM PROPERTIES (THEME VARIABLES)      */
+/* ============================================ */
+
+:root {
+    /* Light Theme (Default) */
+    --bg-color: #FFF5F9;          /* Cotton Cream */
+    --text-color: #701438;        /* Deep Berry Plum */
+    --heading-color: #701438;     /* Deep Berry Plum */
+    --card-bg: #FFE1ED;           /* Soft Cloud Pink */
+    --card-text: #701438;         /* Deep Berry Plum */
+    --nav-link: #701438;          /* Deep Berry Plum */
+    --nav-hover: #9E1B50;         /* Rose Raspberry */
+    --cta-bg: #9E1B50;            /* Rose Raspberry */
+    --cta-text: #FFF5F9;          /* Cotton Cream */
+    --footer-bg: #701438;         /* Deep Berry Plum */
+    --footer-text: #FFF5F9;       /* Cotton Cream */
+    --footer-link: #FFE1ED;       /* Soft Cloud Pink */
+    --border-color: #FFE1ED;      /* Soft Cloud Pink */
+    --shadow-color: rgba(112, 20, 56, 0.08);
+    --logo-filter: none;          /* Logo stays normal */
+}
+
+/* Dark Theme - applied to <body> when .dark-theme class is added */
+body.dark-theme {
+    --bg-color: #701438;          /* Deep Berry Plum */
+    --text-color: #FFF5F9;        /* Cotton Cream */
+    --heading-color: #FFE1ED;     /* Soft Cloud Pink */
+    --card-bg: #4A0D26;           /* Darker Plum */
+    --card-text: #FFF5F9;         /* Cotton Cream */
+    --nav-link: #FFF5F9;          /* Cotton Cream */
+    --nav-hover: #FFE1ED;         /* Soft Cloud Pink */
+    --cta-bg: #9E1B50;            /* Rose Raspberry (kept the same) */
+    --cta-text: #FFF5F9;          /* Cotton Cream */
+    --footer-bg: #2A0514;         /* Very Dark Plum */
+    --footer-text: #FFF5F9;       /* Cotton Cream */
+    --footer-link: #FFE1ED;       /* Soft Cloud Pink */
+    --border-color: #9E1B50;      /* Rose Raspberry */
+    --shadow-color: rgba(255, 225, 237, 0.12);
+    --logo-filter: brightness(0) invert(1);   /* Makes logo white */
+}
+
+/* ============================================ */
+/* RESET & BASE STYLES                         */
+/* ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.4s ease, color 0.4s ease;
+    padding-top: 85px; /* Space for fixed header */
+    min-width: 1024px; /* Desktop only - min width */
+}
+
+/* ============================================ */
+/* STICKY HEADER (FIXED AT TOP)                */
+/* ============================================ */
+
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--bg-color);
+    box-shadow: 0 10px 28px var(--shadow-color);
+    padding: 14px 50px;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ---- Logo - Left ---- */
+.logo-area {
+    flex-shrink: 0;
+}
+
+.logo-area img {
+    height: 55px;
+    width: auto;
+    filter: var(--logo-filter);
+    transition: filter 0.4s ease;
+}
+
+/* ---- Navigation - Middle ---- */
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--nav-link);
+    transition: color 0.3s ease, border-color 0.3s ease;
+    padding: 6px 0;
+    border-bottom: 3px solid transparent;
+    letter-spacing: 0.3px;
+}
+
+.main-nav ul li a:hover {
+    color: var(--nav-hover);
+    border-bottom-color: var(--nav-hover);
+}
+
+.main-nav ul li a.active {
+    color: var(--nav-hover);
+    border-bottom-color: var(--nav-hover);
+}
+
+/* ---- iOS Toggle Switch - Right ---- */
+.theme-toggle-area {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+/* Hide the default checkbox */
+.ios-toggle input {
+    display: none;
+}
+
+/* The slider track (pill shape) */
+.ios-toggle .slider {
+    display: block;
+    width: 55px;
+    height: 32px;
+    background-color: #d1d1d1;
+    border-radius: 32px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* The white circle (handle) */
+.ios-toggle .slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* When checkbox is checked (Dark Theme ON) */
+.ios-toggle input:checked + .slider {
+    background-color: #34c759; /* iOS green */
+}
+
+.ios-toggle input:checked + .slider::before {
+    transform: translateX(23px);
+}
+
+/* ============================================ */
+/* HERO BANNER                                  */
+/* ============================================ */
+
+.hero {
+    max-width: 1400px;
+    margin: 0 auto 70px;
+    padding: 60px 50px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: 24px;
+    box-shadow: 0 10px 28px var(--shadow-color);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    min-height: 420px;
+}
+
+.hero-content h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 54px;
+    color: var(--heading-color);
+    margin-bottom: 18px;
+    line-height: 1.2;
+    transition: color 0.4s ease;
+}
+
+.hero-content p {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    line-height: 1.7;
+    transition: color 0.4s ease;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--cta-bg);
+    color: var(--cta-text);
+    padding: 15px 44px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(158, 27, 80, 0.35);
+    letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+    background-color: #7A1440;
+    transform: scale(1.04);
+    box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
+}
+
+/* ---- Cloud Decoration (Right Side) ---- */
+.hero-cloud-graphic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cloud-shape {
+    width: 240px;
+    height: 140px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    position: relative;
+    transition: background 0.4s ease;
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+/* Cloud bumps */
+.cloud-shape::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    top: -50px;
+    left: 30px;
+    transition: background 0.4s ease;
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.cloud-shape::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    top: -60px;
+    left: 80px;
+    transition: background 0.4s ease;
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+/* Cloud text inside */
+.cloud-shape .cloud-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.4s ease;
+}
+
+/* ============================================ */
+/* FEATURE GRID                                 */
+/* ============================================ */
+
+.features {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 0 50px;
+}
+
+.features h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 36px;
+    color: var(--heading-color);
+    text-align: center;
+    margin-bottom: 45px;
+    transition: color 0.4s ease;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 35px var(--shadow-color);
+}
+
+.feature-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 24px;
+    color: var(--heading-color);
+    margin-bottom: 8px;
+    transition: color 0.4s ease;
+}
+
+.feature-card p {
+    font-size: 15px;
+    color: var(--text-color);
+    transition: color 0.4s ease;
+}
+
+/* ============================================ */
+/* FOOTER                                       */
+/* ============================================ */
+
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 55px 50px 20px;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    border-top: 2px solid var(--border-color);
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 45px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid rgba(255, 225, 237, 0.15);
+}
+
+.footer-col h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    color: var(--footer-text);
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    text-decoration: none;
+    color: var(--footer-link);
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    font-size: 14px;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 4px;
+}
+
+/* Social links with icons */
+.social-links li a {
+    font-size: 15px;
+}
+
+.footer-email {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--footer-link);
+}
+
+/* ---- Newsletter ---- */
+.newsletter-text {
+    font-size: 14px;
+    color: var(--footer-link);
+    margin-bottom: 14px;
+    opacity: 0.85;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    outline: 2px solid transparent;
+    transition: outline 0.3s ease, background 0.3s ease;
+}
+
+.newsletter-form input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.newsletter-form input:focus {
+    outline: 2px solid var(--footer-link);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.newsletter-form button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--cta-bg);
+    color: var(--cta-text);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.newsletter-form button:hover {
+    background-color: #7A1440;
+    transform: scale(1.04);
+}
+
+/* ---- Footer Bottom (Copyright) ---- */
+.footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 13px;
+    color: var(--footer-link);
+    opacity: 0.7;
+    letter-spacing: 0.3px;
+}
