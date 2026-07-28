@@ -4,13 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Dessertz - Home</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Home Page Content -->
-    <h1>Welcome to Cloud Dessertz</h1>
-    <p>Home page coming soon!</p>
-    
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left -->
+            <div class="logo-area">
+                <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="make-your-own.html">Make Your Own</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="order.html">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Hero Banner -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Heavenly Sweetness <br>In Every Cloud</h1>
+                <p>Discover artisanal cloud soft-serves, gourmet macarons,<br>and handcrafted dessert boxes at our flagship store.</p>
+                <a href="menu.html" class="cta-button">Explore Our Menu</a>
+            </div>
+            <div class="hero-cloud-graphic">
+                <!-- Cloud-shaped decorative element (pure CSS) -->
+                <div class="cloud-decoration">
+                    <div class="cloud-shape"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Grid -->
+        <section class="features">
+            <h2>Explore Our Specialties</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>☁️ Cloud Soft Serve</h3>
+                    <p>Available at Counter</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🍬 French Macarons</h3>
+                    <p>Store Pick-up</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎁 Confection Boxes</h3>
+                    <p>In Store Only</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul class="social-links">
+                    <li><a href="#">📸 Instagram</a></li>
+                    <li><a href="#">🎵 TikTok</a></li>
+                    <li><a href="#">📘 Facebook</a></li>
+                    <li><a href="#">📌 Pinterest</a></li>
+                </ul>
+                <p class="footer-email">✉️ hello@clouddessertz.com</p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
     <script src="js/script.js"></script>
+
 </body>
 </html>
