@@ -8,17 +8,23 @@ const bodyElement = document.body;
 const logoImage = document.getElementById('site-logo');
 
 // ============================================ //
-// FUNCTION: Swap Logo Based on Theme          //
+// FUNCTION: Swap Logo with Fade Effect        //
 // ============================================ //
 
 function swapLogo(isDark) {
-    if (isDark) {
-        // Use the dark version of the logo
-        logoImage.src = 'images/logo-dark.jpg';
-    } else {
-        // Use the regular version of the logo
-        logoImage.src = 'images/logo.jpg';
-    }
+    // Fade out
+    logoImage.style.opacity = '0';
+    
+    // Wait for fade out, then swap image
+    setTimeout(function() {
+        if (isDark) {
+            logoImage.src = 'images/logo-dark.jpg';
+        } else {
+            logoImage.src = 'images/logo.jpg';
+        }
+        // Fade back in
+        logoImage.style.opacity = '1';
+    }, 200); // Matches CSS transition time
 }
 
 // ============================================ //
@@ -27,22 +33,15 @@ function swapLogo(isDark) {
 
 function applyTheme(isDark) {
     if (isDark) {
-        // Add dark class to body
         bodyElement.classList.add('dark-theme');
-        // Check the toggle (so it visually shows ON)
         toggleCheckbox.checked = true;
-        // Swap to dark logo
         swapLogo(true);
     } else {
-        // Remove dark class from body
         bodyElement.classList.remove('dark-theme');
-        // Uncheck the toggle (so it visually shows OFF)
         toggleCheckbox.checked = false;
-        // Swap to light logo
         swapLogo(false);
     }
 
-    // Save the user's preference to localStorage so it persists across pages
     localStorage.setItem('cloud-dessertz-theme', isDark ? 'dark' : 'light');
 }
 
@@ -51,16 +50,25 @@ function applyTheme(isDark) {
 // ============================================ //
 
 function loadSavedTheme() {
-    // Check if user has previously saved a preference
+    // Set initial opacity to 1
+    logoImage.style.opacity = '1';
+    
     const savedTheme = localStorage.getItem('cloud-dessertz-theme');
 
     if (savedTheme === 'dark') {
-        applyTheme(true);
+        // Load dark theme immediately (no animation on page load)
+        bodyElement.classList.add('dark-theme');
+        toggleCheckbox.checked = true;
+        logoImage.src = 'images/logo-dark.jpg';
     } else if (savedTheme === 'light') {
-        applyTheme(false);
+        bodyElement.classList.remove('dark-theme');
+        toggleCheckbox.checked = false;
+        logoImage.src = 'images/logo.jpg';
     } else {
-        // No saved preference → Default to Light Theme
-        applyTheme(false);
+        // Default to Light Theme
+        bodyElement.classList.remove('dark-theme');
+        toggleCheckbox.checked = false;
+        logoImage.src = 'images/logo.jpg';
     }
 }
 
@@ -69,7 +77,6 @@ function loadSavedTheme() {
 // ============================================ //
 
 toggleCheckbox.addEventListener('change', function() {
-    // If checkbox is checked → Dark Theme, else → Light Theme
     if (this.checked) {
         applyTheme(true);
     } else {
