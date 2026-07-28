@@ -22,26 +22,24 @@
     --footer-link: #FFE1ED;       /* Soft Cloud Pink */
     --border-color: #FFE1ED;      /* Soft Cloud Pink */
     --shadow-color: rgba(112, 20, 56, 0.08);
-    --logo-filter: none;          /* Logo stays normal */
 }
 
 /* Dark Theme - applied to <body> when .dark-theme class is added */
 body.dark-theme {
-    --bg-color: #701438;          /* Deep Berry Plum */
-    --text-color: #FFF5F9;        /* Cotton Cream */
-    --heading-color: #FFE1ED;     /* Soft Cloud Pink */
-    --card-bg: #4A0D26;           /* Darker Plum */
-    --card-text: #FFF5F9;         /* Cotton Cream */
-    --nav-link: #FFF5F9;          /* Cotton Cream */
-    --nav-hover: #FFE1ED;         /* Soft Cloud Pink */
-    --cta-bg: #9E1B50;            /* Rose Raspberry (kept the same) */
-    --cta-text: #FFF5F9;          /* Cotton Cream */
-    --footer-bg: #2A0514;         /* Very Dark Plum */
-    --footer-text: #FFF5F9;       /* Cotton Cream */
-    --footer-link: #FFE1ED;       /* Soft Cloud Pink */
-    --border-color: #9E1B50;      /* Rose Raspberry */
+    --bg-color: #701438;
+    --text-color: #FFF5F9;
+    --heading-color: #FFE1ED;
+    --card-bg: #4A0D26;
+    --card-text: #FFF5F9;
+    --nav-link: #FFF5F9;
+    --nav-hover: #FFE1ED;
+    --cta-bg: #9E1B50;
+    --cta-text: #FFF5F9;
+    --footer-bg: #2A0514;
+    --footer-text: #FFF5F9;
+    --footer-link: #FFE1ED;
+    --border-color: #9E1B50;
     --shadow-color: rgba(255, 225, 237, 0.12);
-    --logo-filter: brightness(0) invert(1);   /* Makes logo white */
 }
 
 /* ============================================ */
@@ -96,7 +94,6 @@ body {
 .logo-area img {
     height: 55px;
     width: auto;
-    filter: var(--logo-filter);
     transition: filter 0.4s ease;
 }
 
