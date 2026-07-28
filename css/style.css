@@ -104,16 +104,40 @@ body.dark-theme .logo-area {
     width: auto;
     transition: filter 0.4s ease;
     display: block;
+}/* ---- Logo - Left ---- */
+.logo-area {
+    flex-shrink: 0;
+    padding: 5px 0;
+    border-radius: 8px;
+}
+
+.logo-area img {
+    height: 80px;
+    width: auto;
+    display: block;
+    transition: opacity 0.4s ease;  /* Fade out/in instead of instant swap */
+}
+
+/* Dark theme logo area - no background change needed */
+body.dark-theme .logo-area {
+    background-color: transparent;
 }
 
 /* ---- Navigation - Middle ---- */
+.main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;  /* Centers the nav links */
+}
+
 .main-nav ul {
     list-style: none;
     display: flex;
-    gap: 32px;
+    gap: 28px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 15px;
+    padding: 0 20px;
 }
 
 .main-nav ul li a {
