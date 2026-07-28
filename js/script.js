@@ -8,6 +8,20 @@ const bodyElement = document.body;
 const logoImage = document.getElementById('site-logo');
 
 // ============================================ //
+// FUNCTION: Swap Logo Based on Theme          //
+// ============================================ //
+
+function swapLogo(isDark) {
+    if (isDark) {
+        // Use the dark version of the logo
+        logoImage.src = 'images/logo-dark.jpg';
+    } else {
+        // Use the regular version of the logo
+        logoImage.src = 'images/logo.jpg';
+    }
+}
+
+// ============================================ //
 // FUNCTION: Apply Theme Based on Preference   //
 // ============================================ //
 
@@ -17,13 +31,15 @@ function applyTheme(isDark) {
         bodyElement.classList.add('dark-theme');
         // Check the toggle (so it visually shows ON)
         toggleCheckbox.checked = true;
-        // Logo filter is handled by CSS via --logo-filter variable
+        // Swap to dark logo
+        swapLogo(true);
     } else {
         // Remove dark class from body
         bodyElement.classList.remove('dark-theme');
         // Uncheck the toggle (so it visually shows OFF)
         toggleCheckbox.checked = false;
-        // Logo filter is handled by CSS via --logo-filter variable
+        // Swap to light logo
+        swapLogo(false);
     }
 
     // Save the user's preference to localStorage so it persists across pages
@@ -60,26 +76,6 @@ toggleCheckbox.addEventListener('change', function() {
         applyTheme(false);
     }
 });
-
-// ============================================ //
-// OPTIONAL: If you have a separate dark logo  //
-// Uncomment the code below and upload logo-   //
-// dark.jpg to swap images instead of using    //
-// CSS filter.                                 //
-// ============================================ //
-
-/*
-function swapLogo(isDark) {
-    if (isDark) {
-        logoImage.src = 'images/logo-dark.jpg';
-    } else {
-        logoImage.src = 'images/logo.jpg';
-    }
-}
-
-// Then modify the applyTheme function above to call swapLogo(isDark)
-// And remove the --logo-filter CSS approach.
-*/
 
 // ============================================ //
 // RUN ON PAGE LOAD                            //
