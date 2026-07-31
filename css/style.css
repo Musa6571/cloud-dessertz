@@ -263,62 +263,111 @@ body.dark-theme .logo-area {
     box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
 }
 
-/* ---- Cloud Decoration (Right Side) ---- */
+/* ---- Cloud Decoration (Right Side) - Two Overlapping Clouds ---- */
 .hero-cloud-graphic {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.cloud-shape {
-    width: 240px;
-    height: 140px;
-    background: var(--bg-color);
-    border-radius: 50%;
     position: relative;
-    transition: background 0.4s ease;
-    box-shadow: 0 10px 30px var(--shadow-color);
+    height: 300px;
 }
 
-/* Cloud bumps */
-.cloud-shape::before {
+/* Cloud 1 - Back Cloud (larger) */
+.cloud-1 {
+    position: absolute;
+    width: 280px;
+    height: 160px;
+    border-radius: 50%;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+/* Cloud 1 bumps */
+.cloud-1::before {
     content: "";
     position: absolute;
-    width: 100px;
-    height: 100px;
-    background: var(--bg-color);
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    top: -50px;
+    top: -55px;
     left: 30px;
     transition: background 0.4s ease;
-    box-shadow: 0 8px 20px var(--shadow-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
 }
 
-.cloud-shape::after {
+.cloud-1::after {
     content: "";
     position: absolute;
-    width: 130px;
-    height: 130px;
-    background: var(--bg-color);
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    top: -60px;
-    left: 80px;
+    top: -65px;
+    left: 90px;
     transition: background 0.4s ease;
-    box-shadow: 0 8px 20px var(--shadow-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
 }
 
-/* Cloud text inside */
-.cloud-shape .cloud-text {
+/* Cloud 2 - Front Cloud (smaller, slightly offset) */
+.cloud-2 {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Fredoka', sans-serif;
-    font-size: 18px;
-    color: var(--text-color);
-    font-weight: 600;
-    white-space: nowrap;
-    transition: color 0.4s ease;
+    width: 200px;
+    height: 120px;
+    border-radius: 50%;
+    top: 80px;
+    right: 20px;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 12px 35px var(--shadow-color);
+    z-index: 2;
+}
+
+.cloud-2::before {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    top: -40px;
+    left: 20px;
+    transition: background 0.4s ease;
+    box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.cloud-2::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    top: -50px;
+    left: 70px;
+    transition: background 0.4s ease;
+    box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* ---- Light Theme Cloud Colours ---- */
+.cloud-1,
+.cloud-1::before,
+.cloud-1::after {
+    background: var(--card-bg); /* Soft Cloud Pink #FFE1ED */
+}
+
+.cloud-2,
+.cloud-2::before,
+.cloud-2::after {
+    background: var(--bg-color); /* Cotton Cream #FFF5F9 */
+}
+
+/* ---- Dark Theme Cloud Colours ---- */
+body.dark-theme .cloud-1,
+body.dark-theme .cloud-1::before,
+body.dark-theme .cloud-1::after {
+    background: #8A1A4A; /* Lighter plum for back cloud */
+}
+
+body.dark-theme .cloud-2,
+body.dark-theme .cloud-2::before,
+body.dark-theme .cloud-2::after {
+    background: var(--card-bg); /* #4A0D26 - darker plum for front cloud */
 }
 
 /* ============================================ */
