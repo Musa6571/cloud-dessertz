@@ -4,12 +4,258 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Dessertz - Menu</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Our Menu</h1>
-    <p>Menu page coming soon!</p>
-    
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left (Clickable) -->
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html" class="active">Menu</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="make-your-own.html">Make Your Own</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="order.html">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Menu Hero Banner -->
+        <section class="menu-hero">
+            <div class="menu-hero-content">
+                <h1>Our Menu</h1>
+                <p>Discover our range of heavenly desserts and refreshing drinks,<br>crafted with love and the finest ingredients.</p>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- MENU CATEGORIES                              -->
+        <!-- ============================================ -->
+
+        <!-- Cloud Specials -->
+        <section class="menu-section">
+            <h2>☁️ Cloud Specials</h2>
+            <div class="menu-grid">
+                <div class="menu-item featured">
+                    <h3>The Cloud Bowl</h3>
+                    <p class="menu-description">A heavenly bowl of cloud soft-serve topped with fresh berries, honey drizzle, and a sprinkle of magic.</p>
+                    <span class="menu-price">£6.50</span>
+                    <span class="menu-badge">Available In Store</span>
+                </div>
+                <div class="menu-item featured">
+                    <h3>Berry Dream</h3>
+                    <p class="menu-description">Creamy vanilla soft-serve swirled with fresh strawberry compote and topped with crushed biscuits.</p>
+                    <span class="menu-price">£5.50</span>
+                    <span class="menu-badge">Store Pick-up</span>
+                </div>
+                <div class="menu-item featured">
+                    <h3>Chocolate Heaven</h3>
+                    <p class="menu-description">Rich chocolate soft-serve with chocolate sauce, brownie chunks, and a dollop of whipped cream.</p>
+                    <span class="menu-price">£6.00</span>
+                    <span class="menu-badge">In Store Only</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Drinks -->
+        <section class="menu-section">
+            <h2>🍹 Drinks</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Classic Mojito</h3>
+                    <p class="menu-description">Fresh mint, lime, sugar, and soda water. A refreshing classic.</p>
+                    <span class="menu-price">£4.50</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Berry Mocktail</h3>
+                    <p class="menu-description">A vibrant blend of mixed berries, fresh mint, and sparkling water.</p>
+                    <span class="menu-price">£4.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Vanilla Milkshake</h3>
+                    <p class="menu-description">Creamy vanilla milkshake topped with whipped cream and sprinkles.</p>
+                    <span class="menu-price">£4.50</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Strawberry Milkshake</h3>
+                    <p class="menu-description">Fresh strawberry milkshake with real strawberry pieces.</p>
+                    <span class="menu-price">£5.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Chocolate Milkshake</h3>
+                    <p class="menu-description">Rich chocolate milkshake with chocolate syrup drizzle.</p>
+                    <span class="menu-price">£5.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>English Breakfast Tea</h3>
+                    <p class="menu-description">Classic English breakfast tea served with milk and sugar on the side.</p>
+                    <span class="menu-price">£3.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Earl Grey Tea</h3>
+                    <p class="menu-description">Aromatic bergamot-infused black tea. A timeless favourite.</p>
+                    <span class="menu-price">£3.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Fresh Brewed Coffee</h3>
+                    <p class="menu-description">Rich, smooth coffee brewed fresh to order.</p>
+                    <span class="menu-price">£3.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Cappuccino</h3>
+                    <p class="menu-description">Espresso with steamed milk and a thick layer of foam.</p>
+                    <span class="menu-price">£3.50</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Latte</h3>
+                    <p class="menu-description">Smooth espresso with steamed milk and a light layer of foam.</p>
+                    <span class="menu-price">£3.50</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Desserts -->
+        <section class="menu-section">
+            <h2>🍰 Desserts</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Mini Pancakes</h3>
+                    <p class="menu-description">Fluffy mini pancakes served with your choice of syrup and fresh berries.</p>
+                    <span class="menu-price">£5.00</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Cookie Dough</h3>
+                    <p class="menu-description">Warm, gooey cookie dough served with vanilla ice cream and chocolate sauce.</p>
+                    <span class="menu-price">£5.50</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Ice Cream Bowl</h3>
+                    <p class="menu-description">Choose from vanilla, chocolate, or strawberry ice cream with your favourite toppings.</p>
+                    <span class="menu-price">£4.50</span>
+                </div>
+                <div class="menu-item">
+                    <h3>Signature Sundae</h3>
+                    <p class="menu-description">Our signature creation with layers of ice cream, sauce, and crunchy toppings.</p>
+                    <span class="menu-price">£6.00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customisation Note -->
+        <section class="menu-note">
+            <div class="note-content">
+                <h3>✨ Customise Your Dessert</h3>
+                <p>Visit our <a href="make-your-own.html">Make Your Own</a> page to create your perfect dessert with your choice of base, flavours, sauces, toppings, and extras!</p>
+            </div>
+        </section>
+
+        <!-- Loyalty Card -->
+        <section class="loyalty-card">
+            <div class="loyalty-content">
+                <h3>💳 Cloud Loyalty Card</h3>
+                <p>Collect stamps with every purchase and get your 10th treat FREE!</p>
+                <p class="loyalty-note">Ask our staff for your loyalty card at the counter.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul class="social-links">
+                    <li><a href="#">📸 Instagram</a></li>
+                    <li><a href="#">🎵 TikTok</a></li>
+                </ul>
+                <p class="footer-email">✉️ clouddessertz@gmail.com</p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
     <script src="js/script.js"></script>
+
 </body>
 </html>
