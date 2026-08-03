@@ -34,18 +34,18 @@ function swapLogo(isDark) {
 
 function swapCloud(isDark) {
     // Fade out
-    cloudImage.style.opacity = '0';
-    
-    // Wait for fade out, then swap image
-    setTimeout(function() {
-        if (isDark) {
-            cloudImage.src = 'images/cloud-dark.jpg';
-        } else {
-            cloudImage.src = 'images/cloud-light.jpg';
-        }
-        // Fade back in
-        cloudImage.style.opacity = '1';
-    }, 200);
+    if (cloudImage) {
+        cloudImage.style.opacity = '0';
+        
+        setTimeout(function() {
+            if (isDark) {
+                cloudImage.src = 'images/cloud-dark.jpg';
+            } else {
+                cloudImage.src = 'images/cloud-light.jpg';
+            }
+            cloudImage.style.opacity = '1';
+        }, 200);
+    }
 }
 
 // ============================================ //
@@ -75,7 +75,9 @@ function applyTheme(isDark) {
 function loadSavedTheme() {
     // Set initial opacity to 1
     logoImage.style.opacity = '1';
-    cloudImage.style.opacity = '1';
+    if (cloudImage) {
+        cloudImage.style.opacity = '1';
+    }
     
     const savedTheme = localStorage.getItem('cloud-dessertz-theme');
 
@@ -84,18 +86,24 @@ function loadSavedTheme() {
         bodyElement.classList.add('dark-theme');
         toggleCheckbox.checked = true;
         logoImage.src = 'images/logo-dark.jpg';
-        cloudImage.src = 'images/cloud-dark.jpg';
+        if (cloudImage) {
+            cloudImage.src = 'images/cloud-dark.jpg';
+        }
     } else if (savedTheme === 'light') {
         bodyElement.classList.remove('dark-theme');
         toggleCheckbox.checked = false;
         logoImage.src = 'images/logo.jpg';
-        cloudImage.src = 'images/cloud-light.jpg';
+        if (cloudImage) {
+            cloudImage.src = 'images/cloud-light.jpg';
+        }
     } else {
         // Default to Light Theme
         bodyElement.classList.remove('dark-theme');
         toggleCheckbox.checked = false;
         logoImage.src = 'images/logo.jpg';
-        cloudImage.src = 'images/cloud-light.jpg';
+        if (cloudImage) {
+            cloudImage.src = 'images/cloud-light.jpg';
+        }
     }
 }
 
