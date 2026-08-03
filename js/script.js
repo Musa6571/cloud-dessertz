@@ -13,17 +13,14 @@ const cloudImage = document.getElementById('cloud-image');
 // ============================================ //
 
 function swapLogo(isDark) {
-    // Fade out
     logoImage.style.opacity = '0';
     
-    // Wait for fade out, then swap image
     setTimeout(function() {
         if (isDark) {
             logoImage.src = 'images/logo-dark.jpg';
         } else {
             logoImage.src = 'images/logo.jpg';
         }
-        // Fade back in
         logoImage.style.opacity = '1';
     }, 200);
 }
