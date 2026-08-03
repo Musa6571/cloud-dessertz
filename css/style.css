@@ -448,6 +448,209 @@ body.dark-theme .logo-area {
     line-height: 1.3;
     transition: color 0.4s ease;
 }
+/* ============================================ */
+/* MENU PAGE STYLES                             */
+/* ============================================ */
+
+/* ---- Menu Hero ---- */
+.menu-hero {
+    max-width: 1400px;
+    margin: 0 auto 60px;
+    padding: 80px 50px 60px;
+    text-align: center;
+    background: var(--card-bg);
+    border-radius: 24px;
+    box-shadow: 0 10px 28px var(--shadow-color);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.menu-hero h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 56px;
+    color: var(--heading-color);
+    margin-bottom: 16px;
+    transition: color 0.4s ease;
+}
+
+.menu-hero p {
+    font-size: 18px;
+    color: var(--text-color);
+    line-height: 1.7;
+    transition: color 0.4s ease;
+}
+
+/* ---- Menu Sections ---- */
+.menu-section {
+    max-width: 1400px;
+    margin: 0 auto 60px;
+    padding: 0 50px;
+}
+
+.menu-section h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 34px;
+    color: var(--heading-color);
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--border-color);
+    transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+/* ---- Menu Grid ---- */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* ---- Menu Item Cards ---- */
+.menu-item {
+    background: var(--card-bg);
+    padding: 28px 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.menu-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 35px var(--shadow-color);
+}
+
+.menu-item.featured {
+    border: 2px solid var(--cta-bg);
+}
+
+.menu-item h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    color: var(--heading-color);
+    margin-bottom: 8px;
+    transition: color 0.4s ease;
+}
+
+.menu-description {
+    font-size: 14px;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    transition: color 0.4s ease;
+}
+
+.menu-price {
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cta-bg);
+    transition: color 0.4s ease;
+}
+
+.menu-badge {
+    display: inline-block;
+    background: var(--cta-bg);
+    color: var(--cta-text);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-left: 12px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---- Menu Note (Customisation) ---- */
+.menu-note {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 0 50px;
+}
+
+.note-content {
+    background: var(--card-bg);
+    padding: 35px 45px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.note-content h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 26px;
+    color: var(--heading-color);
+    margin-bottom: 10px;
+    transition: color 0.4s ease;
+}
+
+.note-content p {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.7;
+    transition: color 0.4s ease;
+}
+
+.note-content a {
+    color: var(--cta-bg);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.note-content a:hover {
+    color: var(--nav-hover);
+    text-decoration: underline;
+}
+
+/* ---- Loyalty Card ---- */
+.loyalty-card {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 0 50px;
+}
+
+.loyalty-content {
+    background: linear-gradient(135deg, var(--cta-bg), var(--heading-color));
+    padding: 40px 50px;
+    border-radius: 24px;
+    text-align: center;
+    transition: background 0.4s ease;
+}
+
+.loyalty-content h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    color: #FFF5F9;
+    margin-bottom: 10px;
+}
+
+.loyalty-content p {
+    font-size: 17px;
+    color: #FFF5F9;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.loyalty-note {
+    font-size: 14px !important;
+    opacity: 0.8 !important;
+    margin-top: 6px;
+}
+
+/* ---- Menu Responsive ---- */
+@media (max-width: 1100px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* ============================================ */
 /* FOOTER                                       */
