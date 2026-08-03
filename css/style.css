@@ -95,6 +95,10 @@ body {
     border-radius: 8px;
 }
 
+.logo-area a {
+    display: block;
+}
+
 .logo-area img {
     height: 80px;
     width: auto;
@@ -342,12 +346,16 @@ body.dark-theme .logo-area {
 .about-text h2 {
     font-family: 'Fredoka', sans-serif;
     font-size: 38px;
-    color: var(--heading-color);
     margin-bottom: 16px;
     transition: color 0.4s ease;
 }
 
 .about-text h2 .highlight {
+    color: var(--highlight-color);
+    transition: color 0.4s ease;
+}
+
+.about-text h2.highlight {
     color: var(--highlight-color);
     transition: color 0.4s ease;
 }
