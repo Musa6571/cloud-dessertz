@@ -33,7 +33,6 @@ function swapLogo(isDark) {
 // ============================================ //
 
 function swapCloud(isDark) {
-    // Fade out
     if (cloudImage) {
         cloudImage.style.opacity = '0';
         
@@ -73,7 +72,6 @@ function applyTheme(isDark) {
 // ============================================ //
 
 function loadSavedTheme() {
-    // Set initial opacity to 1
     logoImage.style.opacity = '1';
     if (cloudImage) {
         cloudImage.style.opacity = '1';
@@ -82,7 +80,6 @@ function loadSavedTheme() {
     const savedTheme = localStorage.getItem('cloud-dessertz-theme');
 
     if (savedTheme === 'dark') {
-        // Load dark theme immediately (no animation on page load)
         bodyElement.classList.add('dark-theme');
         toggleCheckbox.checked = true;
         logoImage.src = 'images/logo-dark.jpg';
@@ -97,7 +94,6 @@ function loadSavedTheme() {
             cloudImage.src = 'images/cloud-light.jpg';
         }
     } else {
-        // Default to Light Theme
         bodyElement.classList.remove('dark-theme');
         toggleCheckbox.checked = false;
         logoImage.src = 'images/logo.jpg';
