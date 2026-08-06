@@ -61,8 +61,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.4s ease, color 0.4s ease;
-    padding-top: 85px; /* Space for fixed header */
-    min-width: 1024px; /* Desktop only - min width */
+    padding-top: 85px;
+    min-width: 1024px;
 }
 
 /* ============================================ */
@@ -150,7 +150,7 @@ body.dark-theme .logo-area {
 }
 
 /* ============================================ */
-/* DROPDOWN MENU STYLES - THIS WAS MISSING!    */
+/* DROPDOWN MENU STYLES - THESE WERE MISSING!  */
 /* ============================================ */
 
 .main-nav ul li {
@@ -337,7 +337,6 @@ body.dark-theme .logo-area {
     box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
 }
 
-/* ---- Hero Cloud Image ---- */
 .hero-cloud-graphic {
     display: flex;
     justify-content: center;
@@ -525,7 +524,6 @@ body.dark-theme .logo-area {
 /* MENU PAGE STYLES                             */
 /* ============================================ */
 
-/* ---- Menu Hero ---- */
 .menu-hero {
     max-width: 1400px;
     margin: 0 auto 50px;
@@ -597,7 +595,6 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
-/* ---- Menu Sections ---- */
 .menu-section {
     max-width: 1400px;
     margin: 0 auto 45px;
@@ -647,7 +644,6 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
-/* ---- Menu Grids ---- */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -662,7 +658,6 @@ body.dark-theme .logo-area {
     grid-template-columns: repeat(2, 1fr);
 }
 
-/* ---- Menu Item Cards ---- */
 .menu-item {
     background: var(--card-bg);
     padding: 20px 24px;
@@ -706,7 +701,6 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
-/* ---- Signature Special ---- */
 .signature-card {
     background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
     padding: 35px 45px;
@@ -778,7 +772,6 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease, background 0.4s ease;
 }
 
-/* ---- Menu Note Text ---- */
 .menu-note-text {
     font-size: 15px;
     color: var(--text-color);
@@ -792,7 +785,6 @@ body.dark-theme .logo-area {
     width: 100%;
 }
 
-/* ---- Extras Grid (Toppings & Sauces) ---- */
 .extras-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -839,7 +831,6 @@ body.dark-theme .logo-area {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* ---- Ice Cream Grid ---- */
 .ice-cream-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -864,7 +855,6 @@ body.dark-theme .logo-area {
     box-shadow: 0 8px 24px var(--shadow-color);
 }
 
-/* ---- Loyalty Card ---- */
 .loyalty-card {
     max-width: 1400px;
     margin: 0 auto 80px;
@@ -920,7 +910,7 @@ body.dark-theme .logo-area {
 }
 
 /* ============================================ */
-/* MAKE YOUR OWN LINK - THIS WAS MISSING!      */
+/* MAKE YOUR OWN LINK - THESE WERE MISSING!    */
 /* ============================================ */
 
 .make-your-own-link {
