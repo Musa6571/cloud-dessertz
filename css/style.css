@@ -149,6 +149,99 @@ body.dark-theme .logo-area {
     border-bottom-color: var(--nav-hover);
 }
 
+/* ============================================ */
+/* DROPDOWN MENU STYLES                         */
+/* ============================================ */
+
+.main-nav ul li {
+    position: relative;
+}
+
+/* Dropdown arrow */
+.dropdown-arrow {
+    font-size: 10px;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when dropdown is active/hovered */
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu container */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    min-width: 220px;
+    padding: 10px 0;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    border: 1px solid var(--border-color);
+    z-index: 100;
+    margin-top: 8px;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown items */
+.dropdown-menu li {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: none !important;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+    background: var(--bg-color);
+    color: var(--nav-hover);
+    border-bottom: none !important;
+}
+
+/* Dropdown scroll indicator for long menus */
+.dropdown-menu {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for dropdown */
+.dropdown-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
 /* ---- iOS Toggle Switch - Right ---- */
 .theme-toggle-area {
     flex-shrink: 0;
@@ -829,6 +922,46 @@ body.dark-theme .logo-area {
     font-size: 14px !important;
     opacity: 0.8 !important;
     margin-top: 6px;
+}
+
+/* ============================================ */
+/* MAKE YOUR OWN LINK IN MENU                   */
+/* ============================================ */
+
+.make-your-own-link {
+    margin-top: 24px;
+    padding: 25px 30px;
+    background: var(--bg-color);
+    border-radius: 18px;
+    text-align: center;
+    border: 2px dashed var(--cta-bg);
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.make-your-own-link p {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 14px;
+    transition: color 0.4s ease;
+}
+
+.make-your-own-link .cta-button {
+    display: inline-block;
+    background-color: var(--cta-bg);
+    color: var(--cta-text);
+    padding: 12px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(158, 27, 80, 0.35);
+}
+
+.make-your-own-link .cta-button:hover {
+    background-color: #7A1440;
+    transform: scale(1.04);
+    box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
 }
 
 /* ============================================ */
