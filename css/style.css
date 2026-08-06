@@ -61,8 +61,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.4s ease, color 0.4s ease;
-    padding-top: 85px;
-    min-width: 1024px;
+    padding-top: 85px; /* Space for fixed header */
+    min-width: 1024px; /* Desktop only - min width */
 }
 
 /* ============================================ */
@@ -147,51 +147,6 @@ body.dark-theme .logo-area {
 .main-nav ul li a.active {
     color: var(--nav-hover);
     border-bottom-color: var(--nav-hover);
-}
-
-/* ============================================ */
-/* DROPDOWN MENU STYLES - THESE WERE MISSING!  */
-/* ============================================ */
-
-.main-nav ul li {
-    position: relative;
-}
-
-.dropdown-arrow {
-    font-size: 10px;
-    margin-left: 4px;
-    transition: transform 0.3s ease;
-    display: inline-block;
-}
-
-.dropdown:hover .dropdown-arrow {
-    transform: rotate(180deg);
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: var(--card-bg);
-    min-width: 220px;
-    padding: 10px 0;
-    border-radius: 16px;
-    box-shadow: 0 20px 50px var(--shadow-color);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    border: 1px solid var(--border-color);
-    z-index: 10000;
-    margin-top: 8px;
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
 }
 
 /* ---- iOS Toggle Switch - Right ---- */
@@ -294,6 +249,7 @@ body.dark-theme .logo-area {
     box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
 }
 
+/* ---- Hero Cloud Image ---- */
 .hero-cloud-graphic {
     display: flex;
     justify-content: center;
@@ -481,6 +437,7 @@ body.dark-theme .logo-area {
 /* MENU PAGE STYLES                             */
 /* ============================================ */
 
+/* ---- Menu Hero ---- */
 .menu-hero {
     max-width: 1400px;
     margin: 0 auto 50px;
@@ -552,6 +509,7 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
+/* ---- Menu Sections ---- */
 .menu-section {
     max-width: 1400px;
     margin: 0 auto 45px;
@@ -601,6 +559,7 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
+/* ---- Menu Grids ---- */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -615,6 +574,7 @@ body.dark-theme .logo-area {
     grid-template-columns: repeat(2, 1fr);
 }
 
+/* ---- Menu Item Cards ---- */
 .menu-item {
     background: var(--card-bg);
     padding: 20px 24px;
@@ -658,6 +618,7 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease;
 }
 
+/* ---- Signature Special ---- */
 .signature-card {
     background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
     padding: 35px 45px;
@@ -729,6 +690,7 @@ body.dark-theme .logo-area {
     transition: color 0.4s ease, background 0.4s ease;
 }
 
+/* ---- Menu Note Text ---- */
 .menu-note-text {
     font-size: 15px;
     color: var(--text-color);
@@ -742,6 +704,7 @@ body.dark-theme .logo-area {
     width: 100%;
 }
 
+/* ---- Extras Grid (Toppings & Sauces) ---- */
 .extras-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -788,6 +751,7 @@ body.dark-theme .logo-area {
     background: rgba(255, 255, 255, 0.05);
 }
 
+/* ---- Ice Cream Grid ---- */
 .ice-cream-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -812,6 +776,7 @@ body.dark-theme .logo-area {
     box-shadow: 0 8px 24px var(--shadow-color);
 }
 
+/* ---- Loyalty Card ---- */
 .loyalty-card {
     max-width: 1400px;
     margin: 0 auto 80px;
@@ -864,46 +829,6 @@ body.dark-theme .logo-area {
     font-size: 14px !important;
     opacity: 0.8 !important;
     margin-top: 6px;
-}
-
-/* ============================================ */
-/* MAKE YOUR OWN LINK - THESE WERE MISSING!    */
-/* ============================================ */
-
-.make-your-own-link {
-    margin-top: 24px;
-    padding: 25px 30px;
-    background: var(--bg-color);
-    border-radius: 18px;
-    text-align: center;
-    border: 2px dashed var(--cta-bg);
-    transition: background 0.4s ease, border-color 0.4s ease;
-}
-
-.make-your-own-link p {
-    font-size: 16px;
-    color: var(--text-color);
-    margin-bottom: 14px;
-    transition: color 0.4s ease;
-}
-
-.make-your-own-link .cta-button {
-    display: inline-block;
-    background-color: var(--cta-bg);
-    color: var(--cta-text);
-    padding: 12px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 16px rgba(158, 27, 80, 0.35);
-}
-
-.make-your-own-link .cta-button:hover {
-    background-color: #7A1440;
-    transform: scale(1.04);
-    box-shadow: 0 6px 24px rgba(158, 27, 80, 0.45);
 }
 
 /* ============================================ */
