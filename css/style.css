@@ -1166,3 +1166,261 @@ footer {
         margin-left: 0;
     }
 }
+
+/* ============================================ */
+/* MAKE YOUR OWN PAGE STYLES                    */
+/* ============================================ */
+
+/* ---- Make Your Own Hero ---- */
+.make-hero {
+    max-width: 1400px;
+    margin: 0 auto 50px;
+    padding: 50px 50px 40px;
+    text-align: center;
+    background: var(--card-bg);
+    border-radius: 30px;
+    box-shadow: 0 10px 35px var(--shadow-color);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.make-hero::before {
+    content: "✨✨✨";
+    position: absolute;
+    font-size: 40px;
+    opacity: 0.06;
+    top: -10px;
+    right: -10px;
+    letter-spacing: 20px;
+}
+
+/* ---- Custom Sections ---- */
+.custom-section {
+    max-width: 1400px;
+    margin: 0 auto 50px;
+    padding: 0 50px;
+}
+
+.custom-section .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--border-color);
+    transition: border-color 0.4s ease;
+}
+
+.custom-section .section-emoji {
+    font-size: 28px;
+}
+
+.custom-section .section-header h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    color: var(--heading-color);
+    transition: color 0.4s ease;
+    margin: 0;
+}
+
+.custom-section .price-tag {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--price-color);
+    margin-left: auto;
+    padding: 4px 16px;
+    border-radius: 20px;
+    background: var(--bg-color);
+    transition: color 0.4s ease, background 0.4s ease;
+}
+
+.custom-section .section-subtitle {
+    font-size: 15px;
+    color: var(--text-color);
+    margin-top: -6px;
+    margin-bottom: 24px;
+    font-style: italic;
+    opacity: 0.8;
+    transition: color 0.4s ease;
+}
+
+/* ---- Custom Grids ---- */
+.custom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* ---- Custom Cards ---- */
+.custom-card {
+    background: var(--card-bg);
+    padding: 28px 30px;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px var(--shadow-color);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    color: var(--heading-color);
+    margin-bottom: 16px;
+    transition: color 0.4s ease;
+}
+
+/* ---- Option Buttons ---- */
+.option-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.option-btn {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.option-btn input {
+    display: none;
+}
+
+.option-btn span {
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-btn input:checked + span {
+    background: var(--cta-bg);
+    color: var(--cta-text);
+    border-color: var(--cta-bg);
+    box-shadow: 0 4px 16px rgba(158, 27, 80, 0.3);
+}
+
+.option-btn:hover span {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* ---- Toppings Group ---- */
+.toppings-group .option-btn span {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+.topping-count {
+    font-size: 13px;
+    color: var(--text-color);
+    margin-top: 12px;
+    opacity: 0.7;
+    transition: color 0.4s ease;
+}
+
+.topping-count span {
+    font-weight: 700;
+    color: var(--cta-bg);
+    transition: color 0.4s ease;
+}
+
+/* ---- Custom Summary ---- */
+.custom-summary {
+    margin-top: 20px;
+    padding: 16px 24px;
+    background: var(--bg-color);
+    border-radius: 16px;
+    border-left: 4px solid var(--cta-bg);
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.custom-summary p {
+    font-size: 15px;
+    color: var(--text-color);
+    transition: color 0.4s ease;
+}
+
+.custom-summary p span {
+    font-weight: 600;
+    color: var(--cta-bg);
+    transition: color 0.4s ease;
+}
+
+/* ---- Order Section ---- */
+.order-section {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 0 50px;
+}
+
+.order-card {
+    background: linear-gradient(135deg, var(--cta-bg), var(--heading-color));
+    padding: 45px 55px;
+    border-radius: 24px;
+    text-align: center;
+    transition: background 0.4s ease;
+}
+
+.order-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 32px;
+    color: #FFF5F9;
+    margin-bottom: 10px;
+}
+
+.order-card p {
+    font-size: 17px;
+    color: #FFF5F9;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.order-card .cta-button {
+    display: inline-block;
+    background-color: #FFF5F9;
+    color: var(--cta-bg);
+    padding: 14px 48px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.order-card .cta-button:hover {
+    background-color: #FFE1ED;
+    transform: scale(1.04);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+    .custom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .option-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    .option-btn span {
+        width: 100%;
+        text-align: center;
+    }
+    .order-card {
+        padding: 30px 20px;
+    }
+}
+
