@@ -50,6 +50,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
             box-shadow: 0 6px 24px var(--shadow-color);
             transition: background 0.4s ease, box-shadow 0.4s ease;
             border: 2px solid var(--cta-bg);
@@ -87,6 +89,18 @@
         .order-btn-total:hover {
             background: #7A1440;
             transform: scale(1.04);
+        }
+        .order-btn-total.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .price-total-box {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -350,7 +364,7 @@
             <div class="price-total-box">
                 <span class="total-label">🛒 Your Total:</span>
                 <span class="total-amount" id="total-price">£0.00</span>
-                <a href="#" id="order-now-total" class="order-btn-total" onclick="goToOrder()">Order Now</a>
+                <a href="#" id="order-now-total" class="order-btn-total disabled">Select items to order</a>
             </div>
         </div>
 
@@ -465,7 +479,6 @@
             if (!section) return;
             
             const checkboxes = section.querySelectorAll(checkboxSelector);
-            const countSpan = document.getElementById(countSpanId);
             
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
@@ -499,57 +512,90 @@
         initToppingLimit('sundae-section', '.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
         
         // ============================================ //
-        // PRICE CALCULATOR - LIVE TOTAL               //
+        // PRICE CALCULATOR - LIVE TOTAL - FIXED!      //
+        // Base price added as soon as main component  //
+        // is selected. Toppings add £0.50 each.       //
         // ============================================ //
         
         function calculateTotal() {
             let total = 0;
+            let selectedItems = [];
             
-            // Bubble Tea: £4.99 if both options selected
+            // ----- Bubble Tea: £4.99 when tea is selected -----
             const tea = document.querySelector('input[name="fruit-tea"]:checked');
             const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
-            if (tea && bubbles) {
+            if (tea) {
                 total += 4.99;
+                if (bubbles) {
+                    selectedItems.push(`${tea.value} Tea with ${bubbles.value} Popping Bubbles (£4.99)`);
+                } else {
+                    selectedItems.push(`${tea.value} Tea - select popping bubbles! (£4.99)`);
+                }
             }
             
-            // Waffle Stick: £3.50 + toppings (£0.50 each)
+            // ----- Waffle Stick: £3.50 when sauce is selected -----
             const waffleSection = document.getElementById('waffle-section');
             if (waffleSection) {
                 const waffleSauce = waffleSection.querySelector('input[name="waffle-sauce"]:checked');
                 const waffleToppings = waffleSection.querySelectorAll('.topping-btn input:checked');
-                if (waffleSauce && waffleToppings.length === 2) {
-                    total += 3.50;
+                if (waffleSauce) {
+                    let itemTotal = 3.50;
+                    let toppingNames = [];
                     waffleToppings.forEach(t => {
-                        total += parseFloat(t.dataset.price) || 0;
+                        itemTotal += parseFloat(t.dataset.price) || 0;
+                        toppingNames.push(t.value);
                     });
+                    total += itemTotal;
+                    const name = toppingNames.length > 0 
+                        ? `Waffle Stick - ${waffleSauce.value} Sauce with ${toppingNames.join(' & ')}`
+                        : `Waffle Stick - ${waffleSauce.value} Sauce (no toppings yet)`;
+                    selectedItems.push(`${name} (£${itemTotal.toFixed(2)})`);
                 }
             }
             
-            // Pancakes: £3.50 + toppings (£0.50 each)
+            // ----- Pancakes: £3.50 when sauce is selected -----
             const pancakeSection = document.getElementById('pancake-section');
             if (pancakeSection) {
                 const pancakeSauce = pancakeSection.querySelector('input[name="pancake-sauce"]:checked');
                 const pancakeToppings = pancakeSection.querySelectorAll('.topping-btn input:checked');
-                if (pancakeSauce && pancakeToppings.length === 2) {
-                    total += 3.50;
+                if (pancakeSauce) {
+                    let itemTotal = 3.50;
+                    let toppingNames = [];
                     pancakeToppings.forEach(t => {
-                        total += parseFloat(t.dataset.price) || 0;
+                        itemTotal += parseFloat(t.dataset.price) || 0;
+                        toppingNames.push(t.value);
                     });
+                    total += itemTotal;
+                    const name = toppingNames.length > 0 
+                        ? `Pancakes - ${pancakeSauce.value} Sauce with ${toppingNames.join(' & ')}`
+                        : `Pancakes - ${pancakeSauce.value} Sauce (no toppings yet)`;
+                    selectedItems.push(`${name} (£${itemTotal.toFixed(2)})`);
                 }
             }
             
-            // Sundae: £5.00 + toppings (£0.50 each)
+            // ----- Sundae: £5.00 when at least 1 ice cream is selected -----
             const sundaeSection = document.getElementById('sundae-section');
             if (sundaeSection) {
                 const sundaeIceCream = sundaeSection.querySelectorAll('.ice-cream-btn input:checked');
                 const sundaeToppings = sundaeSection.querySelectorAll('.topping-btn input:checked');
-                if (sundaeIceCream.length === 2 && sundaeToppings.length === 2) {
-                    total += 5.00;
+                if (sundaeIceCream.length > 0) {
+                    let itemTotal = 5.00;
+                    let iceCreamNames = Array.from(sundaeIceCream).map(t => t.value);
+                    let toppingNames = [];
                     sundaeToppings.forEach(t => {
-                        total += parseFloat(t.dataset.price) || 0;
+                        itemTotal += parseFloat(t.dataset.price) || 0;
+                        toppingNames.push(t.value);
                     });
+                    total += itemTotal;
+                    const name = toppingNames.length > 0 
+                        ? `Sundae - ${iceCreamNames.join(' & ')} with ${toppingNames.join(' & ')}`
+                        : `Sundae - ${iceCreamNames.join(' & ')} (no toppings yet)`;
+                    selectedItems.push(`${name} (£${itemTotal.toFixed(2)})`);
                 }
             }
+            
+            // Store selected items for summary
+            window._selectedItems = selectedItems;
             
             return total;
         }
@@ -567,70 +613,19 @@
             const hasSelection = total > 0;
             if (orderBtn) {
                 if (hasSelection) {
-                    orderBtn.style.opacity = '1';
-                    orderBtn.style.pointerEvents = 'auto';
+                    orderBtn.classList.remove('disabled');
                     orderBtn.textContent = '🛍️ Order Now';
                 } else {
-                    orderBtn.style.opacity = '0.5';
-                    orderBtn.style.pointerEvents = 'none';
+                    orderBtn.classList.add('disabled');
                     orderBtn.textContent = 'Select items to order';
                 }
             }
             
-            // Save total to localStorage for order page
-            if (total > 0) {
+            // Save to localStorage if items selected
+            if (total > 0 && window._selectedItems) {
                 localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
-                // Save order summary
-                const summary = generateOrderSummary();
-                localStorage.setItem('cloud-dessertz-order-summary', summary);
+                localStorage.setItem('cloud-dessertz-order-summary', window._selectedItems.join(' | '));
             }
-        }
-        
-        function generateOrderSummary() {
-            let items = [];
-            
-            // Bubble Tea
-            const tea = document.querySelector('input[name="fruit-tea"]:checked');
-            const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
-            if (tea && bubbles) {
-                items.push(`${tea.value} Tea with ${bubbles.value} Popping Bubbles (£4.99)`);
-            }
-            
-            // Waffle
-            const waffleSection = document.getElementById('waffle-section');
-            if (waffleSection) {
-                const sauce = waffleSection.querySelector('input[name="waffle-sauce"]:checked');
-                const toppings = waffleSection.querySelectorAll('.topping-btn input:checked');
-                if (sauce && toppings.length === 2) {
-                    const tNames = Array.from(toppings).map(t => t.value);
-                    items.push(`Waffle Stick - ${sauce.value} Sauce with ${tNames.join(' & ')} (£3.50 + toppings)`);
-                }
-            }
-            
-            // Pancakes
-            const pancakeSection = document.getElementById('pancake-section');
-            if (pancakeSection) {
-                const sauce = pancakeSection.querySelector('input[name="pancake-sauce"]:checked');
-                const toppings = pancakeSection.querySelectorAll('.topping-btn input:checked');
-                if (sauce && toppings.length === 2) {
-                    const tNames = Array.from(toppings).map(t => t.value);
-                    items.push(`Pancakes - ${sauce.value} Sauce with ${tNames.join(' & ')} (£3.50 + toppings)`);
-                }
-            }
-            
-            // Sundae
-            const sundaeSection = document.getElementById('sundae-section');
-            if (sundaeSection) {
-                const iceCream = sundaeSection.querySelectorAll('.ice-cream-btn input:checked');
-                const toppings = sundaeSection.querySelectorAll('.topping-btn input:checked');
-                if (iceCream.length === 2 && toppings.length === 2) {
-                    const iNames = Array.from(iceCream).map(t => t.value);
-                    const tNames = Array.from(toppings).map(t => t.value);
-                    items.push(`Sundae - ${iNames.join(' & ')} with ${tNames.join(' & ')} (£5.00 + toppings)`);
-                }
-            }
-            
-            return items.length > 0 ? items.join(' | ') : 'No items selected';
         }
         
         // ============================================ //
@@ -641,10 +636,21 @@
             const total = calculateTotal();
             if (total > 0) {
                 localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
-                localStorage.setItem('cloud-dessertz-order-summary', generateOrderSummary());
+                localStorage.setItem('cloud-dessertz-order-summary', window._selectedItems ? window._selectedItems.join(' | ') : 'Custom Dessert');
                 window.location.href = 'order.html';
             }
         }
+        
+        // Attach goToOrder to the button click
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderBtn = document.getElementById('order-now-total');
+            if (orderBtn) {
+                orderBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goToOrder();
+                });
+            }
+        });
         
         // ============================================ //
         // SUMMARY UPDATES - ALL SECTIONS              //
