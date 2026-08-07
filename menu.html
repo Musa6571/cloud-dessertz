@@ -10,6 +10,156 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=5">
+
+    <style>
+        /* ============================================ */
+        /* ORDER SUMMARY BAR - STICKY AT BOTTOM        */
+        /* ============================================ */
+        .order-summary-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: var(--footer-bg);
+            padding: 14px 40px;
+            box-shadow: 0 -8px 30px var(--shadow-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-top: 3px solid var(--cta-bg);
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        body.dark-theme .order-summary-bar {
+            background: #1A0310;
+        }
+
+        .order-summary-bar .order-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: var(--footer-text);
+            transition: color 0.4s ease;
+        }
+
+        .order-summary-bar .order-info .item-count {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .order-summary-bar .order-info .item-count span {
+            color: var(--cta-bg);
+            font-weight: 700;
+            transition: color 0.4s ease;
+        }
+
+        body.dark-theme .order-summary-bar .order-info .item-count span {
+            color: #FFE1ED;
+        }
+
+        .order-summary-bar .order-total {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--cta-bg);
+            transition: color 0.4s ease;
+        }
+
+        body.dark-theme .order-summary-bar .order-total {
+            color: #FFE1ED;
+        }
+
+        .order-summary-bar .order-btn-bar {
+            padding: 10px 32px;
+            border: none;
+            border-radius: 50px;
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .order-summary-bar .order-btn-bar:hover {
+            background: #7A1440;
+            transform: scale(1.04);
+        }
+
+        .order-summary-bar .order-btn-bar.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* ---- Add to Order Button on Menu Items ---- */
+        .menu-item {
+            position: relative;
+        }
+
+        .add-to-order-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 16px;
+            border: 2px solid var(--cta-bg);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--cta-bg);
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-order-btn:hover {
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            transform: scale(1.05);
+        }
+
+        .add-to-order-btn.added {
+            background: var(--cta-bg);
+            color: var(--cta-text);
+        }
+
+        .menu-item .item-price-display {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--price-color);
+            margin-left: 8px;
+            transition: color 0.4s ease;
+        }
+
+        body.dark-theme .menu-item .item-price-display {
+            color: #FFFFFF;
+        }
+
+        /* Adjust spacing for items with price display */
+        .menu-item h3 {
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .order-summary-bar {
+                padding: 12px 20px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .order-summary-bar .order-info {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -96,33 +246,47 @@
                 <span class="price-tag">£2.50</span>
             </div>
             <div class="menu-grid drinks-grid">
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="English Black Tea" data-price="2.50">
                     <h3>English Black Tea</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Classic black tea served hot and fresh.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="English Milk Tea" data-price="2.50">
                     <h3>English Milk Tea</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Smooth black tea with creamy milk.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Americano" data-price="2.50">
                     <h3>Americano</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Rich espresso with hot water.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Latte" data-price="2.50">
                     <h3>Latte</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Smooth espresso with steamed milk.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Cappuccino" data-price="2.50">
                     <h3>Cappuccino</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Espresso with steamed milk and foam.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Mocha" data-price="2.50">
                     <h3>Mocha</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Espresso with chocolate and steamed milk.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Hot Chocolate" data-price="2.50">
                     <h3>Hot Chocolate</h3>
+                    <span class="item-price-display">£2.50</span>
                     <p class="menu-description">Rich, creamy hot chocolate topped with whipped cream.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
             </div>
         </section>
@@ -137,15 +301,51 @@
                 <span class="price-tag">£3.00</span>
             </div>
             <div class="menu-grid drinks-grid">
-                <div class="menu-item cute-card"><h3>Ferrero Rocher</h3></div>
-                <div class="menu-item cute-card"><h3>KitKat</h3></div>
-                <div class="menu-item cute-card"><h3>Kinder Bueno</h3></div>
-                <div class="menu-item cute-card"><h3>Crunchie</h3></div>
-                <div class="menu-item cute-card"><h3>Oreo</h3></div>
-                <div class="menu-item cute-card"><h3>Biscoff</h3></div>
-                <div class="menu-item cute-card"><h3>Caramel</h3></div>
-                <div class="menu-item cute-card"><h3>Brownie Fudge</h3></div>
-                <div class="menu-item cute-card"><h3>Aero</h3></div>
+                <div class="menu-item cute-card" data-name="Ferrero Rocher Milkshake" data-price="3.00">
+                    <h3>Ferrero Rocher</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="KitKat Milkshake" data-price="3.00">
+                    <h3>KitKat</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Kinder Bueno Milkshake" data-price="3.00">
+                    <h3>Kinder Bueno</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Crunchie Milkshake" data-price="3.00">
+                    <h3>Crunchie</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Oreo Milkshake" data-price="3.00">
+                    <h3>Oreo</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Biscoff Milkshake" data-price="3.00">
+                    <h3>Biscoff</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Caramel Milkshake" data-price="3.00">
+                    <h3>Caramel</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Brownie Fudge Milkshake" data-price="3.00">
+                    <h3>Brownie Fudge</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Aero Milkshake" data-price="3.00">
+                    <h3>Aero</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
             </div>
         </section>
 
@@ -159,16 +359,56 @@
                 <span class="price-tag">£3.00</span>
             </div>
             <div class="menu-grid drinks-grid">
-                <div class="menu-item cute-card"><h3>Classic Lime &amp; Mint</h3></div>
-                <div class="menu-item cute-card"><h3>Peach Paradise</h3></div>
-                <div class="menu-item cute-card"><h3>Strawberry Dream</h3></div>
-                <div class="menu-item cute-card"><h3>Cherry Bomb</h3></div>
-                <div class="menu-item cute-card"><h3>Blue Lagoon</h3></div>
-                <div class="menu-item cute-card"><h3>Passion Punch</h3></div>
-                <div class="menu-item cute-card"><h3>Mango Madness</h3></div>
-                <div class="menu-item cute-card"><h3>Lychee Lush</h3></div>
-                <div class="menu-item cute-card"><h3>Green Apple Fizz</h3></div>
-                <div class="menu-item cute-card"><h3>Watermelon Cooler</h3></div>
+                <div class="menu-item cute-card" data-name="Classic Lime & Mint Mojito" data-price="3.00">
+                    <h3>Classic Lime &amp; Mint</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Peach Paradise Mojito" data-price="3.00">
+                    <h3>Peach Paradise</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Strawberry Dream Mojito" data-price="3.00">
+                    <h3>Strawberry Dream</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Cherry Bomb Mojito" data-price="3.00">
+                    <h3>Cherry Bomb</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Blue Lagoon Mojito" data-price="3.00">
+                    <h3>Blue Lagoon</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Passion Punch Mojito" data-price="3.00">
+                    <h3>Passion Punch</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Mango Madness Mojito" data-price="3.00">
+                    <h3>Mango Madness</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Lychee Lush Mojito" data-price="3.00">
+                    <h3>Lychee Lush</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Green Apple Fizz Mojito" data-price="3.00">
+                    <h3>Green Apple Fizz</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Watermelon Cooler Mojito" data-price="3.00">
+                    <h3>Watermelon Cooler</h3>
+                    <span class="item-price-display">£3.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
             </div>
         </section>
 
@@ -182,25 +422,35 @@
                 <span class="price-tag">£5.50</span>
             </div>
             <div class="menu-grid">
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Pink Paradise Mocktail" data-price="5.50">
                     <h3>🌸 Pink Paradise</h3>
+                    <span class="item-price-display">£5.50</span>
                     <p class="menu-description">A refreshing mix of sweet strawberries into a fruity blend, with our signature candy floss cloud.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Mango Mirage Mocktail" data-price="5.50">
                     <h3>🌴 Mango Mirage</h3>
+                    <span class="item-price-display">£5.50</span>
                     <p class="menu-description">A tropical blend of mango and passionfruit served over ice for an exotic experience, finished with our signature candy floss cloud.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Lychee Breeze Mocktail" data-price="5.50">
                     <h3>🌸 Lychee Breeze</h3>
+                    <span class="item-price-display">£5.50</span>
                     <p class="menu-description">Bursting with floral notes of ripe lychee, topped with sweet raspberries and our signature candy floss cloud.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Blue Magic Mocktail" data-price="5.50">
                     <h3>🌀 Blue Magic</h3>
+                    <span class="item-price-display">£5.50</span>
                     <p class="menu-description">A bold, blue raspberry mix with a vibrant flavour and a cool, crisp finish, served with our signature candy floss cloud.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Pina Colada Mocktail" data-price="5.50">
                     <h3>🥥 Pina Colada</h3>
+                    <span class="item-price-display">£5.50</span>
                     <p class="menu-description">A delicious, tropical combination where sweet mango meets rich coconut, and our signature candy floss cloud.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
             </div>
         </section>
@@ -215,13 +465,17 @@
                 <span class="price-tag">£4.99</span>
             </div>
             <div class="menu-grid two-col-grid">
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Fruit Tea (Build Your Own)" data-price="4.99">
                     <h3>🍵 Fruit Tea</h3>
+                    <span class="item-price-display">£4.99</span>
                     <p class="menu-description">Mango • Lychee • Peach • Strawberry • Passionfruit • Raspberry</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item cute-card">
+                <div class="menu-item cute-card" data-name="Popping Bubbles (Build Your Own)" data-price="4.99">
                     <h3>🫧 Popping Bubbles</h3>
+                    <span class="item-price-display">£4.99</span>
                     <p class="menu-description">Green Apple • Strawberry • Mango • Blueberry • Lychee • Passionfruit</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
             </div>
             <p class="menu-note-text">💡 Pick a flavour of tea with popping bubbles of your choice!</p>
@@ -235,12 +489,14 @@
                 <span class="section-emoji">🌟</span>
                 <h2>Our Signature Special</h2>
             </div>
-            <div class="signature-card">
+            <div class="signature-card" data-name="Cloud 9 Experience - The Cloud Bowl" data-price="6.95">
                 <span class="signature-badge">✨ Cloud Favourite ✨</span>
                 <h3>Cloud 9 Experience</h3>
                 <h4>The Cloud Bowl</h4>
                 <p>A dreamy mix of ice cream, cookie dough and brownie bites, fruits, sauces and toppings of your own.</p>
                 <span class="signature-price">£6.95</span>
+                <br>
+                <button class="add-to-order-btn" onclick="addToOrder(this)" style="margin-top:12px;">Add to Order</button>
             </div>
         </section>
 
@@ -253,20 +509,26 @@
                 <h2>Create Your Own</h2>
             </div>
             <div class="menu-grid">
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Waffle Stick (Create Your Own)" data-price="3.50">
                     <h3>🧇 Waffle Stick</h3>
+                    <span class="item-price-display">£3.50</span>
                     <p class="menu-description">A warm waffle on a stick dipped in a sauce and 2 toppings of choice, finished with a chocolate drizzle.</p>
                     <span class="menu-price">£3.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Pancakes (Create Your Own)" data-price="3.50">
                     <h3>🥞 Pancakes</h3>
+                    <span class="item-price-display">£3.50</span>
                     <p class="menu-description">5 mini pancakes served to perfection with your pick of a chocolate sauce and 2 toppings.</p>
                     <span class="menu-price">£3.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Ice Cream Sundae (Create Your Own)" data-price="5.00">
                     <h3>🍦 Ice Cream Sundae</h3>
+                    <span class="item-price-display">£5.00</span>
                     <p class="menu-description">2 generous dollops of ice cream, 2 toppings of your choice, a chocolate drizzle, finished with our brand wafer and our signature candy floss cloud.</p>
                     <span class="menu-price">£5.00</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
             </div>
             <!-- Link to Make Your Own Page -->
@@ -286,17 +548,23 @@
                 <span class="price-tag">£6.95</span>
             </div>
             <div class="menu-grid">
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Cloud 9 Sundae" data-price="6.95">
                     <h3>☁️ Cloud 9</h3>
+                    <span class="item-price-display">£6.95</span>
                     <p class="menu-description">Vanilla and bubblegum ice cream, topped with marshmallows, sprinkles, whipped cream, strawberries and a drizzle of our signature cloud sauce.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Berry Dream Sundae" data-price="6.95">
                     <h3>🍓 Berry Dream</h3>
+                    <span class="item-price-display">£6.95</span>
                     <p class="menu-description">Strawberry and vanilla ice cream topped with berries, whipped cream and strawberry sauce.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
-                <div class="menu-item featured cute-card">
+                <div class="menu-item featured cute-card" data-name="Chocolate Heaven Sundae" data-price="6.95">
                     <h3>🍫 Chocolate Heaven</h3>
+                    <span class="item-price-display">£6.95</span>
                     <p class="menu-description">Chocolate and brownie batter ice cream served with brownie chunks, chocolate chips, whipped cream and a drizzle of chocolate sauce.</p>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
                 </div>
             </div>
 
@@ -346,11 +614,31 @@
             </div>
             <p class="section-subtitle">✨ Served with soft, whipped ice cream ✨</p>
             <div class="menu-grid">
-                <div class="menu-item cute-card"><h3>🇦🇪 Dubai Chocolate Dream</h3></div>
-                <div class="menu-item cute-card"><h3>🍪 Lotus Biscotti</h3></div>
-                <div class="menu-item cute-card"><h3>🫐 Berry Cloud</h3></div>
-                <div class="menu-item cute-card"><h3>🍫 Choco Overload</h3></div>
-                <div class="menu-item cute-card"><h3>🤍 White Choc Paradise</h3></div>
+                <div class="menu-item cute-card" data-name="Dubai Chocolate Dream Waffle" data-price="7.50">
+                    <h3>🇦🇪 Dubai Chocolate Dream</h3>
+                    <span class="item-price-display">£7.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Lotus Biscotti Waffle" data-price="7.50">
+                    <h3>🍪 Lotus Biscotti</h3>
+                    <span class="item-price-display">£7.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Berry Cloud Waffle" data-price="7.50">
+                    <h3>🫐 Berry Cloud</h3>
+                    <span class="item-price-display">£7.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Choco Overload Waffle" data-price="7.50">
+                    <h3>🍫 Choco Overload</h3>
+                    <span class="item-price-display">£7.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="White Choc Paradise Waffle" data-price="7.50">
+                    <h3>🤍 White Choc Paradise</h3>
+                    <span class="item-price-display">£7.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
             </div>
         </section>
 
@@ -365,11 +653,31 @@
             </div>
             <p class="section-subtitle">✨ Served with soft, whipped ice cream ✨</p>
             <div class="menu-grid">
-                <div class="menu-item cute-card"><h3>🍪 Biscotti Dream</h3></div>
-                <div class="menu-item cute-card"><h3>🍫 Classic Choc Chip</h3></div>
-                <div class="menu-item cute-card"><h3>🎂 Birthday Cake</h3></div>
-                <div class="menu-item cute-card"><h3>❤️ Lush Red Velvet</h3></div>
-                <div class="menu-item cute-card"><h3>🍫 Brownie Bliss</h3></div>
+                <div class="menu-item cute-card" data-name="Biscotti Dream Cookie Dough" data-price="7.95">
+                    <h3>🍪 Biscotti Dream</h3>
+                    <span class="item-price-display">£7.95</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Classic Choc Chip Cookie Dough" data-price="7.95">
+                    <h3>🍫 Classic Choc Chip</h3>
+                    <span class="item-price-display">£7.95</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Birthday Cake Cookie Dough" data-price="7.95">
+                    <h3>🎂 Birthday Cake</h3>
+                    <span class="item-price-display">£7.95</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Lush Red Velvet Cookie Dough" data-price="7.95">
+                    <h3>❤️ Lush Red Velvet</h3>
+                    <span class="item-price-display">£7.95</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="Brownie Bliss Cookie Dough" data-price="7.95">
+                    <h3>🍫 Brownie Bliss</h3>
+                    <span class="item-price-display">£7.95</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
             </div>
         </section>
 
@@ -384,8 +692,16 @@
             </div>
             <p class="section-subtitle">✨ Served with hot custard or whipped cream ✨</p>
             <div class="menu-grid">
-                <div class="menu-item cute-card"><h3>🎂 Matilda Cake</h3></div>
-                <div class="menu-item cute-card"><h3>🏫 School Cake</h3></div>
+                <div class="menu-item cute-card" data-name="Matilda Cake" data-price="3.50">
+                    <h3>🎂 Matilda Cake</h3>
+                    <span class="item-price-display">£3.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
+                <div class="menu-item cute-card" data-name="School Cake" data-price="3.50">
+                    <h3>🏫 School Cake</h3>
+                    <span class="item-price-display">£3.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)">Add to Order</button>
+                </div>
             </div>
         </section>
 
@@ -398,22 +714,54 @@
                 <h2>Ice Cream Options</h2>
             </div>
             <div class="ice-cream-grid">
-                <div class="ice-cream-item cute-card">🍓 Strawberry</div>
-                <div class="ice-cream-item cute-card">🍫 Chocolate</div>
-                <div class="ice-cream-item cute-card">🍦 Vanilla</div>
-                <div class="ice-cream-item cute-card">🍪 Cookie Dough</div>
-                <div class="ice-cream-item cute-card">🍫 Brownie Batter</div>
-                <div class="ice-cream-item cute-card">🍯 Caramel</div>
-                <div class="ice-cream-item cute-card">🌰 Pistachio</div>
-                <div class="ice-cream-item cute-card">🫧 Bubblegum</div>
-                <div class="ice-cream-item cute-card">🌿 Mint Choc Chip</div>
-                <div class="ice-cream-item cute-card">🍫 Nutella</div>
-                <div class="ice-cream-item cute-card">🍫 Kinder Bueno</div>
-                <div class="ice-cream-item cute-card">🍪 Biscotti</div>
-                <div class="ice-cream-item cute-card">🤍 White Chocolate</div>
-                <div class="ice-cream-item cute-card">🍪 Cookies &amp; Cream</div>
-                <div class="ice-cream-item cute-card">☁️ Candy Floss</div>
-                <div class="ice-cream-item cute-card">❤️ Red Velvet</div>
+                <div class="ice-cream-item cute-card" data-name="Strawberry Ice Cream" data-price="2.50">🍓 Strawberry <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Chocolate Ice Cream" data-price="2.50">🍫 Chocolate <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Vanilla Ice Cream" data-price="2.50">🍦 Vanilla <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Cookie Dough Ice Cream" data-price="2.50">🍪 Cookie Dough <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Brownie Batter Ice Cream" data-price="2.50">🍫 Brownie Batter <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Caramel Ice Cream" data-price="2.50">🍯 Caramel <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Pistachio Ice Cream" data-price="2.50">🌰 Pistachio <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Bubblegum Ice Cream" data-price="2.50">🫧 Bubblegum <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Mint Choc Chip Ice Cream" data-price="2.50">🌿 Mint Choc Chip <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Nutella Ice Cream" data-price="2.50">🍫 Nutella <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Kinder Bueno Ice Cream" data-price="2.50">🍫 Kinder Bueno <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Biscotti Ice Cream" data-price="2.50">🍪 Biscotti <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="White Chocolate Ice Cream" data-price="2.50">🤍 White Chocolate <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Cookies & Cream Ice Cream" data-price="2.50">🍪 Cookies &amp; Cream <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Candy Floss Ice Cream" data-price="2.50">☁️ Candy Floss <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
+                <div class="ice-cream-item cute-card" data-name="Red Velvet Ice Cream" data-price="2.50">❤️ Red Velvet <span class="item-price-display" style="font-size:12px; display:block;">£2.50</span>
+                    <button class="add-to-order-btn" onclick="addToOrder(this)" style="font-size:11px; padding:4px 12px; margin-top:6px;">Add</button>
+                </div>
             </div>
         </section>
 
@@ -431,7 +779,19 @@
 
     </main>
 
-       <!-- ============================================ -->
+    <!-- ============================================ -->
+    <!-- ORDER SUMMARY BAR - STICKY AT BOTTOM        -->
+    <!-- ============================================ -->
+    <div class="order-summary-bar" id="orderSummaryBar">
+        <div class="order-info">
+            <span class="item-count">🛒 Items: <span id="order-item-count">0</span></span>
+            <span>|</span>
+            <span>Total: <span class="order-total" id="order-total-price">£0.00</span></span>
+        </div>
+        <button class="order-btn-bar disabled" id="order-now-btn" onclick="goToOrder()">Order Now</button>
+    </div>
+
+    <!-- ============================================ -->
     <!-- FOOTER                                       -->
     <!-- ============================================ -->
     <footer>
@@ -459,25 +819,23 @@
                 </ul>
             </div>
 
-           <!-- Column 3: Social & Contact -->
-<div class="footer-col">
-    <h4>Connect With Us</h4>
-    <div class="social-icons-container">
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
-        </a>
-        <!-- TikTok - Correct Logo -->
-        <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
-            <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
-                <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
-            </svg>
-        </a>
-    </div>
-    <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
-</div>
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <div class="social-icons-container">
+                    <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
+                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
+            </div>
 
             <!-- Column 4: Newsletter -->
             <div class="footer-col">
@@ -501,6 +859,98 @@
     <!-- JAVASCRIPT                                   -->
     <!-- ============================================ -->
     <script src="js/script.js"></script>
+
+    <!-- Additional JavaScript for Menu Ordering -->
+    <script>
+        // ============================================ //
+        // ORDER SYSTEM FOR MENU PAGE                   //
+        // ============================================ //
+
+        let orderItems = [];
+        let orderTotal = 0;
+
+        function addToOrder(button) {
+            const menuItem = button.closest('.menu-item') || button.closest('.signature-card') || button.closest('.ice-cream-item');
+            if (!menuItem) return;
+
+            const name = menuItem.dataset.name || menuItem.querySelector('h3')?.textContent || 'Item';
+            const price = parseFloat(menuItem.dataset.price) || 0;
+
+            // Check if item already in order
+            const existingIndex = orderItems.findIndex(item => item.name === name);
+            if (existingIndex !== -1) {
+                orderItems[existingIndex].quantity += 1;
+            } else {
+                orderItems.push({ name, price, quantity: 1 });
+            }
+
+            // Visual feedback
+            button.textContent = '✓ Added';
+            button.classList.add('added');
+            setTimeout(() => {
+                button.textContent = 'Add to Order';
+                button.classList.remove('added');
+            }, 1500);
+
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            let total = 0;
+            let itemCount = 0;
+
+            orderItems.forEach(item => {
+                total += item.price * item.quantity;
+                itemCount += item.quantity;
+            });
+
+            orderTotal = total;
+
+            document.getElementById('order-item-count').textContent = itemCount;
+            document.getElementById('order-total-price').textContent = `£${total.toFixed(2)}`;
+
+            const orderBtn = document.getElementById('order-now-btn');
+            if (itemCount > 0) {
+                orderBtn.classList.remove('disabled');
+                orderBtn.textContent = `🛍️ Order Now (${itemCount} items)`;
+            } else {
+                orderBtn.classList.add('disabled');
+                orderBtn.textContent = 'Order Now';
+            }
+
+            // Save to localStorage
+            if (itemCount > 0) {
+                const summary = orderItems.map(item => `${item.name} (x${item.quantity})`).join(' | ');
+                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+                localStorage.setItem('cloud-dessertz-order-summary', summary);
+                localStorage.setItem('cloud-dessertz-order-items', JSON.stringify(orderItems));
+            }
+        }
+
+        function goToOrder() {
+            if (orderItems.length === 0) return;
+            const total = orderTotal;
+            const summary = orderItems.map(item => `${item.name} (x${item.quantity})`).join(' | ');
+            localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+            localStorage.setItem('cloud-dessertz-order-summary', summary);
+            localStorage.setItem('cloud-dessertz-order-items', JSON.stringify(orderItems));
+            window.location.href = 'order.html';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there's an existing order in localStorage
+            const savedItems = localStorage.getItem('cloud-dessertz-order-items');
+            if (savedItems) {
+                try {
+                    orderItems = JSON.parse(savedItems);
+                    updateOrderSummary();
+                } catch (e) {
+                    // Ignore
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
