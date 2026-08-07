@@ -73,6 +73,13 @@
             color: #FFE1ED;
         }
 
+        .order-summary-bar .order-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .order-summary-bar .order-btn-bar {
             padding: 10px 32px;
             border: none;
@@ -96,6 +103,34 @@
         .order-summary-bar .order-btn-bar.disabled {
             opacity: 0.5;
             pointer-events: none;
+        }
+
+        /* Reset/Clear Button */
+        .clear-order-btn {
+            padding: 10px 22px;
+            border: 2px solid #dc3545;
+            border-radius: 50px;
+            background: transparent;
+            color: #dc3545;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .clear-order-btn:hover {
+            background: #dc3545;
+            color: #fff;
+            transform: scale(1.04);
+        }
+
+        .clear-order-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+            border-color: #666;
+            color: #666;
         }
 
         /* ---- Add to Order Button on Menu Items ---- */
@@ -156,6 +191,9 @@
                 text-align: center;
             }
             .order-summary-bar .order-info {
+                justify-content: center;
+            }
+            .order-summary-bar .order-actions {
                 justify-content: center;
             }
         }
@@ -788,7 +826,10 @@
             <span>|</span>
             <span>Total: <span class="order-total" id="order-total-price">£0.00</span></span>
         </div>
-        <button class="order-btn-bar disabled" id="order-now-btn" onclick="goToOrder()">Order Now</button>
+        <div class="order-actions">
+            <button class="clear-order-btn disabled" id="clear-order-btn" onclick="clearOrder()">🗑️ Clear Order</button>
+            <button class="order-btn-bar disabled" id="order-now-btn" onclick="goToOrder()">Order Now</button>
+        </div>
     </div>
 
     <!-- ============================================ -->
@@ -910,12 +951,22 @@
             document.getElementById('order-total-price').textContent = `£${total.toFixed(2)}`;
 
             const orderBtn = document.getElementById('order-now-btn');
+            const clearBtn = document.getElementById('clear-order-btn');
+
             if (itemCount > 0) {
                 orderBtn.classList.remove('disabled');
                 orderBtn.textContent = `🛍️ Order Now (${itemCount} items)`;
+                clearBtn.classList.remove('disabled');
+                clearBtn.textContent = '🗑️ Clear Order';
             } else {
                 orderBtn.classList.add('disabled');
                 orderBtn.textContent = 'Order Now';
+                clearBtn.classList.add('disabled');
+                clearBtn.textContent = '🗑️ Clear Order';
+                // Clear localStorage when order is empty
+                localStorage.removeItem('cloud-dessertz-order-total');
+                localStorage.removeItem('cloud-dessertz-order-summary');
+                localStorage.removeItem('cloud-dessertz-order-items');
             }
 
             // Save to localStorage
@@ -924,6 +975,23 @@
                 localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
                 localStorage.setItem('cloud-dessertz-order-summary', summary);
                 localStorage.setItem('cloud-dessertz-order-items', JSON.stringify(orderItems));
+            }
+        }
+
+        function clearOrder() {
+            if (orderItems.length === 0) return;
+            
+            // Confirm before clearing
+            if (confirm('Are you sure you want to clear your entire order?')) {
+                orderItems = [];
+                orderTotal = 0;
+                updateOrderSummary();
+                // Visual feedback - flash the bar
+                const bar = document.getElementById('orderSummaryBar');
+                bar.style.borderColor = '#dc3545';
+                setTimeout(() => {
+                    bar.style.borderColor = 'var(--cta-bg)';
+                }, 500);
             }
         }
 
