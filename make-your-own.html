@@ -4,12 +4,529 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Dessertz - Make Your Own</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
-    <h1>Make Your Own Dessert</h1>
-    <p>Customisation page coming soon!</p>
-    
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left (Clickable) -->
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="menu.html">Menu <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="menu.html#hot-drinks">☕ Hot Drinks</a></li>
+                            <li><a href="menu.html#milkshakes">🥤 Milkshakes</a></li>
+                            <li><a href="menu.html#mojitos">🍹 Mojitos</a></li>
+                            <li><a href="menu.html#mocktails">🍸 Mocktails</a></li>
+                            <li><a href="menu.html#bubble-tea">🧋 Bubble Tea</a></li>
+                            <li><a href="menu.html#signature">🌟 Signature Special</a></li>
+                            <li><a href="menu.html#create-your-own">✨ Create Your Own</a></li>
+                            <li><a href="menu.html#sundaes">☁️ Cloud Sundaes</a></li>
+                            <li><a href="menu.html#waffles">🧇 Waffles</a></li>
+                            <li><a href="menu.html#cookie-dough">🍪 Cookie Dough</a></li>
+                            <li><a href="menu.html#cakes">🎂 Cakes</a></li>
+                            <li><a href="menu.html#ice-cream">🍦 Ice Cream</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="make-your-own.html" class="active">Make Your Own</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="order.html">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Make Your Own Hero Banner -->
+        <section class="make-hero">
+            <div class="make-hero-content">
+                <span class="hero-emoji">✨</span>
+                <h1>Make Your Own</h1>
+                <p>Create your perfect dessert with your choice of base, flavours, sauces, toppings and extras!</p>
+                <div class="hero-divider">
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- BUILD YOUR OWN BUBBLE TEA                   -->
+        <!-- ============================================ -->
+        <section class="custom-section">
+            <div class="section-header">
+                <span class="section-emoji">🧋</span>
+                <h2>Build Your Own Bubble Tea</h2>
+                <span class="price-tag">£4.99</span>
+            </div>
+            <p class="section-subtitle">Pick a flavour of tea with popping bubbles of your choice!</p>
+
+            <div class="custom-grid">
+                <!-- Fruit Tea Options -->
+                <div class="custom-card">
+                    <h3>🍵 Fruit Tea</h3>
+                    <div class="option-group">
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Mango">
+                            <span>Mango</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Lychee">
+                            <span>Lychee</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Peach">
+                            <span>Peach</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Strawberry">
+                            <span>Strawberry</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Passionfruit">
+                            <span>Passionfruit</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="fruit-tea" value="Raspberry">
+                            <span>Raspberry</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Popping Bubbles Options -->
+                <div class="custom-card">
+                    <h3>🫧 Popping Bubbles</h3>
+                    <div class="option-group">
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Green Apple">
+                            <span>Green Apple</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Strawberry">
+                            <span>Strawberry</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Mango">
+                            <span>Mango</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Blueberry">
+                            <span>Blueberry</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Lychee">
+                            <span>Lychee</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="popping-bubbles" value="Passionfruit">
+                            <span>Passionfruit</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bubble Tea Summary -->
+            <div class="custom-summary">
+                <p>Your Bubble Tea: <span id="bubble-tea-summary">Select your flavours above!</span></p>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- CREATE YOUR OWN WAFFLE STICK                -->
+        <!-- ============================================ -->
+        <section class="custom-section">
+            <div class="section-header">
+                <span class="section-emoji">🧇</span>
+                <h2>Create Your Own Waffle Stick</h2>
+                <span class="price-tag">£3.50</span>
+            </div>
+            <p class="section-subtitle">A warm waffle on a stick dipped in a sauce and 2 toppings of choice, finished with a chocolate drizzle.</p>
+
+            <div class="custom-grid">
+                <!-- Sauce Options -->
+                <div class="custom-card">
+                    <h3>🍯 Choose Your Sauce</h3>
+                    <div class="option-group">
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="Milk Chocolate">
+                            <span>Milk Chocolate</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="White Chocolate">
+                            <span>White Chocolate</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="Caramel">
+                            <span>Caramel</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="Strawberry">
+                            <span>Strawberry</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="Pistachio">
+                            <span>Pistachio</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="waffle-sauce" value="Kinder Bueno">
+                            <span>Kinder Bueno</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Toppings Options -->
+                <div class="custom-card">
+                    <h3>🧁 Choose 2 Toppings</h3>
+                    <div class="option-group toppings-group">
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Sprinkles">
+                            <span>🌈 Sprinkles</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Flakes">
+                            <span>🍫 Chocolate Flakes</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Oreo Crumbs">
+                            <span>🍪 Oreo Crumbs</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Marshmallows">
+                            <span>☁️ Marshmallows</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Smarties">
+                            <span>🍬 Smarties</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Fudge Pieces">
+                            <span>🍫 Fudge Pieces</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Chips">
+                            <span>🍫 Chocolate Chips</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Strawberries">
+                            <span>🍓 Strawberries</span>
+                        </label>
+                    </div>
+                    <p class="topping-count">Selected: <span id="waffle-topping-count">0</span> / 2</p>
+                </div>
+            </div>
+
+            <!-- Waffle Summary -->
+            <div class="custom-summary">
+                <p>Your Waffle Stick: <span id="waffle-summary">Select your sauce and toppings!</span></p>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- CREATE YOUR OWN PANCAKES                    -->
+        <!-- ============================================ -->
+        <section class="custom-section">
+            <div class="section-header">
+                <span class="section-emoji">🥞</span>
+                <h2>Create Your Own Pancakes</h2>
+                <span class="price-tag">£3.50</span>
+            </div>
+            <p class="section-subtitle">5 mini pancakes served to perfection with your pick of a chocolate sauce and 2 toppings.</p>
+
+            <div class="custom-grid">
+                <!-- Pancake Sauce Options -->
+                <div class="custom-card">
+                    <h3>🍯 Choose Your Sauce</h3>
+                    <div class="option-group">
+                        <label class="option-btn">
+                            <input type="radio" name="pancake-sauce" value="Milk Chocolate">
+                            <span>Milk Chocolate</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="pancake-sauce" value="White Chocolate">
+                            <span>White Chocolate</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="pancake-sauce" value="Caramel">
+                            <span>Caramel</span>
+                        </label>
+                        <label class="option-btn">
+                            <input type="radio" name="pancake-sauce" value="Strawberry">
+                            <span>Strawberry</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pancake Toppings Options -->
+                <div class="custom-card">
+                    <h3>🧁 Choose 2 Toppings</h3>
+                    <div class="option-group toppings-group">
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Sprinkles">
+                            <span>🌈 Sprinkles</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Flakes">
+                            <span>🍫 Chocolate Flakes</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Oreo Crumbs">
+                            <span>🍪 Oreo Crumbs</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Marshmallows">
+                            <span>☁️ Marshmallows</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Smarties">
+                            <span>🍬 Smarties</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Fudge Pieces">
+                            <span>🍫 Fudge Pieces</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Chips">
+                            <span>🍫 Chocolate Chips</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Strawberries">
+                            <span>🍓 Strawberries</span>
+                        </label>
+                    </div>
+                    <p class="topping-count">Selected: <span id="pancake-topping-count">0</span> / 2</p>
+                </div>
+            </div>
+
+            <!-- Pancake Summary -->
+            <div class="custom-summary">
+                <p>Your Pancakes: <span id="pancake-summary">Select your sauce and toppings!</span></p>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- CREATE YOUR OWN ICE CREAM SUNDAE            -->
+        <!-- ============================================ -->
+        <section class="custom-section">
+            <div class="section-header">
+                <span class="section-emoji">🍦</span>
+                <h2>Create Your Own Ice Cream Sundae</h2>
+                <span class="price-tag">£5.00</span>
+            </div>
+            <p class="section-subtitle">2 generous dollops of ice cream, 2 toppings of your choice, a chocolate drizzle, finished with our brand wafer and our signature candy floss cloud.</p>
+
+            <div class="custom-grid">
+                <!-- Ice Cream Flavours -->
+                <div class="custom-card">
+                    <h3>🍦 Choose 2 Ice Cream Flavours</h3>
+                    <div class="option-group ice-cream-group">
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Strawberry">
+                            <span>🍓 Strawberry</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Chocolate">
+                            <span>🍫 Chocolate</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Vanilla">
+                            <span>🍦 Vanilla</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Cookie Dough">
+                            <span>🍪 Cookie Dough</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Brownie Batter">
+                            <span>🍫 Brownie Batter</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Caramel">
+                            <span>🍯 Caramel</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Pistachio">
+                            <span>🌰 Pistachio</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Bubblegum">
+                            <span>🫧 Bubblegum</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Mint Choc Chip">
+                            <span>🌿 Mint Choc Chip</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Nutella">
+                            <span>🍫 Nutella</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Biscotti">
+                            <span>🍪 Biscotti</span>
+                        </label>
+                        <label class="option-btn ice-cream-btn">
+                            <input type="checkbox" value="Candy Floss">
+                            <span>☁️ Candy Floss</span>
+                        </label>
+                    </div>
+                    <p class="topping-count">Selected: <span id="sundae-ice-cream-count">0</span> / 2</p>
+                </div>
+
+                <!-- Sundae Toppings -->
+                <div class="custom-card">
+                    <h3>🧁 Choose 2 Toppings</h3>
+                    <div class="option-group toppings-group">
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Sprinkles">
+                            <span>🌈 Sprinkles</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Flakes">
+                            <span>🍫 Chocolate Flakes</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Oreo Crumbs">
+                            <span>🍪 Oreo Crumbs</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Marshmallows">
+                            <span>☁️ Marshmallows</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Smarties">
+                            <span>🍬 Smarties</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Fudge Pieces">
+                            <span>🍫 Fudge Pieces</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Chocolate Chips">
+                            <span>🍫 Chocolate Chips</span>
+                        </label>
+                        <label class="option-btn topping-btn">
+                            <input type="checkbox" value="Strawberries">
+                            <span>🍓 Strawberries</span>
+                        </label>
+                    </div>
+                    <p class="topping-count">Selected: <span id="sundae-topping-count">0</span> / 2</p>
+                </div>
+            </div>
+
+            <!-- Sundae Summary -->
+            <div class="custom-summary">
+                <p>Your Ice Cream Sundae: <span id="sundae-summary">Select your ice cream and toppings!</span></p>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- ORDER NOW BUTTON                            -->
+        <!-- ============================================ -->
+        <section class="order-section">
+            <div class="order-card">
+                <h3>✨ Ready to Order?</h3>
+                <p>Customise your perfect dessert and collect it at our flagship store!</p>
+                <a href="order.html" class="cta-button">🛍️ Order Now</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul class="social-links">
+                    <li><a href="#">📸 Instagram</a></li>
+                    <li><a href="#">🎵 TikTok</a></li>
+                </ul>
+                <p class="footer-email">✉️ clouddessertz@gmail.com</p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
     <script src="js/script.js"></script>
+
 </body>
 </html>
