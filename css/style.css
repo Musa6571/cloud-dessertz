@@ -605,7 +605,7 @@ body.dark-theme .logo-area {
     max-width: 1400px;
     margin: 0 auto 45px;
     padding: 0 50px;
-    scroll-margin-top: 100px; /* Pushes section down below sticky header */
+    scroll-margin-top: 130px; /* Increased to prevent header cutting off content */
 }
 
 .section-header {
