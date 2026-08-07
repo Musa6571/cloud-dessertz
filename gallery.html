@@ -4,12 +4,482 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Dessertz - Gallery</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
-    <h1>Our Gallery</h1>
-    <p>Gallery page coming soon!</p>
-    
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left (Clickable) -->
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="menu.html">Menu <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="menu.html#hot-drinks">☕ Hot Drinks</a></li>
+                            <li><a href="menu.html#milkshakes">🥤 Milkshakes</a></li>
+                            <li><a href="menu.html#mojitos">🍹 Mojitos</a></li>
+                            <li><a href="menu.html#mocktails">🍸 Mocktails</a></li>
+                            <li><a href="menu.html#bubble-tea">🧋 Bubble Tea</a></li>
+                            <li><a href="menu.html#signature">🌟 Signature Special</a></li>
+                            <li><a href="menu.html#create-your-own">✨ Create Your Own</a></li>
+                            <li><a href="menu.html#sundaes">☁️ Cloud Sundaes</a></li>
+                            <li><a href="menu.html#waffles">🧇 Waffles</a></li>
+                            <li><a href="menu.html#cookie-dough">🍪 Cookie Dough</a></li>
+                            <li><a href="menu.html#cakes">🎂 Cakes</a></li>
+                            <li><a href="menu.html#ice-cream">🍦 Ice Cream</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="make-your-own.html">Make Your Own</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="order.html">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Gallery Hero Banner -->
+        <section class="gallery-hero">
+            <div class="gallery-hero-content">
+                <span class="hero-emoji">📸</span>
+                <h1>Our Gallery</h1>
+                <p>Explore our sweet creations, captured in every delicious moment!</p>
+                <div class="hero-divider">
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="hot-drinks">☕ Hot Drinks</button>
+            <button class="filter-btn" data-filter="milkshakes">🥤 Milkshakes</button>
+            <button class="filter-btn" data-filter="mojitos">🍹 Mojitos</button>
+            <button class="filter-btn" data-filter="mocktails">🍸 Mocktails</button>
+            <button class="filter-btn" data-filter="bubble-tea">🧋 Bubble Tea</button>
+            <button class="filter-btn" data-filter="waffles">🧇 Waffles</button>
+            <button class="filter-btn" data-filter="cookie-dough">🍪 Cookie Dough</button>
+            <button class="filter-btn" data-filter="cakes">🎂 Cakes</button>
+            <button class="filter-btn" data-filter="sundaes">☁️ Sundaes</button>
+            <button class="filter-btn" data-filter="signature">🌟 Signature</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- GALLERY SECTIONS                            -->
+        <!-- ============================================ -->
+
+        <!-- Hot Drinks -->
+        <section class="gallery-section" id="hot-drinks">
+            <div class="section-header">
+                <span class="section-emoji">☕</span>
+                <h2>Hot Drinks</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/hot-drinks-1.jpg" alt="Hot Drink 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☕</span><p>Hot Drink</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/hot-drinks-2.jpg" alt="Hot Drink 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☕</span><p>Hot Drink</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/hot-drinks-3.jpg" alt="Hot Drink 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☕</span><p>Hot Drink</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Milkshakes -->
+        <section class="gallery-section" id="milkshakes">
+            <div class="section-header">
+                <span class="section-emoji">🥤</span>
+                <h2>Milkshakes</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-1.jpg" alt="Milkshake 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-2.jpg" alt="Milkshake 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-3.jpg" alt="Milkshake 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-4.jpg" alt="Milkshake 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-5.jpg" alt="Milkshake 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-6.jpg" alt="Milkshake 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-7.jpg" alt="Milkshake 7" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-8.jpg" alt="Milkshake 8" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/milkshakes-9.jpg" alt="Milkshake 9" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🥤</span><p>Milkshake</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mojitos -->
+        <section class="gallery-section" id="mojitos">
+            <div class="section-header">
+                <span class="section-emoji">🍹</span>
+                <h2>Mojitos</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/mojitos-1.jpg" alt="Mojito 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-2.jpg" alt="Mojito 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-3.jpg" alt="Mojito 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-4.jpg" alt="Mojito 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-5.jpg" alt="Mojito 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-6.jpg" alt="Mojito 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-7.jpg" alt="Mojito 7" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-8.jpg" alt="Mojito 8" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-9.jpg" alt="Mojito 9" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mojitos-10.jpg" alt="Mojito 10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍹</span><p>Mojito</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mocktails -->
+        <section class="gallery-section" id="mocktails">
+            <div class="section-header">
+                <span class="section-emoji">🍸</span>
+                <h2>Mocktails</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/mocktails-1.jpg" alt="Mocktail 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍸</span><p>Mocktail</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mocktails-2.jpg" alt="Mocktail 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍸</span><p>Mocktail</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mocktails-3.jpg" alt="Mocktail 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍸</span><p>Mocktail</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mocktails-4.jpg" alt="Mocktail 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍸</span><p>Mocktail</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/mocktails-5.jpg" alt="Mocktail 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍸</span><p>Mocktail</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bubble Tea -->
+        <section class="gallery-section" id="bubble-tea">
+            <div class="section-header">
+                <span class="section-emoji">🧋</span>
+                <h2>Bubble Tea</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/bubble-tea-1.jpg" alt="Bubble Tea 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧋</span><p>Bubble Tea</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/bubble-tea-2.jpg" alt="Bubble Tea 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧋</span><p>Bubble Tea</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/bubble-tea-3.jpg" alt="Bubble Tea 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧋</span><p>Bubble Tea</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Waffles -->
+        <section class="gallery-section" id="waffles">
+            <div class="section-header">
+                <span class="section-emoji">🧇</span>
+                <h2>Waffles</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/waffles-1.jpg" alt="Waffle 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧇</span><p>Waffle</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/waffles-2.jpg" alt="Waffle 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧇</span><p>Waffle</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/waffles-3.jpg" alt="Waffle 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧇</span><p>Waffle</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/waffles-4.jpg" alt="Waffle 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧇</span><p>Waffle</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/waffles-5.jpg" alt="Waffle 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🧇</span><p>Waffle</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cookie Dough -->
+        <section class="gallery-section" id="cookie-dough">
+            <div class="section-header">
+                <span class="section-emoji">🍪</span>
+                <h2>Cookie Dough</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/cookie-dough-1.jpg" alt="Cookie Dough 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍪</span><p>Cookie Dough</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/cookie-dough-2.jpg" alt="Cookie Dough 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍪</span><p>Cookie Dough</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/cookie-dough-3.jpg" alt="Cookie Dough 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍪</span><p>Cookie Dough</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/cookie-dough-4.jpg" alt="Cookie Dough 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍪</span><p>Cookie Dough</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/cookie-dough-5.jpg" alt="Cookie Dough 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🍪</span><p>Cookie Dough</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cakes -->
+        <section class="gallery-section" id="cakes">
+            <div class="section-header">
+                <span class="section-emoji">🎂</span>
+                <h2>Cakes</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/cakes-1.jpg" alt="Cake 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🎂</span><p>Cake</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/cakes-2.jpg" alt="Cake 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>🎂</span><p>Cake</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cloud Sundaes -->
+        <section class="gallery-section" id="sundaes">
+            <div class="section-header">
+                <span class="section-emoji">☁️</span>
+                <h2>Cloud Sundaes</h2>
+            </div>
+            <div class="gallery-scroll">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="images/gallery/sundaes-1.jpg" alt="Sundae 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☁️</span><p>Sundae</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/sundaes-2.jpg" alt="Sundae 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☁️</span><p>Sundae</p></div></div>
+                    <div class="gallery-item"><img src="images/gallery/sundaes-3.jpg" alt="Sundae 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"><div class="image-placeholder-gallery"><span>☁️</span><p>Sundae</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signature Special -->
+        <section class="gallery-section signature-section" id="signature">
+            <div class="section-header">
+                <span class="section-emoji">🌟</span>
+                <h2>Signature Special</h2>
+            </div>
+            <div class="signature-display">
+                <div class="gallery-item featured-item">
+                    <img src="images/gallery/signature-special-1.jpg" alt="Signature Special" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="image-placeholder-gallery large-placeholder">
+                        <span>🌟</span>
+                        <p>Cloud 9 Experience</p>
+                        <p class="sub-text">The Cloud Bowl</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram/Social Feed -->
+        <section class="social-feed">
+            <div class="social-feed-content">
+                <h3>📸 Tag #CloudDessertz</h3>
+                <p>Share your sweet moments with us on Instagram!</p>
+                <div class="social-icons">
+                    <a href="#">📸</a>
+                    <a href="#">🎵</a>
+                    <a href="#">📘</a>
+                    <a href="#">📌</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <ul class="social-links">
+                    <li><a href="#">📸 Instagram</a></li>
+                    <li><a href="#">🎵 TikTok</a></li>
+                </ul>
+                <p class="footer-email">✉️ clouddessertz@gmail.com</p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
     <script src="js/script.js"></script>
+
+    <!-- Gallery JavaScript -->
+    <script>
+        // ============================================ //
+        // GALLERY FILTER BUTTONS                      //
+        // ============================================ //
+        
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const gallerySections = document.querySelectorAll('.gallery-section');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                gallerySections.forEach(section => {
+                    if (filter === 'all') {
+                        section.style.display = 'block';
+                    } else if (section.id === filter) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // ============================================ //
+        // DRAG TO SCROLL GALLERY                       //
+        // ============================================ //
+        
+        document.querySelectorAll('.gallery-scroll').forEach(scrollContainer => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            scrollContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - scrollContainer.offsetLeft;
+                scrollLeft = scrollContainer.scrollLeft;
+                scrollContainer.style.cursor = 'grabbing';
+            });
+            
+            scrollContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                scrollContainer.style.cursor = 'grab';
+            });
+            
+            scrollContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                scrollContainer.style.cursor = 'grab';
+            });
+            
+            scrollContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scrollContainer.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                scrollContainer.scrollLeft = scrollLeft - walk;
+            });
+        });
+        
+        // ============================================ //
+        // LIGHTBOX - Click to enlarge image           //
+        // ============================================ //
+        
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                // Create lightbox overlay
+                const overlay = document.createElement('div');
+                overlay.className = 'lightbox-overlay';
+                overlay.innerHTML = `
+                    <span class="lightbox-close">&times;</span>
+                    <img src="${this.src}" alt="${this.alt}">
+                `;
+                document.body.appendChild(overlay);
+                
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.remove();
+                    }
+                });
+                
+                overlay.querySelector('.lightbox-close').addEventListener('click', function() {
+                    overlay.remove();
+                });
+            });
+        });
+    </script>
+
+    <!-- Styles for Lightbox (inline for now) -->
+    <style>
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .lightbox-overlay img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            cursor: default;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+    </style>
+
 </body>
 </html>
