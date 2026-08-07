@@ -65,6 +65,27 @@ body.dark-theme .topping-count {
 body.dark-theme .custom-summary {
     border-left-color: #FFE1ED;
 }
+/* ============================================ */
+/* DARK THEME - LINK COLOUR FIXES              */
+/* ============================================ */
+
+/* Fix store locator links in dark mode */
+body.dark-theme .store-detail .text a {
+    color: #FFFFFF !important;
+}
+
+body.dark-theme .store-detail .text a:hover {
+    color: #FFE1ED !important;
+}
+
+/* Also fix the email link in the footer */
+body.dark-theme .footer-email .email-link {
+    color: #FFE1ED;
+}
+
+body.dark-theme .footer-email .email-link:hover {
+    color: #FFFFFF;
+}
 
 /* ============================================ */
 /* RESET & BASE STYLES                         */
