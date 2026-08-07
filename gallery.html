@@ -383,39 +383,65 @@
         });
         
         // ============================================ //
-        // DRAG TO SCROLL GALLERY                       //
-        // ============================================ //
+// DRAG TO SCROLL GALLERY - OPTIMIZED          //
+// ============================================ //
         
-        document.querySelectorAll('.gallery-scroll').forEach(scrollContainer => {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            
-            scrollContainer.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - scrollContainer.offsetLeft;
-                scrollLeft = scrollContainer.scrollLeft;
-                scrollContainer.style.cursor = 'grabbing';
-            });
-            
-            scrollContainer.addEventListener('mouseleave', () => {
-                isDown = false;
-                scrollContainer.style.cursor = 'grab';
-            });
-            
-            scrollContainer.addEventListener('mouseup', () => {
-                isDown = false;
-                scrollContainer.style.cursor = 'grab';
-            });
-            
-            scrollContainer.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - scrollContainer.offsetLeft;
-                const walk = (x - startX) * 1.5;
-                scrollContainer.scrollLeft = scrollLeft - walk;
-            });
+document.querySelectorAll('.gallery-scroll').forEach(scrollContainer => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let animationFrame = null;
+    
+    scrollContainer.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - scrollContainer.offsetLeft;
+        scrollLeft = scrollContainer.scrollLeft;
+        scrollContainer.style.cursor = 'grabbing';
+        // Prevent text selection during drag
+        e.preventDefault();
+    });
+    
+    scrollContainer.addEventListener('mouseleave', () => {
+        isDown = false;
+        scrollContainer.style.cursor = 'grab';
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+        }
+    });
+    
+    scrollContainer.addEventListener('mouseup', () => {
+        isDown = false;
+        scrollContainer.style.cursor = 'grab';
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
+        }
+    });
+    
+    scrollContainer.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        
+        const x = e.pageX - scrollContainer.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        
+        // Use requestAnimationFrame for smooth scrolling
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+        }
+        animationFrame = requestAnimationFrame(() => {
+            scrollContainer.scrollLeft = scrollLeft - walk;
+            animationFrame = null;
         });
+    });
+    
+    // Optional: Add wheel support for horizontal scrolling
+    scrollContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        scrollContainer.scrollLeft += e.deltaY;
+    }, { passive: false });
+});
         
         // ============================================ //
         // LIGHTBOX - Click to enlarge image           //
