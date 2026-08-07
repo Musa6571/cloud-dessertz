@@ -1755,4 +1755,95 @@ footer {
     pointer-events: none; /* Prevents image selection */
 }
 
+/* ============================================ */
+/* FOOTER SOCIAL ICONS - STYLED                */
+/* ============================================ */
+
+/* Social Icons Container */
+.social-icons-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+/* Social Icon Button */
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 225, 237, 0.15);
+    color: var(--footer-link);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid rgba(255, 225, 237, 0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(158, 27, 80, 0.3);
+}
+
+/* Instagram Hover */
+.social-icon.instagram:hover {
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 30px rgba(225, 48, 108, 0.4);
+}
+
+/* TikTok Hover */
+.social-icon.tiktok:hover {
+    background: linear-gradient(135deg, #25f4ee, #000000, #fe2c55);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 30px rgba(254, 44, 85, 0.4);
+}
+
+/* Dark Theme Hover Fix */
+body.dark-theme .social-icon {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .social-icon.instagram:hover {
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+body.dark-theme .social-icon.tiktok:hover {
+    background: linear-gradient(135deg, #25f4ee, #000000, #fe2c55);
+}
+
+/* ---- Footer Email ---- */
+.footer-email {
+    font-size: 14px;
+    color: var(--footer-link);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.email-link {
+    color: var(--footer-link);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.email-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .social-icons-container {
+        justify-content: center;
+    }
+    .footer-email {
+        justify-content: center;
+    }
+}
 
