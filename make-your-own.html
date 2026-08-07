@@ -10,6 +10,39 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=5">
+
+    <style>
+        /* ============================================ */
+        /* DARK MODE TEXT FIXES FOR MAKE YOUR OWN       */
+        /* ============================================ */
+        body.dark-theme .custom-summary p span {
+            color: #FFE1ED;
+        }
+
+        body.dark-theme .custom-summary p {
+            color: #FFF5F9;
+        }
+
+        body.dark-theme .topping-count span {
+            color: #FFE1ED;
+        }
+
+        body.dark-theme .topping-count {
+            color: #FFF5F9;
+        }
+
+        body.dark-theme .custom-summary {
+            border-left-color: #FFE1ED;
+        }
+
+        body.dark-theme .custom-summary p {
+            color: #FFF5F9 !important;
+        }
+
+        body.dark-theme .custom-summary p span {
+            color: #FFE1ED !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -527,6 +560,190 @@
     <!-- JAVASCRIPT                                   -->
     <!-- ============================================ -->
     <script src="js/script.js"></script>
+
+    <!-- Additional JavaScript for Make Your Own page -->
+    <script>
+        // ============================================ //
+        // RADIO BUTTON TOGGLE - Click to deselect      //
+        // ============================================ //
+        
+        document.querySelectorAll('.option-btn input[type="radio"]').forEach(radio => {
+            radio.addEventListener('click', function(e) {
+                // If this radio was already checked, deselect it
+                if (this.dataset.wasChecked === 'true') {
+                    this.checked = false;
+                    this.dataset.wasChecked = 'false';
+                    // Trigger change event to update summaries
+                    this.dispatchEvent(new Event('change'));
+                } else {
+                    // Store that this radio is now checked
+                    this.dataset.wasChecked = 'true';
+                }
+                
+                // Reset wasChecked for all other radios in the same group
+                document.querySelectorAll(`input[name="${this.name}"]`).forEach(otherRadio => {
+                    if (otherRadio !== this) {
+                        otherRadio.dataset.wasChecked = 'false';
+                    }
+                });
+            });
+            
+            // Reset wasChecked when radio is unchecked by browser
+            radio.addEventListener('change', function() {
+                if (!this.checked) {
+                    this.dataset.wasChecked = 'false';
+                }
+            });
+        });
+        
+        // ============================================ //
+        // TOPPINGS LIMIT - Max 2 selections            //
+        // ============================================ //
+        
+        function initToppingLimit(checkboxSelector, countSpanId) {
+            const checkboxes = document.querySelectorAll(checkboxSelector);
+            const countSpan = document.getElementById(countSpanId);
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checked = document.querySelectorAll(checkboxSelector + ':checked');
+                    const count = checked.length;
+                    
+                    if (count > 2) {
+                        // Uncheck the last checked box
+                        this.checked = false;
+                        // Update count
+                        updateCount(checkboxSelector, countSpanId);
+                        return;
+                    }
+                    
+                    updateCount(checkboxSelector, countSpanId);
+                });
+            });
+        }
+        
+        function updateCount(selector, spanId) {
+            const checked = document.querySelectorAll(selector + ':checked');
+            const countSpan = document.getElementById(spanId);
+            if (countSpan) {
+                countSpan.textContent = checked.length;
+            }
+        }
+        
+        // Initialize all topping limiters
+        initToppingLimit('.topping-btn input[type="checkbox"]', 'waffle-topping-count');
+        initToppingLimit('.topping-btn input[type="checkbox"]', 'pancake-topping-count');
+        initToppingLimit('.topping-btn input[type="checkbox"]', 'sundae-topping-count');
+        initToppingLimit('.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
+        
+        // ============================================ //
+        // SUMMARY UPDATES                              //
+        // ============================================ //
+        
+        // Bubble Tea Summary
+        document.querySelectorAll('input[name="fruit-tea"], input[name="popping-bubbles"]').forEach(input => {
+            input.addEventListener('change', updateBubbleTeaSummary);
+        });
+        
+        function updateBubbleTeaSummary() {
+            const tea = document.querySelector('input[name="fruit-tea"]:checked');
+            const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
+            const summary = document.getElementById('bubble-tea-summary');
+            
+            if (tea && bubbles) {
+                summary.textContent = `${tea.value} Tea with ${bubbles.value} Popping Bubbles ✨`;
+            } else if (tea) {
+                summary.textContent = `${tea.value} Tea - select your popping bubbles!`;
+            } else if (bubbles) {
+                summary.textContent = `Select your tea flavour with ${bubbles.value} Popping Bubbles!`;
+            } else {
+                summary.textContent = 'Select your flavours above!';
+            }
+        }
+        
+        // Waffle Summary
+        function updateWaffleSummary() {
+            const sauce = document.querySelector('input[name="waffle-sauce"]:checked');
+            const toppings = document.querySelectorAll('#waffle-summary').closest('.custom-section').querySelectorAll('.topping-btn input:checked');
+            const summary = document.getElementById('waffle-summary');
+            const toppingNames = Array.from(toppings).map(t => t.value);
+            
+            if (sauce && toppingNames.length === 2) {
+                summary.textContent = `${sauce.value} Sauce with ${toppingNames.join(' & ')} ✨`;
+            } else if (sauce && toppingNames.length > 0) {
+                summary.textContent = `${sauce.value} Sauce - select 2 toppings! (${toppingNames.length}/2)`;
+            } else if (toppingNames.length === 2) {
+                summary.textContent = `Select your sauce with ${toppingNames.join(' & ')}!`;
+            } else {
+                summary.textContent = 'Select your sauce and toppings!';
+            }
+        }
+        
+        document.querySelectorAll('input[name="waffle-sauce"], .topping-btn input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', updateWaffleSummary);
+        });
+        
+        // Pancake Summary
+        function updatePancakeSummary() {
+            const sauce = document.querySelector('input[name="pancake-sauce"]:checked');
+            const toppings = document.querySelectorAll('#pancake-summary').closest('.custom-section').querySelectorAll('.topping-btn input:checked');
+            const summary = document.getElementById('pancake-summary');
+            const toppingNames = Array.from(toppings).map(t => t.value);
+            
+            if (sauce && toppingNames.length === 2) {
+                summary.textContent = `${sauce.value} Sauce with ${toppingNames.join(' & ')} ✨`;
+            } else if (sauce && toppingNames.length > 0) {
+                summary.textContent = `${sauce.value} Sauce - select 2 toppings! (${toppingNames.length}/2)`;
+            } else if (toppingNames.length === 2) {
+                summary.textContent = `Select your sauce with ${toppingNames.join(' & ')}!`;
+            } else {
+                summary.textContent = 'Select your sauce and toppings!';
+            }
+        }
+        
+        document.querySelectorAll('input[name="pancake-sauce"], .topping-btn input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', updatePancakeSummary);
+        });
+        
+        // Sundae Summary
+        function updateSundaeSummary() {
+            const iceCream = document.querySelectorAll('#sundae-summary').closest('.custom-section').querySelectorAll('.ice-cream-btn input:checked');
+            const toppings = document.querySelectorAll('#sundae-summary').closest('.custom-section').querySelectorAll('.topping-btn input:checked');
+            const summary = document.getElementById('sundae-summary');
+            const iceCreamNames = Array.from(iceCream).map(t => t.value);
+            const toppingNames = Array.from(toppings).map(t => t.value);
+            
+            if (iceCreamNames.length === 2 && toppingNames.length === 2) {
+                summary.textContent = `${iceCreamNames.join(' & ')} with ${toppingNames.join(' & ')} ✨`;
+            } else if (iceCreamNames.length === 2 && toppingNames.length > 0) {
+                summary.textContent = `${iceCreamNames.join(' & ')} - select 2 toppings! (${toppingNames.length}/2)`;
+            } else if (toppingNames.length === 2 && iceCreamNames.length > 0) {
+                summary.textContent = `Select 2 ice cream flavours with ${toppingNames.join(' & ')}! (${iceCreamNames.length}/2)`;
+            } else if (iceCreamNames.length === 2) {
+                summary.textContent = `${iceCreamNames.join(' & ')} - select your toppings!`;
+            } else if (toppingNames.length === 2) {
+                summary.textContent = `Select your ice cream flavours with ${toppingNames.join(' & ')}!`;
+            } else {
+                summary.textContent = 'Select your ice cream and toppings!';
+            }
+        }
+        
+        document.querySelectorAll('.ice-cream-btn input[type="checkbox"], .topping-btn input[type="checkbox"]').forEach(input => {
+            input.addEventListener('change', updateSundaeSummary);
+        });
+        
+        // Initialize counts and summaries on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCount('.topping-btn input[type="checkbox"]', 'waffle-topping-count');
+            updateCount('.topping-btn input[type="checkbox"]', 'pancake-topping-count');
+            updateCount('.topping-btn input[type="checkbox"]', 'sundae-topping-count');
+            updateCount('.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
+            updateBubbleTeaSummary();
+            updateWaffleSummary();
+            updatePancakeSummary();
+            updateSundaeSummary();
+        });
+    </script>
 
 </body>
 </html>
