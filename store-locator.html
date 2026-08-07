@@ -68,6 +68,18 @@
             transition: color 0.4s ease;
         }
 
+        /* FIXED: Link styles for phone and email - use theme variables */
+        .store-detail .text a {
+            color: var(--link-color, var(--cta-bg));
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .store-detail .text a:hover {
+            color: var(--link-hover-color, #7A1440);
+            text-decoration: underline;
+        }
+
         .store-hours {
             background: var(--bg-color);
             padding: 18px 24px;
@@ -268,19 +280,21 @@
                         </div>
                     </div>
 
+                    <!-- FIXED: Removed inline styles, using CSS variables -->
                     <div class="store-detail">
                         <span class="icon">📞</span>
                         <div class="text">
                             <strong>Phone</strong><br>
-                            <a href="tel:+442012345678" style="color:var(--cta-bg); text-decoration:none;">020 1234 5678</a>
+                            <a href="tel:+442012345678">020 1234 5678</a>
                         </div>
                     </div>
 
+                    <!-- FIXED: Removed inline styles, using CSS variables -->
                     <div class="store-detail">
                         <span class="icon">✉️</span>
                         <div class="text">
                             <strong>Email</strong><br>
-                            <a href="mailto:clouddessertz@gmail.com" style="color:var(--cta-bg); text-decoration:none;">clouddessertz@gmail.com</a>
+                            <a href="mailto:clouddessertz@gmail.com">clouddessertz@gmail.com</a>
                         </div>
                     </div>
 
