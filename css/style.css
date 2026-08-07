@@ -45,6 +45,26 @@ body.dark-theme {
     --highlight-color: #FFF5F9;
     --price-color: #FFFFFF;       /* White for prices in dark mode */
 }
+/* Dark Theme - Make Your Own Summary Text Fix */
+body.dark-theme .custom-summary p span {
+    color: #FFE1ED;
+}
+
+body.dark-theme .custom-summary p {
+    color: #FFF5F9;
+}
+
+body.dark-theme .topping-count span {
+    color: #FFE1ED;
+}
+
+body.dark-theme .topping-count {
+    color: #FFF5F9;
+}
+
+body.dark-theme .custom-summary {
+    border-left-color: #FFE1ED;
+}
 
 /* ============================================ */
 /* RESET & BASE STYLES                         */
