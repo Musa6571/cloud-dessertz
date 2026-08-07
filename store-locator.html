@@ -4,12 +4,375 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Dessertz - Store Locator</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=5">
+
+    <style>
+        /* Additional store locator styles */
+        .store-container {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 50px;
+        }
+
+        .store-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 10px 35px var(--shadow-color);
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .store-info {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .store-info h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            color: var(--heading-color);
+            transition: color 0.4s ease;
+        }
+
+        .store-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            color: var(--text-color);
+            transition: color 0.4s ease;
+        }
+
+        .store-detail .icon {
+            font-size: 24px;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .store-detail .text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .store-detail .text strong {
+            font-weight: 600;
+            color: var(--heading-color);
+            transition: color 0.4s ease;
+        }
+
+        .store-hours {
+            background: var(--bg-color);
+            padding: 18px 24px;
+            border-radius: 16px;
+            transition: background 0.4s ease;
+        }
+
+        .store-hours h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            color: var(--heading-color);
+            margin-bottom: 10px;
+            transition: color 0.4s ease;
+        }
+
+        .store-hours .hour-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: var(--text-color);
+            padding: 4px 0;
+            transition: color 0.4s ease;
+        }
+
+        .store-hours .hour-row .day {
+            font-weight: 500;
+        }
+
+        .directions-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 16px rgba(158, 27, 80, 0.35);
+            text-align: center;
+            align-self: flex-start;
+            margin-top: 6px;
+        }
+
+        .directions-btn:hover {
+            background: #7A1440;
+            transform: scale(1.04);
+        }
+
+        /* Map Container */
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px var(--shadow-color);
+            height: 100%;
+            min-height: 400px;
+            transition: box-shadow 0.4s ease;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: 0;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .store-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 35px;
+            }
+            .map-container {
+                min-height: 350px;
+            }
+            .map-container iframe {
+                min-height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .store-wrapper {
+                padding: 25px;
+            }
+            .store-detail {
+                flex-wrap: wrap;
+            }
+            .directions-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Find Our Store</h1>
-    <p>Store locator page coming soon!</p>
-    
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left (Clickable) -->
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="menu.html">Menu <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="menu.html#hot-drinks">☕ Hot Drinks</a></li>
+                            <li><a href="menu.html#milkshakes">🥤 Milkshakes</a></li>
+                            <li><a href="menu.html#mojitos">🍹 Mojitos</a></li>
+                            <li><a href="menu.html#mocktails">🍸 Mocktails</a></li>
+                            <li><a href="menu.html#bubble-tea">🧋 Bubble Tea</a></li>
+                            <li><a href="menu.html#signature">🌟 Signature Special</a></li>
+                            <li><a href="menu.html#create-your-own">✨ Create Your Own</a></li>
+                            <li><a href="menu.html#sundaes">☁️ Cloud Sundaes</a></li>
+                            <li><a href="menu.html#waffles">🧇 Waffles</a></li>
+                            <li><a href="menu.html#cookie-dough">🍪 Cookie Dough</a></li>
+                            <li><a href="menu.html#cakes">🎂 Cakes</a></li>
+                            <li><a href="menu.html#ice-cream">🍦 Ice Cream</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="make-your-own.html">Make Your Own</a></li>
+                    <li><a href="store-locator.html" class="active">Store Locator</a></li>
+                    <li><a href="order.html">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Store Locator Hero -->
+        <section class="menu-hero">
+            <div class="menu-hero-content">
+                <span class="hero-emoji">📍</span>
+                <h1>Find Our Store</h1>
+                <p>Visit our flagship location for the full Cloud Dessertz experience!</p>
+                <div class="hero-divider">
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Store Details & Map -->
+        <section class="store-container">
+            <div class="store-wrapper">
+
+                <!-- Left Column: Info -->
+                <div class="store-info">
+                    <h2>📍 Cloud Dessertz General Store</h2>
+
+                    <div class="store-detail">
+                        <span class="icon">🏠</span>
+                        <div class="text">
+                            <strong>Address</strong><br>
+                            32 Vicarage Lane<br>
+                            London E15 4ES<br>
+                            United Kingdom
+                        </div>
+                    </div>
+
+                    <div class="store-detail">
+                        <span class="icon">🕒</span>
+                        <div class="text">
+                            <strong>Opening Hours</strong>
+                            <div class="store-hours">
+                                <div class="hour-row"><span class="day">Monday – Friday</span><span>10:00 AM – 10:00 PM</span></div>
+                                <div class="hour-row"><span class="day">Saturday – Sunday</span><span>9:00 AM – 11:00 PM</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="store-detail">
+                        <span class="icon">📞</span>
+                        <div class="text">
+                            <strong>Phone</strong><br>
+                            <a href="tel:+442012345678" style="color:var(--cta-bg); text-decoration:none;">020 1234 5678</a>
+                        </div>
+                    </div>
+
+                    <div class="store-detail">
+                        <span class="icon">✉️</span>
+                        <div class="text">
+                            <strong>Email</strong><br>
+                            <a href="mailto:clouddessertz@gmail.com" style="color:var(--cta-bg); text-decoration:none;">clouddessertz@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=32+Vicarage+Lane+London+E15+4ES" target="_blank" rel="noopener noreferrer" class="directions-btn">
+                        🚗 Get Directions
+                    </a>
+                </div>
+
+                <!-- Right Column: Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.123456789!2d-0.123456!3d51.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzIgVmljYXJhZ2UgTGFuZSwgTG9uZG9uIEUxNSA0RVMsIFVL!5e0!3m2!1sen!2suk!4v1234567890"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Cloud Dessertz Store Location"
+                    ></iframe>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER                                       -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <div class="social-icons-container">
+                    <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
+                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
     <script src="js/script.js"></script>
+
 </body>
 </html>
