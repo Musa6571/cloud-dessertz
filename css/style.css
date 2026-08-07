@@ -1723,3 +1723,17 @@ footer {
     }
 }
 
+/* Add to your style.css */
+.gallery-scroll,
+.gallery-scroll * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.gallery-item img {
+    pointer-events: none; /* Prevents image selection */
+}
+
+
