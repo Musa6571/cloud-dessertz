@@ -1263,6 +1263,25 @@ body.dark-theme .logo-area {
         height: 240px;
     }
 }
+/* ---- Prevent selection during drag ---- */
+.gallery-scroll,
+.gallery-scroll * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.gallery-item img {
+    pointer-events: none; /* Prevents image selection */
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+.gallery-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
 
 /* ============================================ */
 /* FOOTER                                       */
