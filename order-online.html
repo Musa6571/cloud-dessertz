@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Dessertz - Checkout</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=5">
+
+    <style>
+        /* Additional order page styles */
+        .order-container {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 50px;
+        }
+
+        .order-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 10px 35px var(--shadow-color);
+            transition: background 0.4s ease;
+        }
+
+        .order-summary {
+            background: var(--bg-color);
+            border-radius: 20px;
+            padding: 30px;
+            transition: background 0.4s ease;
+        }
+
+        .order-summary h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 26px;
+            color: var(--heading-color);
+            margin-bottom: 16px;
+            transition: color 0.4s ease;
+        }
+
+        .order-summary .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 15px;
+            color: var(--text-color);
+            transition: color 0.4s ease, border-color 0.4s ease;
+        }
+
+        .order-summary .total {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--cta-bg);
+            padding-top: 14px;
+            border-bottom: none;
+            transition: color 0.4s ease;
+        }
+
+        /* ---- Checkout Form ---- */
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .checkout-form h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 26px;
+            color: var(--heading-color);
+            margin-bottom: 4px;
+            transition: color 0.4s ease;
+        }
+
+        .checkout-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .checkout-form label {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-color);
+            transition: color 0.4s ease;
+        }
+
+        .checkout-form input {
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.3s ease, background 0.4s ease, color 0.4s ease;
+            outline: none;
+        }
+
+        .checkout-form input:focus {
+            border-color: var(--cta-bg);
+            box-shadow: 0 0 0 3px rgba(158, 27, 80, 0.15);
+        }
+
+        .checkout-form .card-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 14px;
+        }
+
+        .checkout-form .pay-button {
+            margin-top: 10px;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(158, 27, 80, 0.35);
+        }
+
+        .checkout-form .pay-button:hover {
+            background: #7A1440;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(158, 27, 80, 0.5);
+        }
+
+        .checkout-form .pay-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ---- Payment status messages ---- */
+        .payment-status {
+            margin-top: 16px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: none;
+            text-align: center;
+        }
+
+        .payment-status.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .payment-status.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 1100px) {
+            .order-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .card-row {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- STICKY HEADER / NAVIGATION BAR               -->
+    <!-- ============================================ -->
+    <header class="sticky-header">
+        <div class="header-container">
+
+            <!-- Logo - Left (Clickable) -->
+            <div class="logo-area">
+                <a href="index.html">
+                    <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Links - Middle -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="menu.html">Menu <span class="dropdown-arrow">▼</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="menu.html#hot-drinks">☕ Hot Drinks</a></li>
+                            <li><a href="menu.html#milkshakes">🥤 Milkshakes</a></li>
+                            <li><a href="menu.html#mojitos">🍹 Mojitos</a></li>
+                            <li><a href="menu.html#mocktails">🍸 Mocktails</a></li>
+                            <li><a href="menu.html#bubble-tea">🧋 Bubble Tea</a></li>
+                            <li><a href="menu.html#signature">🌟 Signature Special</a></li>
+                            <li><a href="menu.html#create-your-own">✨ Create Your Own</a></li>
+                            <li><a href="menu.html#sundaes">☁️ Cloud Sundaes</a></li>
+                            <li><a href="menu.html#waffles">🧇 Waffles</a></li>
+                            <li><a href="menu.html#cookie-dough">🍪 Cookie Dough</a></li>
+                            <li><a href="menu.html#cakes">🎂 Cakes</a></li>
+                            <li><a href="menu.html#ice-cream">🍦 Ice Cream</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="make-your-own.html">Make Your Own</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="order.html" class="active">Order Online</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- iOS Toggle Switch - Right -->
+            <div class="theme-toggle-area">
+                <label class="ios-toggle">
+                    <input type="checkbox" id="theme-toggle-checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                 -->
+    <!-- ============================================ -->
+    <main>
+
+        <!-- Order Hero -->
+        <section class="menu-hero">
+            <div class="menu-hero-content">
+                <span class="hero-emoji">🛍️</span>
+                <h1>Checkout</h1>
+                <p>Complete your order and enjoy your custom dessert!</p>
+                <div class="hero-divider">
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                    <span class="divider-icon">✦</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Content -->
+        <section class="order-container">
+            <div class="order-wrapper">
+
+                <!-- Left: Order Summary -->
+                <div class="order-summary">
+                    <h3>📋 Your Order</h3>
+                    <div class="item"><span>Custom Dessert</span><span>£5.00</span></div>
+                    <div class="item"><span>Service Fee</span><span>£0.50</span></div>
+                    <div class="item total"><span>Total</span><span>£5.50</span></div>
+                    <p style="margin-top:16px; font-size:14px; opacity:0.7; color:var(--text-color); transition:color 0.4s ease;">
+                        * This is a demo. No actual payment will be processed.
+                    </p>
+                </div>
+
+                <!-- Right: Payment Form -->
+                <div class="checkout-form">
+                    <h3>💳 Payment Details</h3>
+
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardnumber">Card Number</label>
+                        <input type="text" id="cardnumber" placeholder="4242 4242 4242 4242" maxlength="19">
+                    </div>
+
+                    <div class="card-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry</label>
+                            <input type="text" id="expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" maxlength="4">
+                        </div>
+                    </div>
+
+                    <button class="pay-button" id="payButton">Pay Now</button>
+                    <div class="payment-status" id="paymentStatus"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================ -->
+    <!-- FOOTER (same as other pages)                 -->
+    <!-- ============================================ -->
+    <footer>
+        <div class="footer-container">
+
+            <!-- Column 1: Quick Links -->
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu &amp; Treats</a></li>
+                    <li><a href="store-locator.html">Store Locator</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Legal & Info -->
+            <div class="footer-col">
+                <h4>Legal &amp; Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Allergen Guide</a></li>
+                    <li><a href="#">Catering FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <div class="social-icons-container">
+                    <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0119.35 3a4.278 4.278 0 01-2.75 2.82m0 0V3.6v2.22zm0 0c-.51.5-.51.5 0 0m0 0V3.6v2.22zm0 0A4.278 4.278 0 0119.35 3a4.278 4.278 0 01-2.75 2.82m0 0V3.6v2.22zm0 0c-.51.5-.51.5 0 0M12 2.02c2.63 0 2.95.01 4 .07v2.8c-.82-.35-1.74-.55-2.75-.55-1.21 0-2.31.33-3.26.9-.89.53-1.59 1.29-2.03 2.21-.44.92-.66 1.96-.66 3.02 0 1.06.22 2.1.66 3.02.44.92 1.14 1.68 2.03 2.21.95.57 2.05.9 3.26.9.12 0 .24-.01.36-.03v-2.68c-.11.02-.23.03-.36.03-.61 0-1.17-.12-1.69-.33-.52-.21-.96-.51-1.32-.87-.36-.36-.66-.8-.87-1.32-.21-.52-.33-1.08-.33-1.69s.12-1.17.33-1.69c.21-.52.51-.96.87-1.32.36-.36.8-.66 1.32-.87.52-.21 1.08-.33 1.69-.33.61 0 1.17.12 1.69.33.52.21.96.51 1.32.87.36.36.66.8.87 1.32.21.52.33 1.08.33 1.69v2.68c.13.01.26.02.39.02.1 0 .2-.01.3-.02V4.22c1.01.06 1.91.26 2.68.61V2.02c-.05-.01-.13-.01-.2-.02-1.4-.06-2.54-.26-3.68-.68-1.15-.42-2.16-.96-3.02-1.58-.87-.62-1.57-1.32-2.03-2.03-.46-.71-.71-1.34-.71-1.89 0-.55.25-1.18.71-1.89.46-.71 1.16-1.41 2.03-2.03.86-.62 1.87-1.16 3.02-1.58 1.14-.42 2.28-.62 3.68-.68z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-col">
+                <h4>Newsletter Signup</h4>
+                <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                   -->
+    <!-- ============================================ -->
+    <script src="js/script.js"></script>
+
+    <!-- Checkout JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const payButton = document.getElementById('payButton');
+            const statusDiv = document.getElementById('paymentStatus');
+
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Simple validation
+                const name = document.getElementById('fullname').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const card = document.getElementById('cardnumber').value.trim();
+                const expiry = document.getElementById('expiry').value.trim();
+                const cvv = document.getElementById('cvv').value.trim();
+
+                if (!name || !email || !card || !expiry || !cvv) {
+                    statusDiv.className = 'payment-status error';
+                    statusDiv.textContent = '⚠️ Please fill in all fields.';
+                    return;
+                }
+
+                // Simulate processing
+                payButton.disabled = true;
+                payButton.textContent = 'Processing...';
+                statusDiv.className = 'payment-status';
+                statusDiv.style.display = 'block';
+                statusDiv.textContent = '⏳ Processing your payment...';
+
+                setTimeout(() => {
+                    // Simulate success
+                    statusDiv.className = 'payment-status success';
+                    statusDiv.textContent = '✅ Payment successful! Thank you for your order. You will receive a confirmation email shortly.';
+                    payButton.textContent = 'Paid ✓';
+                    payButton.disabled = true;
+
+                    // Optionally redirect after a few seconds
+                    // setTimeout(() => { window.location.href = 'index.html'; }, 5000);
+                }, 2000);
+            });
+        });
+    </script>
+
+</body>
+</html>
