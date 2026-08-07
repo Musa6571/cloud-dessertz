@@ -18,29 +18,75 @@
         body.dark-theme .custom-summary p span {
             color: #FFE1ED;
         }
-
         body.dark-theme .custom-summary p {
             color: #FFF5F9;
         }
-
         body.dark-theme .topping-count span {
             color: #FFE1ED;
         }
-
         body.dark-theme .topping-count {
             color: #FFF5F9;
         }
-
         body.dark-theme .custom-summary {
             border-left-color: #FFE1ED;
         }
-
         body.dark-theme .custom-summary p {
             color: #FFF5F9 !important;
         }
-
         body.dark-theme .custom-summary p span {
             color: #FFE1ED !important;
+        }
+
+        /* Price Total Styling */
+        .price-total-container {
+            max-width: 1400px;
+            margin: 0 auto 30px;
+            padding: 0 50px;
+        }
+        .price-total-box {
+            background: var(--card-bg);
+            padding: 20px 35px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 24px var(--shadow-color);
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+            border: 2px solid var(--cta-bg);
+        }
+        .price-total-box .total-label {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 22px;
+            color: var(--heading-color);
+            transition: color 0.4s ease;
+        }
+        .price-total-box .total-amount {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--cta-bg);
+            transition: color 0.4s ease;
+        }
+        body.dark-theme .price-total-box .total-amount {
+            color: #FFE1ED;
+        }
+        .order-btn-total {
+            padding: 10px 30px;
+            border: none;
+            border-radius: 50px;
+            background: var(--cta-bg);
+            color: var(--cta-text);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .order-btn-total:hover {
+            background: #7A1440;
+            transform: scale(1.04);
         }
     </style>
 </head>
@@ -134,23 +180,23 @@
                 <div class="custom-card">
                     <h3>🍵 Fruit Tea</h3>
                     <div class="option-group">
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Mango"><span>Mango</span></label>
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Lychee"><span>Lychee</span></label>
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Peach"><span>Peach</span></label>
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Strawberry"><span>Strawberry</span></label>
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Passionfruit"><span>Passionfruit</span></label>
-                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Raspberry"><span>Raspberry</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Mango" data-price="0"><span>Mango</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Lychee" data-price="0"><span>Lychee</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Peach" data-price="0"><span>Peach</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Strawberry" data-price="0"><span>Strawberry</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Passionfruit" data-price="0"><span>Passionfruit</span></label>
+                        <label class="option-btn"><input type="radio" name="fruit-tea" value="Raspberry" data-price="0"><span>Raspberry</span></label>
                     </div>
                 </div>
                 <div class="custom-card">
                     <h3>🫧 Popping Bubbles</h3>
                     <div class="option-group">
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Green Apple"><span>Green Apple</span></label>
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Strawberry"><span>Strawberry</span></label>
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Mango"><span>Mango</span></label>
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Blueberry"><span>Blueberry</span></label>
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Lychee"><span>Lychee</span></label>
-                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Passionfruit"><span>Passionfruit</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Green Apple" data-price="0"><span>Green Apple</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Strawberry" data-price="0"><span>Strawberry</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Mango" data-price="0"><span>Mango</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Blueberry" data-price="0"><span>Blueberry</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Lychee" data-price="0"><span>Lychee</span></label>
+                        <label class="option-btn"><input type="radio" name="popping-bubbles" value="Passionfruit" data-price="0"><span>Passionfruit</span></label>
                     </div>
                 </div>
             </div>
@@ -175,25 +221,25 @@
                 <div class="custom-card">
                     <h3>🍯 Choose Your Sauce</h3>
                     <div class="option-group">
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Milk Chocolate"><span>Milk Chocolate</span></label>
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="White Chocolate"><span>White Chocolate</span></label>
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Caramel"><span>Caramel</span></label>
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Strawberry"><span>Strawberry</span></label>
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Pistachio"><span>Pistachio</span></label>
-                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Kinder Bueno"><span>Kinder Bueno</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Milk Chocolate" data-price="0"><span>Milk Chocolate</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="White Chocolate" data-price="0"><span>White Chocolate</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Caramel" data-price="0"><span>Caramel</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Strawberry" data-price="0"><span>Strawberry</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Pistachio" data-price="0"><span>Pistachio</span></label>
+                        <label class="option-btn"><input type="radio" name="waffle-sauce" value="Kinder Bueno" data-price="0"><span>Kinder Bueno</span></label>
                     </div>
                 </div>
                 <div class="custom-card">
                     <h3>🧁 Choose 2 Toppings</h3>
                     <div class="option-group toppings-group">
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles"><span>🌈 Sprinkles</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes"><span>🍫 Chocolate Flakes</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs"><span>🍪 Oreo Crumbs</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows"><span>☁️ Marshmallows</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties"><span>🍬 Smarties</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces"><span>🍫 Fudge Pieces</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips"><span>🍫 Chocolate Chips</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries"><span>🍓 Strawberries</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles" data-price="0.50"><span>🌈 Sprinkles (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes" data-price="0.50"><span>🍫 Chocolate Flakes (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs" data-price="0.50"><span>🍪 Oreo Crumbs (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows" data-price="0.50"><span>☁️ Marshmallows (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties" data-price="0.50"><span>🍬 Smarties (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces" data-price="0.50"><span>🍫 Fudge Pieces (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips" data-price="0.50"><span>🍫 Chocolate Chips (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries" data-price="0.50"><span>🍓 Strawberries (+£0.50)</span></label>
                     </div>
                     <p class="topping-count">Selected: <span id="waffle-topping-count">0</span> / 2</p>
                 </div>
@@ -219,23 +265,23 @@
                 <div class="custom-card">
                     <h3>🍯 Choose Your Sauce</h3>
                     <div class="option-group">
-                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Milk Chocolate"><span>Milk Chocolate</span></label>
-                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="White Chocolate"><span>White Chocolate</span></label>
-                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Caramel"><span>Caramel</span></label>
-                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Strawberry"><span>Strawberry</span></label>
+                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Milk Chocolate" data-price="0"><span>Milk Chocolate</span></label>
+                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="White Chocolate" data-price="0"><span>White Chocolate</span></label>
+                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Caramel" data-price="0"><span>Caramel</span></label>
+                        <label class="option-btn"><input type="radio" name="pancake-sauce" value="Strawberry" data-price="0"><span>Strawberry</span></label>
                     </div>
                 </div>
                 <div class="custom-card">
                     <h3>🧁 Choose 2 Toppings</h3>
                     <div class="option-group toppings-group">
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles"><span>🌈 Sprinkles</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes"><span>🍫 Chocolate Flakes</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs"><span>🍪 Oreo Crumbs</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows"><span>☁️ Marshmallows</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties"><span>🍬 Smarties</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces"><span>🍫 Fudge Pieces</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips"><span>🍫 Chocolate Chips</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries"><span>🍓 Strawberries</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles" data-price="0.50"><span>🌈 Sprinkles (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes" data-price="0.50"><span>🍫 Chocolate Flakes (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs" data-price="0.50"><span>🍪 Oreo Crumbs (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows" data-price="0.50"><span>☁️ Marshmallows (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties" data-price="0.50"><span>🍬 Smarties (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces" data-price="0.50"><span>🍫 Fudge Pieces (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips" data-price="0.50"><span>🍫 Chocolate Chips (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries" data-price="0.50"><span>🍓 Strawberries (+£0.50)</span></label>
                     </div>
                     <p class="topping-count">Selected: <span id="pancake-topping-count">0</span> / 2</p>
                 </div>
@@ -261,32 +307,32 @@
                 <div class="custom-card">
                     <h3>🍦 Choose 2 Ice Cream Flavours</h3>
                     <div class="option-group ice-cream-group">
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Strawberry"><span>🍓 Strawberry</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Chocolate"><span>🍫 Chocolate</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Vanilla"><span>🍦 Vanilla</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Cookie Dough"><span>🍪 Cookie Dough</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Brownie Batter"><span>🍫 Brownie Batter</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Caramel"><span>🍯 Caramel</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Pistachio"><span>🌰 Pistachio</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Bubblegum"><span>🫧 Bubblegum</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Mint Choc Chip"><span>🌿 Mint Choc Chip</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Nutella"><span>🍫 Nutella</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Biscotti"><span>🍪 Biscotti</span></label>
-                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Candy Floss"><span>☁️ Candy Floss</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Strawberry" data-price="0"><span>🍓 Strawberry</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Chocolate" data-price="0"><span>🍫 Chocolate</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Vanilla" data-price="0"><span>🍦 Vanilla</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Cookie Dough" data-price="0"><span>🍪 Cookie Dough</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Brownie Batter" data-price="0"><span>🍫 Brownie Batter</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Caramel" data-price="0"><span>🍯 Caramel</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Pistachio" data-price="0"><span>🌰 Pistachio</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Bubblegum" data-price="0"><span>🫧 Bubblegum</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Mint Choc Chip" data-price="0"><span>🌿 Mint Choc Chip</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Nutella" data-price="0"><span>🍫 Nutella</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Biscotti" data-price="0"><span>🍪 Biscotti</span></label>
+                        <label class="option-btn ice-cream-btn"><input type="checkbox" value="Candy Floss" data-price="0"><span>☁️ Candy Floss</span></label>
                     </div>
                     <p class="topping-count">Selected: <span id="sundae-ice-cream-count">0</span> / 2</p>
                 </div>
                 <div class="custom-card">
                     <h3>🧁 Choose 2 Toppings</h3>
                     <div class="option-group toppings-group">
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles"><span>🌈 Sprinkles</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes"><span>🍫 Chocolate Flakes</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs"><span>🍪 Oreo Crumbs</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows"><span>☁️ Marshmallows</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties"><span>🍬 Smarties</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces"><span>🍫 Fudge Pieces</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips"><span>🍫 Chocolate Chips</span></label>
-                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries"><span>🍓 Strawberries</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Sprinkles" data-price="0.50"><span>🌈 Sprinkles (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Flakes" data-price="0.50"><span>🍫 Chocolate Flakes (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Oreo Crumbs" data-price="0.50"><span>🍪 Oreo Crumbs (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Marshmallows" data-price="0.50"><span>☁️ Marshmallows (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Smarties" data-price="0.50"><span>🍬 Smarties (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Fudge Pieces" data-price="0.50"><span>🍫 Fudge Pieces (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Chocolate Chips" data-price="0.50"><span>🍫 Chocolate Chips (+£0.50)</span></label>
+                        <label class="option-btn topping-btn"><input type="checkbox" value="Strawberries" data-price="0.50"><span>🍓 Strawberries (+£0.50)</span></label>
                     </div>
                     <p class="topping-count">Selected: <span id="sundae-topping-count">0</span> / 2</p>
                 </div>
@@ -298,19 +344,19 @@
         </section>
 
         <!-- ============================================ -->
-        <!-- ORDER NOW BUTTON                            -->
+        <!-- PRICE TOTAL & ORDER BUTTON                  -->
         <!-- ============================================ -->
-        <section class="order-section">
-            <div class="order-card">
-                <h3>✨ Ready to Order?</h3>
-                <p>Customise your perfect dessert and collect it at our flagship store!</p>
-                <a href="order.html" class="cta-button">🛍️ Order Now</a>
+        <div class="price-total-container">
+            <div class="price-total-box">
+                <span class="total-label">🛒 Your Total:</span>
+                <span class="total-amount" id="total-price">£0.00</span>
+                <a href="#" id="order-now-total" class="order-btn-total" onclick="goToOrder()">Order Now</a>
             </div>
-        </section>
+        </div>
 
     </main>
 
-        <!-- ============================================ -->
+    <!-- ============================================ -->
     <!-- FOOTER                                       -->
     <!-- ============================================ -->
     <footer>
@@ -338,25 +384,23 @@
                 </ul>
             </div>
 
-           <!-- Column 3: Social & Contact -->
-<div class="footer-col">
-    <h4>Connect With Us</h4>
-    <div class="social-icons-container">
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
-        </a>
-        <!-- TikTok - Correct Logo -->
-        <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
-            <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
-                <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
-            </svg>
-        </a>
-    </div>
-    <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
-</div>
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <div class="social-icons-container">
+                    <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
+                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
+            </div>
 
             <!-- Column 4: Newsletter -->
             <div class="footer-col">
@@ -375,8 +419,6 @@
             <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
         </div>
     </footer>
-
-    
 
     <!-- ============================================ -->
     <!-- JAVASCRIPT                                   -->
@@ -414,47 +456,201 @@
         });
         
         // ============================================ //
-        // TOPPINGS LIMIT - Max 2 selections            //
+        // TOPPINGS LIMIT - Max 2 selections - FIXED!  //
+        // Each section is independent now              //
         // ============================================ //
         
-        function initToppingLimit(checkboxSelector, countSpanId) {
-            const checkboxes = document.querySelectorAll(checkboxSelector);
+        function initToppingLimit(sectionId, checkboxSelector, countSpanId) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+            
+            const checkboxes = section.querySelectorAll(checkboxSelector);
+            const countSpan = document.getElementById(countSpanId);
             
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function() {
-                    const checked = document.querySelectorAll(checkboxSelector + ':checked');
+                    const checked = section.querySelectorAll(checkboxSelector + ':checked');
                     const count = checked.length;
                     
                     if (count > 2) {
                         this.checked = false;
-                        updateCount(checkboxSelector, countSpanId);
+                        updateCount(section, checkboxSelector, countSpanId);
                         return;
                     }
                     
-                    updateCount(checkboxSelector, countSpanId);
+                    updateCount(section, checkboxSelector, countSpanId);
+                    updateTotalPrice();
                 });
             });
         }
         
-        function updateCount(selector, spanId) {
-            const checked = document.querySelectorAll(selector + ':checked');
+        function updateCount(section, selector, spanId) {
+            const checked = section.querySelectorAll(selector + ':checked');
             const countSpan = document.getElementById(spanId);
             if (countSpan) {
                 countSpan.textContent = checked.length;
             }
         }
         
-        // Initialize all topping limiters
-        initToppingLimit('.topping-btn input[type="checkbox"]', 'waffle-topping-count');
-        initToppingLimit('.topping-btn input[type="checkbox"]', 'pancake-topping-count');
-        initToppingLimit('.topping-btn input[type="checkbox"]', 'sundae-topping-count');
-        initToppingLimit('.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
+        // Initialize all topping limiters - EACH SECTION INDEPENDENT
+        initToppingLimit('waffle-section', '.topping-btn input[type="checkbox"]', 'waffle-topping-count');
+        initToppingLimit('pancake-section', '.topping-btn input[type="checkbox"]', 'pancake-topping-count');
+        initToppingLimit('sundae-section', '.topping-btn input[type="checkbox"]', 'sundae-topping-count');
+        initToppingLimit('sundae-section', '.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
         
         // ============================================ //
-        // SUMMARY UPDATES - ALL SECTIONS FIXED        //
+        // PRICE CALCULATOR - LIVE TOTAL               //
         // ============================================ //
         
-        // ----- Bubble Tea Summary -----
+        function calculateTotal() {
+            let total = 0;
+            
+            // Bubble Tea: £4.99 if both options selected
+            const tea = document.querySelector('input[name="fruit-tea"]:checked');
+            const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
+            if (tea && bubbles) {
+                total += 4.99;
+            }
+            
+            // Waffle Stick: £3.50 + toppings (£0.50 each)
+            const waffleSection = document.getElementById('waffle-section');
+            if (waffleSection) {
+                const waffleSauce = waffleSection.querySelector('input[name="waffle-sauce"]:checked');
+                const waffleToppings = waffleSection.querySelectorAll('.topping-btn input:checked');
+                if (waffleSauce && waffleToppings.length === 2) {
+                    total += 3.50;
+                    waffleToppings.forEach(t => {
+                        total += parseFloat(t.dataset.price) || 0;
+                    });
+                }
+            }
+            
+            // Pancakes: £3.50 + toppings (£0.50 each)
+            const pancakeSection = document.getElementById('pancake-section');
+            if (pancakeSection) {
+                const pancakeSauce = pancakeSection.querySelector('input[name="pancake-sauce"]:checked');
+                const pancakeToppings = pancakeSection.querySelectorAll('.topping-btn input:checked');
+                if (pancakeSauce && pancakeToppings.length === 2) {
+                    total += 3.50;
+                    pancakeToppings.forEach(t => {
+                        total += parseFloat(t.dataset.price) || 0;
+                    });
+                }
+            }
+            
+            // Sundae: £5.00 + toppings (£0.50 each)
+            const sundaeSection = document.getElementById('sundae-section');
+            if (sundaeSection) {
+                const sundaeIceCream = sundaeSection.querySelectorAll('.ice-cream-btn input:checked');
+                const sundaeToppings = sundaeSection.querySelectorAll('.topping-btn input:checked');
+                if (sundaeIceCream.length === 2 && sundaeToppings.length === 2) {
+                    total += 5.00;
+                    sundaeToppings.forEach(t => {
+                        total += parseFloat(t.dataset.price) || 0;
+                    });
+                }
+            }
+            
+            return total;
+        }
+        
+        function updateTotalPrice() {
+            const total = calculateTotal();
+            const totalDisplay = document.getElementById('total-price');
+            const orderBtn = document.getElementById('order-now-total');
+            
+            if (totalDisplay) {
+                totalDisplay.textContent = `£${total.toFixed(2)}`;
+            }
+            
+            // Enable/disable order button based on whether any item is selected
+            const hasSelection = total > 0;
+            if (orderBtn) {
+                if (hasSelection) {
+                    orderBtn.style.opacity = '1';
+                    orderBtn.style.pointerEvents = 'auto';
+                    orderBtn.textContent = '🛍️ Order Now';
+                } else {
+                    orderBtn.style.opacity = '0.5';
+                    orderBtn.style.pointerEvents = 'none';
+                    orderBtn.textContent = 'Select items to order';
+                }
+            }
+            
+            // Save total to localStorage for order page
+            if (total > 0) {
+                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+                // Save order summary
+                const summary = generateOrderSummary();
+                localStorage.setItem('cloud-dessertz-order-summary', summary);
+            }
+        }
+        
+        function generateOrderSummary() {
+            let items = [];
+            
+            // Bubble Tea
+            const tea = document.querySelector('input[name="fruit-tea"]:checked');
+            const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
+            if (tea && bubbles) {
+                items.push(`${tea.value} Tea with ${bubbles.value} Popping Bubbles (£4.99)`);
+            }
+            
+            // Waffle
+            const waffleSection = document.getElementById('waffle-section');
+            if (waffleSection) {
+                const sauce = waffleSection.querySelector('input[name="waffle-sauce"]:checked');
+                const toppings = waffleSection.querySelectorAll('.topping-btn input:checked');
+                if (sauce && toppings.length === 2) {
+                    const tNames = Array.from(toppings).map(t => t.value);
+                    items.push(`Waffle Stick - ${sauce.value} Sauce with ${tNames.join(' & ')} (£3.50 + toppings)`);
+                }
+            }
+            
+            // Pancakes
+            const pancakeSection = document.getElementById('pancake-section');
+            if (pancakeSection) {
+                const sauce = pancakeSection.querySelector('input[name="pancake-sauce"]:checked');
+                const toppings = pancakeSection.querySelectorAll('.topping-btn input:checked');
+                if (sauce && toppings.length === 2) {
+                    const tNames = Array.from(toppings).map(t => t.value);
+                    items.push(`Pancakes - ${sauce.value} Sauce with ${tNames.join(' & ')} (£3.50 + toppings)`);
+                }
+            }
+            
+            // Sundae
+            const sundaeSection = document.getElementById('sundae-section');
+            if (sundaeSection) {
+                const iceCream = sundaeSection.querySelectorAll('.ice-cream-btn input:checked');
+                const toppings = sundaeSection.querySelectorAll('.topping-btn input:checked');
+                if (iceCream.length === 2 && toppings.length === 2) {
+                    const iNames = Array.from(iceCream).map(t => t.value);
+                    const tNames = Array.from(toppings).map(t => t.value);
+                    items.push(`Sundae - ${iNames.join(' & ')} with ${tNames.join(' & ')} (£5.00 + toppings)`);
+                }
+            }
+            
+            return items.length > 0 ? items.join(' | ') : 'No items selected';
+        }
+        
+        // ============================================ //
+        // ORDER NOW - GO TO ORDER PAGE                //
+        // ============================================ //
+        
+        function goToOrder() {
+            const total = calculateTotal();
+            if (total > 0) {
+                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+                localStorage.setItem('cloud-dessertz-order-summary', generateOrderSummary());
+                window.location.href = 'order.html';
+            }
+        }
+        
+        // ============================================ //
+        // SUMMARY UPDATES - ALL SECTIONS              //
+        // ============================================ //
+        
+        // Bubble Tea Summary
         function updateBubbleTeaSummary() {
             const tea = document.querySelector('input[name="fruit-tea"]:checked');
             const bubbles = document.querySelector('input[name="popping-bubbles"]:checked');
@@ -469,13 +665,14 @@
             } else {
                 summary.textContent = 'Select your flavours above!';
             }
+            updateTotalPrice();
         }
         
         document.querySelectorAll('#bubble-tea-section input[type="radio"]').forEach(input => {
             input.addEventListener('change', updateBubbleTeaSummary);
         });
         
-        // ----- Waffle Summary -----
+        // Waffle Summary
         function updateWaffleSummary() {
             const section = document.getElementById('waffle-section');
             const sauce = section.querySelector('input[name="waffle-sauce"]:checked');
@@ -496,13 +693,14 @@
             } else {
                 summary.textContent = 'Select your sauce and toppings!';
             }
+            updateTotalPrice();
         }
         
         document.querySelectorAll('#waffle-section input').forEach(input => {
             input.addEventListener('change', updateWaffleSummary);
         });
         
-        // ----- Pancake Summary -----
+        // Pancake Summary
         function updatePancakeSummary() {
             const section = document.getElementById('pancake-section');
             const sauce = section.querySelector('input[name="pancake-sauce"]:checked');
@@ -523,13 +721,14 @@
             } else {
                 summary.textContent = 'Select your sauce and toppings!';
             }
+            updateTotalPrice();
         }
         
         document.querySelectorAll('#pancake-section input').forEach(input => {
             input.addEventListener('change', updatePancakeSummary);
         });
         
-        // ----- Sundae Summary -----
+        // Sundae Summary
         function updateSundaeSummary() {
             const section = document.getElementById('sundae-section');
             const iceCream = section.querySelectorAll('.ice-cream-btn input:checked');
@@ -557,6 +756,7 @@
             } else {
                 summary.textContent = 'Select your ice cream and toppings!';
             }
+            updateTotalPrice();
         }
         
         document.querySelectorAll('#sundae-section input').forEach(input => {
@@ -568,14 +768,23 @@
         // ============================================ //
         
         document.addEventListener('DOMContentLoaded', function() {
-            updateCount('.topping-btn input[type="checkbox"]', 'waffle-topping-count');
-            updateCount('.topping-btn input[type="checkbox"]', 'pancake-topping-count');
-            updateCount('.topping-btn input[type="checkbox"]', 'sundae-topping-count');
-            updateCount('.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
+            // Update counts
+            const waffleSection = document.getElementById('waffle-section');
+            const pancakeSection = document.getElementById('pancake-section');
+            const sundaeSection = document.getElementById('sundae-section');
+            
+            if (waffleSection) updateCount(waffleSection, '.topping-btn input[type="checkbox"]', 'waffle-topping-count');
+            if (pancakeSection) updateCount(pancakeSection, '.topping-btn input[type="checkbox"]', 'pancake-topping-count');
+            if (sundaeSection) {
+                updateCount(sundaeSection, '.topping-btn input[type="checkbox"]', 'sundae-topping-count');
+                updateCount(sundaeSection, '.ice-cream-btn input[type="checkbox"]', 'sundae-ice-cream-count');
+            }
+            
             updateBubbleTeaSummary();
             updateWaffleSummary();
             updatePancakeSummary();
             updateSundaeSummary();
+            updateTotalPrice();
         });
     </script>
 
