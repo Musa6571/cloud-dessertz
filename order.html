@@ -508,7 +508,6 @@
 
             let orderItems = [];
             let orderTotal = 0;
-            let orderNumber = '';
 
             function generateOrderNumber() {
                 const prefix = 'CD';
@@ -537,7 +536,6 @@
                     orderTotal = parseFloat(savedTotal) || 0;
                 }
 
-                // If no items stored but we have a summary, try to parse it
                 if (orderItems.length === 0 && savedSummary) {
                     const items = savedSummary.split(' | ');
                     items.forEach(item => {
@@ -625,21 +623,25 @@
             window.clearOrder = function() {
                 if (orderItems.length === 0) return;
                 if (confirm('Are you sure you want to clear your entire order?')) {
-                    localStorage.removeItem('cloud-dessertz-order-items');
-                    localStorage.removeItem('cloud-dessertz-order-total');
-                    localStorage.removeItem('cloud-dessertz-order-summary');
-                    orderItems = [];
-                    orderTotal = 0;
-                    renderOrder();
-                    const bar = document.getElementById('orderSummaryBar');
-                    if (bar) {
-                        bar.style.borderColor = '#dc3545';
-                        setTimeout(() => {
-                            bar.style.borderColor = 'var(--cta-bg)';
-                        }, 500);
-                    }
+                    clearOrderData();
                 }
             };
+
+            function clearOrderData() {
+                localStorage.removeItem('cloud-dessertz-order-items');
+                localStorage.removeItem('cloud-dessertz-order-total');
+                localStorage.removeItem('cloud-dessertz-order-summary');
+                orderItems = [];
+                orderTotal = 0;
+                renderOrder();
+                const bar = document.getElementById('orderSummaryBar');
+                if (bar) {
+                    bar.style.borderColor = '#dc3545';
+                    setTimeout(() => {
+                        bar.style.borderColor = 'var(--cta-bg)';
+                    }, 500);
+                }
+            }
 
             // ============================================ //
             // SEND ORDER EMAILS (Dual Notification)       //
@@ -651,7 +653,6 @@
                     `${item.name} (x${item.quantity}) - £${(item.price || 0) * item.quantity}`
                 ).join('\n');
 
-                // --- Email 1: To Customer (Confirmation) ---
                 const customerEmailData = {
                     to: customerEmail,
                     subject: `☁️ Your Cloud Dessertz Order #${orderNumber}`,
@@ -687,7 +688,6 @@
                     `
                 };
 
-                // --- Email 2: To Business (Order Notification) ---
                 const businessEmailData = {
                     to: 'clouddessertz@gmail.com',
                     subject: `🛍️ NEW ORDER #${orderNumber} from ${customerName}`,
@@ -717,7 +717,6 @@
                     `
                 };
 
-                // Store in localStorage for demo
                 localStorage.setItem('cloud-dessertz-last-order', JSON.stringify({
                     orderNumber: orderNumber,
                     timestamp: new Date().toISOString(),
@@ -761,17 +760,14 @@
                     return;
                 }
 
-                // Process payment
                 payButton.disabled = true;
                 payButton.textContent = '⏳ Processing...';
                 statusDiv.className = 'payment-status loading';
                 statusDiv.textContent = '⏳ Processing your payment...';
 
                 setTimeout(() => {
-                    // Send emails
                     const { orderNumber, customerEmailData, businessEmailData } = sendOrderEmails(name, email);
 
-                    // Payment successful
                     statusDiv.className = 'payment-status success';
                     statusDiv.innerHTML = `
                         ✅ Payment successful! Your order has been placed.
@@ -798,7 +794,6 @@
                     payButton.textContent = '✅ Order Placed';
                     payButton.disabled = true;
 
-                    // Show email previews in console for testing
                     console.log('📧 CUSTOMER EMAIL SENT TO:', customerEmailData.to);
                     console.log('Subject:', customerEmailData.subject);
                     console.log('Body:', customerEmailData.body);
@@ -806,15 +801,15 @@
                     console.log('Subject:', businessEmailData.subject);
                     console.log('Body:', businessEmailData.body);
 
+                    // ============================================ //
+                    // ★★★ FIX: CLEAR ORDER AFTER SUCCESS ★★★    //
+                    // ============================================ //
+                    setTimeout(function() {
+                        clearOrderData();
+                    }, 500);
+
                 }, 2000);
             });
-
-            // ============================================ //
-            // FIX: Remove auto-filled card details         //
-            // (Placeholder text is now used instead)      //
-            // ============================================ //
-
-            // No auto-fill - placeholders only!
 
         });
     </script>
