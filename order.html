@@ -11,8 +11,14 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=5">
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+
     <style>
-        /* Additional order page styles */
+        /* ============================================ */
+        /* ORDER PAGE STYLES                          */
+        /* ============================================ */
         .order-container {
             max-width: 1400px;
             margin: 0 auto 60px;
@@ -248,7 +254,6 @@
             border: 1px solid #b8daff;
         }
 
-        /* Email notification */
         .email-notice {
             margin-top: 12px;
             padding: 10px 16px;
@@ -265,7 +270,21 @@
             transition: color 0.4s ease;
         }
 
-        /* Responsive */
+        .email-status {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-color);
+            opacity: 0.8;
+            transition: color 0.4s ease;
+        }
+
+        .email-status .sent {
+            color: #28a745;
+        }
+        .email-status .failed {
+            color: #dc3545;
+        }
+
         @media (max-width: 1100px) {
             .order-wrapper {
                 grid-template-columns: 1fr;
@@ -379,6 +398,7 @@
                         📧 <strong>Order confirmation</strong> will be sent to your email.<br>
                         📧 <strong>Store notification</strong> will be sent to clouddessertz@gmail.com
                     </div>
+                    <div class="email-status" id="emailStatus" style="display:none;"></div>
                 </div>
 
                 <!-- Right: Payment Form -->
@@ -490,327 +510,355 @@
     <!-- ============================================ -->
     <script src="js/script.js"></script>
 
-    <!-- Checkout JavaScript -->
+    <!-- Checkout JavaScript with EmailJS -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // ============================================ //
+        // INITIALIZE EMAILJS                          //
+        // ============================================ //
 
-            // ============================================ //
-            // LOAD ORDER FROM localStorage                 //
-            // ============================================ //
+        // ★★★ REPLACE WITH YOUR ACTUAL VALUES ★★★
+        const EMAILJS_PUBLIC_KEY = bC7jA1KjM3yoYCyxA; // e.g., 'user_abc123xyz'
+        const EMAILJS_SERVICE_ID = bC7jA1KjM3yoYCyxA; // e.g., 'service_abc123'
+        const TEMPLATE_ID_CUSTOMER = template_351y1r7; // e.g., 'template_customer'
+        const TEMPLATE_ID_STORE = template_0yj4xy4; // e.g., 'template_store'
 
-            const orderItemsContainer = document.getElementById('orderItemsContainer');
-            const totalRow = document.getElementById('totalRow');
-            const orderTotalDisplay = document.getElementById('orderTotalDisplay');
-            const payButton = document.getElementById('payButton');
-            const statusDiv = document.getElementById('paymentStatus');
-            const emailNotice = document.getElementById('emailNotice');
-            const clearBtn = document.getElementById('clear-order-btn-checkout');
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
 
-            let orderItems = [];
-            let orderTotal = 0;
+        // ============================================ //
+        // LOAD ORDER FROM localStorage                 //
+        // ============================================ //
 
-            function generateOrderNumber() {
-                const prefix = 'CD';
-                const date = new Date();
-                const dateStr = date.getFullYear().toString().slice(-2) +
-                                String(date.getMonth() + 1).padStart(2, '0') +
-                                String(date.getDate()).padStart(2, '0');
-                const random = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
-                return `${prefix}${dateStr}${random}`;
+        const orderItemsContainer = document.getElementById('orderItemsContainer');
+        const totalRow = document.getElementById('totalRow');
+        const orderTotalDisplay = document.getElementById('orderTotalDisplay');
+        const payButton = document.getElementById('payButton');
+        const statusDiv = document.getElementById('paymentStatus');
+        const emailNotice = document.getElementById('emailNotice');
+        const emailStatus = document.getElementById('emailStatus');
+        const clearBtn = document.getElementById('clear-order-btn-checkout');
+
+        let orderItems = [];
+        let orderTotal = 0;
+
+        function generateOrderNumber() {
+            const prefix = 'CD';
+            const date = new Date();
+            const dateStr = date.getFullYear().toString().slice(-2) +
+                            String(date.getMonth() + 1).padStart(2, '0') +
+                            String(date.getDate()).padStart(2, '0');
+            const random = String(Math.floor(Math.random() * 10000)).padStart(4, '0');
+            return `${prefix}${dateStr}${random}`;
+        }
+
+        function loadOrder() {
+            const savedItems = localStorage.getItem('cloud-dessertz-order-items');
+            const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
+            const savedSummary = localStorage.getItem('cloud-dessertz-order-summary');
+
+            if (savedItems) {
+                try {
+                    orderItems = JSON.parse(savedItems);
+                } catch (e) {
+                    orderItems = [];
+                }
             }
 
-            function loadOrder() {
-                const savedItems = localStorage.getItem('cloud-dessertz-order-items');
-                const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
-                const savedSummary = localStorage.getItem('cloud-dessertz-order-summary');
-
-                if (savedItems) {
-                    try {
-                        orderItems = JSON.parse(savedItems);
-                    } catch (e) {
-                        orderItems = [];
-                    }
-                }
-
-                if (savedTotal) {
-                    orderTotal = parseFloat(savedTotal) || 0;
-                }
-
-                if (orderItems.length === 0 && savedSummary) {
-                    const items = savedSummary.split(' | ');
-                    items.forEach(item => {
-                        const match = item.match(/^(.*?)\s*\(x(\d+)\)$/);
-                        if (match) {
-                            orderItems.push({ name: match[1], quantity: parseInt(match[2]), price: 0 });
-                        } else {
-                            orderItems.push({ name: item, quantity: 1, price: 0 });
-                        }
-                    });
-                    if (orderTotal === 0 && orderItems.length > 0) {
-                        const totalFromStorage = localStorage.getItem('cloud-dessertz-order-total');
-                        if (totalFromStorage) {
-                            orderTotal = parseFloat(totalFromStorage) || 0;
-                        }
-                    }
-                }
-
-                renderOrder();
+            if (savedTotal) {
+                orderTotal = parseFloat(savedTotal) || 0;
             }
 
-            function renderOrder() {
-                if (orderItems.length === 0) {
-                    orderItemsContainer.innerHTML = `
-                        <div class="empty-cart">
-                            <span>🛒</span>
-                            <p>Your cart is empty. Please add items from the menu.</p>
-                            <a href="menu.html" style="color:var(--cta-bg); font-weight:600; text-decoration:none;">Browse Menu →</a>
-                        </div>
-                    `;
-                    totalRow.style.display = 'none';
-                    payButton.disabled = true;
-                    payButton.textContent = 'Add items to order';
-                    emailNotice.style.display = 'none';
-                    clearBtn.classList.add('disabled');
-                    return;
-                }
-
-                let html = '';
-                let total = 0;
-
-                orderItems.forEach(item => {
-                    const itemTotal = item.price ? item.price * item.quantity : 0;
-                    total += itemTotal;
-                    html += `
-                        <div class="item-row">
-                            <span class="item-name">${item.name}</span>
-                            <span class="item-qty">x${item.quantity}</span>
-                            <span class="item-price">£${itemTotal.toFixed(2)}</span>
-                        </div>
-                    `;
-                });
-
-                if (total === 0 && orderItems.length > 0) {
-                    const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
-                    if (savedTotal) {
-                        total = parseFloat(savedTotal) || 0;
+            if (orderItems.length === 0 && savedSummary) {
+                const items = savedSummary.split(' | ');
+                items.forEach(item => {
+                    const match = item.match(/^(.*?)\s*\(x(\d+)\)$/);
+                    if (match) {
+                        orderItems.push({ name: match[1], quantity: parseInt(match[2]), price: 0 });
                     } else {
-                        html += `<div class="item-row" style="opacity:0.6;"><span>⚠️ Price information not available</span></div>`;
+                        orderItems.push({ name: item, quantity: 1, price: 0 });
+                    }
+                });
+                if (orderTotal === 0 && orderItems.length > 0) {
+                    const totalFromStorage = localStorage.getItem('cloud-dessertz-order-total');
+                    if (totalFromStorage) {
+                        orderTotal = parseFloat(totalFromStorage) || 0;
                     }
                 }
-
-                orderTotal = total;
-                orderTotalDisplay.textContent = `£${total.toFixed(2)}`;
-                totalRow.style.display = 'flex';
-
-                if (total > 0) {
-                    localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
-                }
-
-                orderItemsContainer.innerHTML = html;
-
-                payButton.disabled = false;
-                payButton.textContent = '💳 Place Order';
-                emailNotice.style.display = 'block';
-                clearBtn.classList.remove('disabled');
             }
 
-            loadOrder();
+            renderOrder();
+        }
 
-            // ============================================ //
-            // CLEAR ORDER FUNCTION                         //
-            // ============================================ //
-
-            window.clearOrder = function() {
-                if (orderItems.length === 0) return;
-                if (confirm('Are you sure you want to clear your entire order?')) {
-                    clearOrderData();
-                }
-            };
-
-            function clearOrderData() {
-                localStorage.removeItem('cloud-dessertz-order-items');
-                localStorage.removeItem('cloud-dessertz-order-total');
-                localStorage.removeItem('cloud-dessertz-order-summary');
-                orderItems = [];
-                orderTotal = 0;
-                renderOrder();
-                const bar = document.getElementById('orderSummaryBar');
-                if (bar) {
-                    bar.style.borderColor = '#dc3545';
-                    setTimeout(() => {
-                        bar.style.borderColor = 'var(--cta-bg)';
-                    }, 500);
-                }
-            }
-
-            // ============================================ //
-            // SEND ORDER EMAILS (Dual Notification)       //
-            // ============================================ //
-
-            function sendOrderEmails(customerName, customerEmail) {
-                const orderNumber = generateOrderNumber();
-                const orderSummary = orderItems.map(item => 
-                    `${item.name} (x${item.quantity}) - £${(item.price || 0) * item.quantity}`
-                ).join('\n');
-
-                const customerEmailData = {
-                    to: customerEmail,
-                    subject: `☁️ Your Cloud Dessertz Order #${orderNumber}`,
-                    body: `
-                        ────────────────────────────────
-                        ☁️ ORDER CONFIRMATION ☁️
-                        ────────────────────────────────
-
-                        Hello ${customerName},
-
-                        Thank you for your order at Cloud Dessertz!
-
-                        Order Number: #${orderNumber}
-                        Order Date: ${new Date().toLocaleString()}
-
-                        ────────────────────────────────
-                        📋 ORDER DETAILS:
-                        ────────────────────────────────
-                        ${orderSummary}
-
-                        ────────────────────────────────
-                        💰 TOTAL: £${orderTotal.toFixed(2)}
-                        ────────────────────────────────
-
-                        🎉 Your treats will be prepared fresh!
-                        📍 Collection: 32 Vicarage Lane, London E15 4ES
-
-                        ✨ We'll see you soon!
-
-                        ────────────────────────────────
-                        Cloud Dessertz - Desserts Made Heavenly
-                        clouddessertz@gmail.com
-                    `
-                };
-
-                const businessEmailData = {
-                    to: 'clouddessertz@gmail.com',
-                    subject: `🛍️ NEW ORDER #${orderNumber} from ${customerName}`,
-                    body: `
-                        ────────────────────────────────
-                        🍰 NEW ORDER RECEIVED 🍰
-                        ────────────────────────────────
-
-                        Order Number: #${orderNumber}
-                        Customer: ${customerName}
-                        Email: ${customerEmail}
-                        Order Date: ${new Date().toLocaleString()}
-                        Total: £${orderTotal.toFixed(2)}
-
-                        ────────────────────────────────
-                        📋 ORDER DETAILS:
-                        ────────────────────────────────
-                        ${orderSummary}
-
-                        ────────────────────────────────
-
-                        ✅ Please prepare this order for collection.
-                        🔔 Customer will be notified when ready.
-
-                        ────────────────────────────────
-                        Cloud Dessertz - Order System
-                    `
-                };
-
-                localStorage.setItem('cloud-dessertz-last-order', JSON.stringify({
-                    orderNumber: orderNumber,
-                    timestamp: new Date().toISOString(),
-                    customer: customerName,
-                    email: customerEmail,
-                    total: orderTotal,
-                    items: orderItems
-                }));
-
-                return { orderNumber, customerEmailData, businessEmailData };
-            }
-
-            // ============================================ //
-            // PAYMENT BUTTON - Process Order               //
-            // ============================================ //
-
-            payButton.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                if (orderItems.length === 0) {
-                    statusDiv.className = 'payment-status error';
-                    statusDiv.textContent = '⚠️ Your cart is empty. Please add items to your order.';
-                    return;
-                }
-
-                const name = document.getElementById('fullname').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const card = document.getElementById('cardnumber').value.trim();
-                const expiry = document.getElementById('expiry').value.trim();
-                const cvv = document.getElementById('cvv').value.trim();
-
-                if (!name || !email || !card || !expiry || !cvv) {
-                    statusDiv.className = 'payment-status error';
-                    statusDiv.textContent = '⚠️ Please fill in all payment fields.';
-                    return;
-                }
-
-                if (!email.includes('@') || !email.includes('.')) {
-                    statusDiv.className = 'payment-status error';
-                    statusDiv.textContent = '⚠️ Please enter a valid email address.';
-                    return;
-                }
-
+        function renderOrder() {
+            if (orderItems.length === 0) {
+                orderItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <span>🛒</span>
+                        <p>Your cart is empty. Please add items from the menu.</p>
+                        <a href="menu.html" style="color:var(--cta-bg); font-weight:600; text-decoration:none;">Browse Menu →</a>
+                    </div>
+                `;
+                totalRow.style.display = 'none';
                 payButton.disabled = true;
-                payButton.textContent = '⏳ Processing...';
-                statusDiv.className = 'payment-status loading';
-                statusDiv.textContent = '⏳ Processing your payment...';
+                payButton.textContent = 'Add items to order';
+                emailNotice.style.display = 'none';
+                clearBtn.classList.add('disabled');
+                return;
+            }
 
-                setTimeout(() => {
-                    const { orderNumber, customerEmailData, businessEmailData } = sendOrderEmails(name, email);
+            let html = '';
+            let total = 0;
 
-                    statusDiv.className = 'payment-status success';
-                    statusDiv.innerHTML = `
-                        ✅ Payment successful! Your order has been placed.
-                        <br><br>
-                        <div style="font-size:14px; opacity:0.9; text-align:left; max-width:450px; margin:0 auto;">
-                            <strong>📧 Order Confirmation (#${orderNumber})</strong><br>
-                            📧 Sent to: <strong>${email}</strong><br>
-                            📧 Store notification sent to: <strong>clouddessertz@gmail.com</strong>
-                            <br><br>
-                            <strong>📋 Order Summary:</strong><br>
-                            ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
-                            <br><br>
-                            <strong>💳 Total:</strong> £${orderTotal.toFixed(2)}
-                            <br>
-                            <strong>👤 Customer:</strong> ${name}
-                        </div>
-                        <br>
-                        <div style="font-size:13px; opacity:0.7; padding:10px; background:rgba(255,255,255,0.15); border-radius:8px; text-align:left;">
-                            📬 A confirmation email has been sent to <strong>${email}</strong><br>
-                            📬 The store has been notified at <strong>clouddessertz@gmail.com</strong>
-                        </div>
-                    `;
-
-                    payButton.textContent = '✅ Order Placed';
-                    payButton.disabled = true;
-
-                    console.log('📧 CUSTOMER EMAIL SENT TO:', customerEmailData.to);
-                    console.log('Subject:', customerEmailData.subject);
-                    console.log('Body:', customerEmailData.body);
-                    console.log('📧 STORE EMAIL SENT TO:', businessEmailData.to);
-                    console.log('Subject:', businessEmailData.subject);
-                    console.log('Body:', businessEmailData.body);
-
-                    // ============================================ //
-                    // ★★★ FIX: CLEAR ORDER AFTER SUCCESS ★★★    //
-                    // ============================================ //
-                    setTimeout(function() {
-                        clearOrderData();
-                    }, 500);
-
-                }, 2000);
+            orderItems.forEach(item => {
+                const itemTotal = item.price ? item.price * item.quantity : 0;
+                total += itemTotal;
+                html += `
+                    <div class="item-row">
+                        <span class="item-name">${item.name}</span>
+                        <span class="item-qty">x${item.quantity}</span>
+                        <span class="item-price">£${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
             });
 
+            if (total === 0 && orderItems.length > 0) {
+                const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
+                if (savedTotal) {
+                    total = parseFloat(savedTotal) || 0;
+                }
+            }
+
+            orderTotal = total;
+            orderTotalDisplay.textContent = `£${total.toFixed(2)}`;
+            totalRow.style.display = 'flex';
+
+            if (total > 0) {
+                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+            }
+
+            orderItemsContainer.innerHTML = html;
+
+            payButton.disabled = false;
+            payButton.textContent = '💳 Place Order';
+            emailNotice.style.display = 'block';
+            clearBtn.classList.remove('disabled');
+        }
+
+        loadOrder();
+
+        // ============================================ //
+        // CLEAR ORDER FUNCTION                         //
+        // ============================================ //
+
+        window.clearOrder = function() {
+            if (orderItems.length === 0) return;
+            if (confirm('Are you sure you want to clear your entire order?')) {
+                clearOrderData();
+            }
+        };
+
+        function clearOrderData() {
+            localStorage.removeItem('cloud-dessertz-order-items');
+            localStorage.removeItem('cloud-dessertz-order-total');
+            localStorage.removeItem('cloud-dessertz-order-summary');
+            orderItems = [];
+            orderTotal = 0;
+            renderOrder();
+            const bar = document.getElementById('orderSummaryBar');
+            if (bar) {
+                bar.style.borderColor = '#dc3545';
+                setTimeout(() => {
+                    bar.style.borderColor = 'var(--cta-bg)';
+                }, 500);
+            }
+        }
+
+        // ============================================ //
+        // SEND ORDER EMAILS VIA EMAILJS               //
+        // ============================================ //
+
+        function sendOrderEmails(customerName, customerEmail) {
+            const orderNumber = generateOrderNumber();
+            const dateStr = new Date().toLocaleString();
+
+            // Build order items HTML for email templates
+            let orderItemsHTML = '';
+            orderItems.forEach(item => {
+                const itemTotal = (item.price || 0) * item.quantity;
+                orderItemsHTML += `
+                    <div class="item">
+                        <span>${item.name} (x${item.quantity})</span>
+                        <span>£${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            // Template data for both emails
+            const templateData = {
+                order_number: orderNumber,
+                order_date: dateStr,
+                customer_name: customerName,
+                customer_email: customerEmail,
+                order_total: orderTotal.toFixed(2),
+                order_items: orderItemsHTML
+            };
+
+            // Send Customer Email
+            const customerPromise = emailjs.send(
+                EMAILJS_SERVICE_ID,
+                TEMPLATE_ID_CUSTOMER,
+                templateData
+            );
+
+            // Send Store Email
+            const storePromise = emailjs.send(
+                EMAILJS_SERVICE_ID,
+                TEMPLATE_ID_STORE,
+                templateData
+            );
+
+            // Return both promises
+            return {
+                customerPromise: customerPromise,
+                storePromise: storePromise,
+                orderNumber: orderNumber
+            };
+        }
+
+        // ============================================ //
+        // PAYMENT BUTTON - Process Order               //
+        // ============================================ //
+
+        payButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if (orderItems.length === 0) {
+                statusDiv.className = 'payment-status error';
+                statusDiv.textContent = '⚠️ Your cart is empty. Please add items to your order.';
+                return;
+            }
+
+            const name = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const card = document.getElementById('cardnumber').value.trim();
+            const expiry = document.getElementById('expiry').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+
+            if (!name || !email || !card || !expiry || !cvv) {
+                statusDiv.className = 'payment-status error';
+                statusDiv.textContent = '⚠️ Please fill in all payment fields.';
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                statusDiv.className = 'payment-status error';
+                statusDiv.textContent = '⚠️ Please enter a valid email address.';
+                return;
+            }
+
+            // Start processing
+            payButton.disabled = true;
+            payButton.textContent = '⏳ Processing...';
+            statusDiv.className = 'payment-status loading';
+            statusDiv.textContent = '⏳ Processing your payment...';
+            emailStatus.style.display = 'none';
+
+            // Simulate payment processing (2 seconds)
+            setTimeout(() => {
+
+                // Send emails via EmailJS
+                const { customerPromise, storePromise, orderNumber } = sendOrderEmails(name, email);
+
+                // Show email sending status
+                statusDiv.className = 'payment-status loading';
+                statusDiv.textContent = '📧 Sending order confirmations...';
+
+                // Wait for both emails to send
+                Promise.all([customerPromise, storePromise])
+                    .then(([customerResult, storeResult]) => {
+                        // Both emails sent successfully!
+                        statusDiv.className = 'payment-status success';
+                        statusDiv.innerHTML = `
+                            ✅ Payment successful! Your order has been placed.
+                            <br><br>
+                            <div style="font-size:14px; opacity:0.9; text-align:left; max-width:450px; margin:0 auto;">
+                                <strong>📧 Order Confirmation (#${orderNumber})</strong><br>
+                                📧 Sent to: <strong>${email}</strong><br>
+                                📧 Store notification sent to: <strong>clouddessertz@gmail.com</strong>
+                                <br><br>
+                                <strong>📋 Order Summary:</strong><br>
+                                ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
+                                <br><br>
+                                <strong>💳 Total:</strong> £${orderTotal.toFixed(2)}
+                                <br>
+                                <strong>👤 Customer:</strong> ${name}
+                            </div>
+                            <br>
+                            <div style="font-size:13px; padding:10px; background:rgba(255,255,255,0.15); border-radius:8px; text-align:left;">
+                                ✅ Confirmation email sent to <strong>${email}</strong><br>
+                                ✅ Store notified at <strong>clouddessertz@gmail.com</strong>
+                            </div>
+                        `;
+
+                        // Show email status in the summary section
+                        emailStatus.style.display = 'block';
+                        emailStatus.innerHTML = `
+                            📧 Emails sent successfully!
+                            <span class="sent">✅ Customer: ${email}</span><br>
+                            <span class="sent">✅ Store: clouddessertz@gmail.com</span>
+                        `;
+
+                        payButton.textContent = '✅ Order Placed';
+                        payButton.disabled = true;
+
+                        // Clear the order after a moment
+                        setTimeout(() => {
+                            clearOrderData();
+                        }, 800);
+
+                    })
+                    .catch((error) => {
+                        // One or both emails failed
+                        console.error('Email error:', error);
+
+                        statusDiv.className = 'payment-status success';
+                        statusDiv.innerHTML = `
+                            ✅ Payment successful! Your order has been placed.
+                            <br><br>
+                            <div style="font-size:14px; opacity:0.9; text-align:left; max-width:450px; margin:0 auto;">
+                                <strong>📧 Order Confirmation (#${orderNumber})</strong><br>
+                                ⚠️ There was an issue sending email notifications.
+                                <br><br>
+                                <strong>📋 Order Summary:</strong><br>
+                                ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
+                                <br><br>
+                                <strong>💳 Total:</strong> £${orderTotal.toFixed(2)}
+                                <br>
+                                <strong>👤 Customer:</strong> ${name}
+                            </div>
+                            <br>
+                            <div style="font-size:13px; padding:10px; background:rgba(255,255,255,0.15); border-radius:8px; text-align:left; color:#856404;">
+                                ⚠️ Please contact us directly if you don't receive a confirmation email.
+                            </div>
+                        `;
+
+                        emailStatus.style.display = 'block';
+                        emailStatus.innerHTML = `
+                            ⚠️ Email issue detected
+                            <span class="failed">❌ Please check your email address</span><br>
+                            <span style="font-size:12px; opacity:0.7;">The store has been notified of your order.</span>
+                        `;
+
+                        payButton.textContent = '✅ Order Placed';
+                        payButton.disabled = true;
+
+                        // Still clear the order
+                        setTimeout(() => {
+                            clearOrderData();
+                        }, 800);
+                    });
+
+            }, 2000);
         });
     </script>
 
