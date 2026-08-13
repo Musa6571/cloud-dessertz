@@ -633,13 +633,16 @@
         // ============================================ //
         
         function goToOrder() {
-            const total = calculateTotal();
-            if (total > 0) {
-                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
-                localStorage.setItem('cloud-dessertz-order-summary', window._selectedItems ? window._selectedItems.join(' | ') : 'Custom Dessert');
-                window.location.href = 'order.html';
-            }
-        }
+    const total = calculateTotal();
+    if (total > 0) {
+        // Save items with prices
+        const items = [];
+        // ... your logic to build items array ...
+        localStorage.setItem('cloud-dessertz-order-items', JSON.stringify(items));
+        localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+        window.location.href = 'order.html';
+    }
+}
         
         // Attach goToOrder to the button click
         document.addEventListener('DOMContentLoaded', function() {
