@@ -45,23 +45,50 @@
             transition: color 0.4s ease;
         }
 
-        .order-summary .item {
+        .order-summary .item-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid var(--border-color);
             font-size: 15px;
             color: var(--text-color);
             transition: color 0.4s ease, border-color 0.4s ease;
         }
 
-        .order-summary .total {
+        .order-summary .item-row .item-name {
+            flex: 1;
+        }
+        .order-summary .item-row .item-qty {
+            margin: 0 16px;
+            opacity: 0.7;
+        }
+        .order-summary .item-row .item-price {
+            font-weight: 600;
+        }
+
+        .order-summary .total-row {
             font-weight: 700;
             font-size: 20px;
             color: var(--cta-bg);
             padding-top: 14px;
             border-bottom: none;
+            display: flex;
+            justify-content: space-between;
             transition: color 0.4s ease;
+        }
+
+        .order-summary .empty-cart {
+            text-align: center;
+            color: var(--text-color);
+            padding: 30px 0;
+            opacity: 0.6;
+            transition: color 0.4s ease;
+        }
+
+        .order-summary .empty-cart span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
         }
 
         /* ---- Checkout Form ---- */
@@ -166,7 +193,26 @@
             border: 1px solid #f5c6cb;
         }
 
-        /* ---- Responsive ---- */
+        .payment-status.loading {
+            display: block;
+            background: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+
+        /* Email notification status */
+        .email-notice {
+            margin-top: 12px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--bg-color);
+            border-left: 4px solid var(--cta-bg);
+            font-size: 13px;
+            color: var(--text-color);
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* Responsive */
         @media (max-width: 1100px) {
             .order-wrapper {
                 grid-template-columns: 1fr;
@@ -243,7 +289,7 @@
             <div class="menu-hero-content">
                 <span class="hero-emoji">🛍️</span>
                 <h1>Checkout</h1>
-                <p>Complete your order and enjoy your custom dessert!</p>
+                <p>Review your order and complete your purchase!</p>
                 <div class="hero-divider">
                     <span class="divider-icon">✦</span>
                     <span class="divider-icon">✦</span>
@@ -257,19 +303,28 @@
             <div class="order-wrapper">
 
                 <!-- Left: Order Summary -->
-                <div class="order-summary">
+                <div class="order-summary" id="orderSummary">
                     <h3>📋 Your Order</h3>
-                    <div class="item"><span>Custom Dessert</span><span>£5.00</span></div>
-                    <div class="item"><span>Service Fee</span><span>£0.50</span></div>
-                    <div class="item total"><span>Total</span><span>£5.50</span></div>
-                    <p style="margin-top:16px; font-size:14px; opacity:0.7; color:var(--text-color); transition:color 0.4s ease;">
-                        * This is a demo. No actual payment will be processed.
-                    </p>
+                    <div id="orderItemsContainer">
+                        <div class="empty-cart">
+                            <span>🛒</span>
+                            <p>Your cart is empty. Please add items from the menu.</p>
+                            <a href="menu.html" style="color:var(--cta-bg); font-weight:600; text-decoration:none;">Browse Menu →</a>
+                        </div>
+                    </div>
+                    <div class="total-row" id="totalRow" style="display:none;">
+                        <span>Total</span>
+                        <span id="orderTotalDisplay">£0.00</span>
+                    </div>
+                    <div class="email-notice" id="emailNotice" style="display:none;">
+                        📧 An order confirmation will be sent to clouddessertz@gmail.com
+                    </div>
                 </div>
 
                 <!-- Right: Payment Form -->
-                <div class="checkout-form">
+                <div class="checkout-form" id="checkoutForm">
                     <h3>💳 Payment Details</h3>
+                    <p style="font-size:14px; color:var(--text-color); opacity:0.7; transition:color 0.4s ease;">Complete your order and we'll prepare your treats!</p>
 
                     <div class="form-group">
                         <label for="fullname">Full Name</label>
@@ -297,7 +352,7 @@
                         </div>
                     </div>
 
-                    <button class="pay-button" id="payButton">Pay Now</button>
+                    <button class="pay-button" id="payButton" disabled>Place Order</button>
                     <div class="payment-status" id="paymentStatus"></div>
                 </div>
 
@@ -334,25 +389,23 @@
                 </ul>
             </div>
 
-           <!-- Column 3: Social & Contact -->
-<div class="footer-col">
-    <h4>Connect With Us</h4>
-    <div class="social-icons-container">
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
-        </a>
-        <!-- TikTok - Correct Logo -->
-        <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
-            <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
-                <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
-            </svg>
-        </a>
-    </div>
-    <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
-</div>
+            <!-- Column 3: Social & Contact -->
+            <div class="footer-col">
+                <h4>Connect With Us</h4>
+                <div class="social-icons-container">
+                    <a href="https://www.instagram.com/cloud_dessertz?utm_source=qr&igsh=eTgwcXcwZnR4dnI=" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@cloud.dessertz" target="_blank" rel="noopener noreferrer" class="social-icon tiktok" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" width="28" height="28" fill="currentColor">
+                            <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
+            </div>
 
             <!-- Column 4: Newsletter -->
             <div class="footer-col">
@@ -381,13 +434,192 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
+            // ============================================ //
+            // LOAD ORDER FROM localStorage                 //
+            // ============================================ //
+
+            const orderItemsContainer = document.getElementById('orderItemsContainer');
+            const totalRow = document.getElementById('totalRow');
+            const orderTotalDisplay = document.getElementById('orderTotalDisplay');
             const payButton = document.getElementById('payButton');
             const statusDiv = document.getElementById('paymentStatus');
+            const emailNotice = document.getElementById('emailNotice');
+
+            let orderItems = [];
+            let orderTotal = 0;
+
+            function loadOrder() {
+                const savedItems = localStorage.getItem('cloud-dessertz-order-items');
+                const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
+                const savedSummary = localStorage.getItem('cloud-dessertz-order-summary');
+
+                if (savedItems) {
+                    try {
+                        orderItems = JSON.parse(savedItems);
+                    } catch (e) {
+                        orderItems = [];
+                    }
+                }
+
+                if (savedTotal) {
+                    orderTotal = parseFloat(savedTotal) || 0;
+                }
+
+                // If no items stored but we have a summary, try to parse it
+                if (orderItems.length === 0 && savedSummary) {
+                    // Try to create items from summary (for backward compatibility)
+                    const items = savedSummary.split(' | ');
+                    items.forEach(item => {
+                        const match = item.match(/^(.*?)\s*\(x(\d+)\)$/);
+                        if (match) {
+                            orderItems.push({ name: match[1], quantity: parseInt(match[2]), price: 0 });
+                        } else {
+                            orderItems.push({ name: item, quantity: 1, price: 0 });
+                        }
+                    });
+                    // Recalculate total if prices are missing
+                    if (orderTotal === 0 && orderItems.length > 0) {
+                        // Try to get total from localStorage
+                        const totalFromStorage = localStorage.getItem('cloud-dessertz-order-total');
+                        if (totalFromStorage) {
+                            orderTotal = parseFloat(totalFromStorage) || 0;
+                        }
+                    }
+                }
+
+                renderOrder();
+            }
+
+            function renderOrder() {
+                if (orderItems.length === 0) {
+                    orderItemsContainer.innerHTML = `
+                        <div class="empty-cart">
+                            <span>🛒</span>
+                            <p>Your cart is empty. Please add items from the menu.</p>
+                            <a href="menu.html" style="color:var(--cta-bg); font-weight:600; text-decoration:none;">Browse Menu →</a>
+                        </div>
+                    `;
+                    totalRow.style.display = 'none';
+                    payButton.disabled = true;
+                    payButton.textContent = 'Add items to order';
+                    emailNotice.style.display = 'none';
+                    return;
+                }
+
+                let html = '';
+                let total = 0;
+
+                orderItems.forEach(item => {
+                    const itemTotal = item.price ? item.price * item.quantity : 0;
+                    total += itemTotal;
+                    html += `
+                        <div class="item-row">
+                            <span class="item-name">${item.name}</span>
+                            <span class="item-qty">x${item.quantity}</span>
+                            <span class="item-price">£${itemTotal.toFixed(2)}</span>
+                        </div>
+                    `;
+                });
+
+                // If total is 0 but we have items, calculate from prices in items
+                if (total === 0 && orderItems.length > 0) {
+                    // Some items might not have price stored, try to get from total localStorage
+                    const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
+                    if (savedTotal) {
+                        total = parseFloat(savedTotal) || 0;
+                    } else {
+                        // Estimate - show a message
+                        html += `<div class="item-row" style="opacity:0.6;"><span>⚠️ Price information not available</span></div>`;
+                    }
+                }
+
+                orderTotal = total;
+                orderTotalDisplay.textContent = `£${total.toFixed(2)}`;
+                totalRow.style.display = 'flex';
+
+                // Save updated total back to localStorage
+                if (total > 0) {
+                    localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
+                }
+
+                orderItemsContainer.innerHTML = html;
+
+                // Enable pay button if there are items
+                payButton.disabled = false;
+                payButton.textContent = '💳 Place Order';
+                emailNotice.style.display = 'block';
+            }
+
+            loadOrder();
+
+            // ============================================ //
+            // EMAIL SIMULATION - Send order to clouddessertz@gmail.com //
+            // ============================================ //
+
+            function sendOrderEmail(customerName, customerEmail) {
+                const orderSummary = orderItems.map(item => 
+                    `${item.name} (x${item.quantity}) - £${(item.price || 0) * item.quantity}`
+                ).join('\n');
+
+                const emailData = {
+                    to: 'clouddessertz@gmail.com',
+                    subject: `🛍️ New Order from ${customerName}`,
+                    body: `
+                        ────────────────────────────────
+                        🍰 NEW ORDER RECEIVED 🍰
+                        ────────────────────────────────
+
+                        Customer: ${customerName}
+                        Email: ${customerEmail}
+                        Order Total: £${orderTotal.toFixed(2)}
+
+                        ────────────────────────────────
+                        📋 ORDER DETAILS:
+                        ────────────────────────────────
+                        ${orderSummary}
+
+                        ────────────────────────────────
+                        📅 Order placed: ${new Date().toLocaleString()}
+                        ────────────────────────────────
+
+                        ✅ Please prepare this order for collection.
+                        🔔 Customer will be notified when ready.
+
+                        ────────────────────────────────
+                        Cloud Dessertz - Order System
+                    `
+                };
+
+                // Since we're on GitHub Pages, we'll simulate the email
+                console.log('📧 EMAIL SENT TO clouddessertz@gmail.com');
+                console.log('Subject:', emailData.subject);
+                console.log('Body:', emailData.body);
+
+                // Store in localStorage for demo purposes
+                localStorage.setItem('cloud-dessertz-last-order-email', JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    customer: customerName,
+                    email: customerEmail,
+                    total: orderTotal,
+                    items: orderItems
+                }));
+
+                return emailData;
+            }
+
+            // ============================================ //
+            // PAYMENT BUTTON - Process Order               //
+            // ============================================ //
 
             payButton.addEventListener('click', function(e) {
                 e.preventDefault();
 
-                // Simple validation
+                if (orderItems.length === 0) {
+                    statusDiv.className = 'payment-status error';
+                    statusDiv.textContent = '⚠️ Your cart is empty. Please add items to your order.';
+                    return;
+                }
+
                 const name = document.getElementById('fullname').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const card = document.getElementById('cardnumber').value.trim();
@@ -396,28 +628,74 @@
 
                 if (!name || !email || !card || !expiry || !cvv) {
                     statusDiv.className = 'payment-status error';
-                    statusDiv.textContent = '⚠️ Please fill in all fields.';
+                    statusDiv.textContent = '⚠️ Please fill in all payment fields.';
                     return;
                 }
 
-                // Simulate processing
+                // Simple email validation
+                if (!email.includes('@') || !email.includes('.')) {
+                    statusDiv.className = 'payment-status error';
+                    statusDiv.textContent = '⚠️ Please enter a valid email address.';
+                    return;
+                }
+
+                // Process payment
                 payButton.disabled = true;
-                payButton.textContent = 'Processing...';
-                statusDiv.className = 'payment-status';
-                statusDiv.style.display = 'block';
+                payButton.textContent = '⏳ Processing...';
+                statusDiv.className = 'payment-status loading';
                 statusDiv.textContent = '⏳ Processing your payment...';
 
                 setTimeout(() => {
-                    // Simulate success
+                    // Payment successful
                     statusDiv.className = 'payment-status success';
-                    statusDiv.textContent = '✅ Payment successful! Thank you for your order. You will receive a confirmation email shortly.';
-                    payButton.textContent = 'Paid ✓';
+                    statusDiv.textContent = '✅ Payment successful! Your order has been placed.';
+
+                    // Send email notification to clouddessertz@gmail.com
+                    const emailData = sendOrderEmail(name, email);
+
+                    // Show success message with email details
+                    statusDiv.innerHTML += `
+                        <br><br>
+                        <div style="font-size:14px; opacity:0.8; text-align:left; max-width:400px; margin:0 auto;">
+                            <strong>📧 Order confirmation sent to:</strong><br>
+                            clouddessertz@gmail.com
+                            <br><br>
+                            <strong>Order Summary:</strong><br>
+                            ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
+                            <br><br>
+                            <strong>Total:</strong> £${orderTotal.toFixed(2)}
+                            <br>
+                            <strong>Customer:</strong> ${name} (${email})
+                        </div>
+                    `;
+
+                    payButton.textContent = '✅ Order Placed';
                     payButton.disabled = true;
 
-                    // Optionally redirect after a few seconds
-                    // setTimeout(() => { window.location.href = 'index.html'; }, 5000);
+                    // Clear the order from localStorage after successful order
+                    // (Uncomment if you want to clear after order)
+                    // localStorage.removeItem('cloud-dessertz-order-items');
+                    // localStorage.removeItem('cloud-dessertz-order-total');
+                    // localStorage.removeItem('cloud-dessertz-order-summary');
+
+                    // Redirect after delay
+                    setTimeout(() => {
+                        // Optional: redirect to a thank you page
+                        // window.location.href = 'thank-you.html';
+                    }, 5000);
+
                 }, 2000);
             });
+
+            // ============================================ //
+            // AUTO-FILL DEMO CARD FOR TESTING             //
+            // ============================================ //
+
+            // Auto-fill test card details for demo
+            document.getElementById('cardnumber').value = '4242 4242 4242 4242';
+            document.getElementById('expiry').value = '12/26';
+            document.getElementById('cvv').value = '123';
+
         });
     </script>
 
