@@ -97,7 +97,6 @@
             margin-bottom: 12px;
         }
 
-        /* ---- Order Summary Actions ---- */
         .order-actions-row {
             display: flex;
             gap: 12px;
@@ -134,7 +133,6 @@
             color: #666;
         }
 
-        /* ---- Checkout Form ---- */
         .checkout-form {
             display: flex;
             flex-direction: column;
@@ -223,7 +221,6 @@
             transform: none;
         }
 
-        /* ---- Payment status messages ---- */
         .payment-status {
             margin-top: 16px;
             padding: 14px 20px;
@@ -303,14 +300,12 @@
     <header class="sticky-header">
         <div class="header-container">
 
-            <!-- Logo - Left (Clickable) -->
             <div class="logo-area">
                 <a href="index.html">
                     <img src="images/logo.jpg" alt="Cloud Dessertz Logo" id="site-logo">
                 </a>
             </div>
 
-            <!-- Navigation Links - Middle -->
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -340,7 +335,6 @@
                 </ul>
             </nav>
 
-            <!-- iOS Toggle Switch - Right -->
             <div class="theme-toggle-area">
                 <label class="ios-toggle">
                     <input type="checkbox" id="theme-toggle-checkbox">
@@ -351,12 +345,8 @@
         </div>
     </header>
 
-    <!-- ============================================ -->
-    <!-- MAIN CONTENT                                 -->
-    <!-- ============================================ -->
     <main>
 
-        <!-- Order Hero -->
         <section class="menu-hero">
             <div class="menu-hero-content">
                 <span class="hero-emoji">🛍️</span>
@@ -370,11 +360,9 @@
             </div>
         </section>
 
-        <!-- Order Content -->
         <section class="order-container">
             <div class="order-wrapper">
 
-                <!-- Left: Order Summary -->
                 <div class="order-summary" id="orderSummary">
                     <h3>📋 Your Order</h3>
                     <div id="orderItemsContainer">
@@ -389,7 +377,6 @@
                         <span id="orderTotalDisplay">£0.00</span>
                     </div>
 
-                    <!-- Order Actions -->
                     <div class="order-actions-row">
                         <button class="clear-order-btn-checkout disabled" id="clear-order-btn-checkout" onclick="clearOrder()">🗑️ Clear Order</button>
                     </div>
@@ -401,7 +388,6 @@
                     <div class="email-status" id="emailStatus" style="display:none;"></div>
                 </div>
 
-                <!-- Right: Payment Form -->
                 <div class="checkout-form" id="checkoutForm">
                     <h3>💳 Payment Details</h3>
                     <p style="font-size:14px; color:var(--text-color); opacity:0.7; transition:color 0.4s ease;">Complete your order and we'll prepare your treats!</p>
@@ -441,13 +427,9 @@
 
     </main>
 
-    <!-- ============================================ -->
-    <!-- FOOTER                                       -->
-    <!-- ============================================ -->
     <footer>
         <div class="footer-container">
 
-            <!-- Column 1: Quick Links -->
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
@@ -458,7 +440,6 @@
                 </ul>
             </div>
 
-            <!-- Column 2: Legal & Info -->
             <div class="footer-col">
                 <h4>Legal &amp; Info</h4>
                 <ul>
@@ -469,7 +450,6 @@
                 </ul>
             </div>
 
-            <!-- Column 3: Social & Contact -->
             <div class="footer-col">
                 <h4>Connect With Us</h4>
                 <div class="social-icons-container">
@@ -487,7 +467,6 @@
                 <p class="footer-email">✉️ <a href="mailto:clouddessertz@gmail.com" class="email-link">clouddessertz@gmail.com</a></p>
             </div>
 
-            <!-- Column 4: Newsletter -->
             <div class="footer-col">
                 <h4>Newsletter Signup</h4>
                 <p class="newsletter-text">Get sweet offers &amp; store updates!</p>
@@ -499,30 +478,23 @@
 
         </div>
 
-        <!-- Bottom Copyright Bar -->
         <div class="footer-bottom">
             <p>&copy; 2026 Cloud Dessertz. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- JAVASCRIPT                                   -->
-    <!-- ============================================ -->
     <script src="js/script.js"></script>
 
-    <!-- Checkout JavaScript with EmailJS -->
     <script>
         // ============================================ //
         // INITIALIZE EMAILJS                          //
         // ============================================ //
 
-        // ★★★ FIXED: Your actual EmailJS keys ★★★
-        const EMAILJS_PUBLIC_KEY = '2KgaPYYQ1C69OzDnT'; 
-        const EMAILJS_SERVICE_ID = 'service_zt6a39p'; 
-        const TEMPLATE_ID_CUSTOMER = 'template_351y1r7'; 
-        const TEMPLATE_ID_STORE = 'template_0yj4xy4'; 
+        const EMAILJS_PUBLIC_KEY = '2KgaPYYQ1C69OzDnT';
+        const EMAILJS_SERVICE_ID = 'service_zt6a39p';
+        const TEMPLATE_ID_CUSTOMER = 'template_351y1r7';
+        const TEMPLATE_ID_STORE = 'template_0yj4xy4';
 
-        // Initialize EmailJS
         emailjs.init(EMAILJS_PUBLIC_KEY);
 
         // ============================================ //
@@ -674,7 +646,7 @@
         }
 
         // ============================================ //
-        // SEND ORDER EMAILS VIA EMAILJS               //
+        // SEND ORDER EMAILS VIA EMAILJS - FIXED!      //
         // ============================================ //
 
         function sendOrderEmails(customerName, customerEmail) {
@@ -693,8 +665,8 @@
                 `;
             });
 
-            // Template data for both emails
-            const templateData = {
+            // Base template data
+            const baseTemplateData = {
                 order_number: orderNumber,
                 order_date: dateStr,
                 customer_name: customerName,
@@ -703,18 +675,34 @@
                 order_items: orderItemsHTML
             };
 
+            // ============================================ //
+            // ★★★ FIX: Add to_email for each email ★★★  //
+            // ============================================ //
+
+            // Customer Email Data - sends to the customer
+            const customerData = {
+                ...baseTemplateData,
+                to_email: customerEmail  // ← The customer's email
+            };
+
+            // Store Email Data - sends to the store
+            const storeData = {
+                ...baseTemplateData,
+                to_email: 'clouddessertz@gmail.com'  // ← The store email
+            };
+
             // Send Customer Email
             const customerPromise = emailjs.send(
                 EMAILJS_SERVICE_ID,
                 TEMPLATE_ID_CUSTOMER,
-                templateData
+                customerData
             );
 
             // Send Store Email
             const storePromise = emailjs.send(
                 EMAILJS_SERVICE_ID,
                 TEMPLATE_ID_STORE,
-                templateData
+                storeData
             );
 
             return {
