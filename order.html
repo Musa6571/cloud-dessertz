@@ -516,11 +516,11 @@
         // INITIALIZE EMAILJS                          //
         // ============================================ //
 
-        // ★★★ REPLACE WITH YOUR ACTUAL VALUES ★★★
-        const EMAILJS_PUBLIC_KEY = 'bC7jA1KjM3yoYCyxA;' // e.g., 'user_abc123xyz'
-        const EMAILJS_SERVICE_ID = 'bC7jA1KjM3yoYCyxA;' // e.g., 'service_abc123'
-        const TEMPLATE_ID_CUSTOMER = 'template_351y1r7;' // e.g., 'template_customer'
-        const TEMPLATE_ID_STORE = 'template_0yj4xy4;' // e.g., 'template_store'
+        // ★★★ FIXED: Your actual EmailJS keys ★★★
+        const EMAILJS_PUBLIC_KEY = '2KgaPYYQ1C69OzDnT'; 
+        const EMAILJS_SERVICE_ID = 'service_zt6a39p'; 
+        const TEMPLATE_ID_CUSTOMER = 'template_351y1r7'; 
+        const TEMPLATE_ID_STORE = 'template_0yj4xy4'; 
 
         // Initialize EmailJS
         emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -717,7 +717,6 @@
                 templateData
             );
 
-            // Return both promises
             return {
                 customerPromise: customerPromise,
                 storePromise: storePromise,
@@ -756,27 +755,21 @@
                 return;
             }
 
-            // Start processing
             payButton.disabled = true;
             payButton.textContent = '⏳ Processing...';
             statusDiv.className = 'payment-status loading';
             statusDiv.textContent = '⏳ Processing your payment...';
             emailStatus.style.display = 'none';
 
-            // Simulate payment processing (2 seconds)
             setTimeout(() => {
 
-                // Send emails via EmailJS
                 const { customerPromise, storePromise, orderNumber } = sendOrderEmails(name, email);
 
-                // Show email sending status
                 statusDiv.className = 'payment-status loading';
                 statusDiv.textContent = '📧 Sending order confirmations...';
 
-                // Wait for both emails to send
                 Promise.all([customerPromise, storePromise])
                     .then(([customerResult, storeResult]) => {
-                        // Both emails sent successfully!
                         statusDiv.className = 'payment-status success';
                         statusDiv.innerHTML = `
                             ✅ Payment successful! Your order has been placed.
@@ -800,7 +793,6 @@
                             </div>
                         `;
 
-                        // Show email status in the summary section
                         emailStatus.style.display = 'block';
                         emailStatus.innerHTML = `
                             📧 Emails sent successfully!
@@ -811,14 +803,12 @@
                         payButton.textContent = '✅ Order Placed';
                         payButton.disabled = true;
 
-                        // Clear the order after a moment
                         setTimeout(() => {
                             clearOrderData();
                         }, 800);
 
                     })
                     .catch((error) => {
-                        // One or both emails failed
                         console.error('Email error:', error);
 
                         statusDiv.className = 'payment-status success';
@@ -852,7 +842,6 @@
                         payButton.textContent = '✅ Order Placed';
                         payButton.disabled = true;
 
-                        // Still clear the order
                         setTimeout(() => {
                             clearOrderData();
                         }, 800);
