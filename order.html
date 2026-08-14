@@ -650,67 +650,67 @@
         // ============================================ //
 
         function sendOrderEmails(customerName, customerEmail) {
-            const orderNumber = generateOrderNumber();
-            const dateStr = new Date().toLocaleString();
+    const orderNumber = generateOrderNumber();
+    const dateStr = new Date().toLocaleString();
 
-            // Build order items HTML for email templates
-            let orderItemsHTML = '';
-            orderItems.forEach(item => {
-                const itemTotal = (item.price || 0) * item.quantity;
-                orderItemsHTML += `
-                    <div class="item">
-                        <span>${item.name} (x${item.quantity})</span>
-                        <span>£${itemTotal.toFixed(2)}</span>
-                    </div>
-                `;
-            });
+    // ============================================ //
+    // Build CLEAN text items (no HTML tags)        //
+    // ============================================ //
+    let orderItemsText = '';
+    orderItems.forEach(item => {
+        const itemTotal = (item.price || 0) * item.quantity;
+        orderItemsText += `  • ${item.name} (x${item.quantity}) - £${itemTotal.toFixed(2)}\n`;
+    });
 
-              // Base template data
+    // If no items, show a message
+    if (!orderItemsText) {
+        orderItemsText = '  (No items found)';
+    }
+
+    // ============================================ //
+    // Base template data (plain text)              //
+    // ============================================ //
     const baseTemplateData = {
         order_number: orderNumber,
         order_date: dateStr,
         customer_name: customerName,
         customer_email: customerEmail,
         order_total: orderTotal.toFixed(2),
-        order_items: orderItemsHTML  // This is the clean HTML
-            };
+        order_items: orderItemsText  // Plain text with bullet points
+    };
 
-            // ============================================ //
-            // ★★★ FIX: Add to_email for each email ★★★  //
-            // ============================================ //
+    // Customer Email
+    const customerData = {
+        ...baseTemplateData,
+        to_email: customerEmail
+    };
 
-            // Customer Email Data - sends to the customer
-            const customerData = {
-                ...baseTemplateData,
-                to_email: customerEmail  // ← The customer's email
-            };
+    // Store Email
+    const storeData = {
+        ...baseTemplateData,
+        to_email: 'clouddessertz@gmail.com'
+    };
 
-            // Store Email Data - sends to the store
-            const storeData = {
-                ...baseTemplateData,
-                to_email: 'clouddessertz@gmail.com'  // ← The store email
-            };
+    // Send Customer Email
+    const customerPromise = emailjs.send(
+        EMAILJS_SERVICE_ID,
+        TEMPLATE_ID_CUSTOMER,
+        customerData
+    );
 
-            // Send Customer Email
-            const customerPromise = emailjs.send(
-                EMAILJS_SERVICE_ID,
-                TEMPLATE_ID_CUSTOMER,
-                customerData
-            );
+    // Send Store Email
+    const storePromise = emailjs.send(
+        EMAILJS_SERVICE_ID,
+        TEMPLATE_ID_STORE,
+        storeData
+    );
 
-            // Send Store Email
-            const storePromise = emailjs.send(
-                EMAILJS_SERVICE_ID,
-                TEMPLATE_ID_STORE,
-                storeData
-            );
-
-            return {
-                customerPromise: customerPromise,
-                storePromise: storePromise,
-                orderNumber: orderNumber
-            };
-        }
+    return {
+        customerPromise: customerPromise,
+        storePromise: storePromise,
+        orderNumber: orderNumber
+    };
+}
 
         // ============================================ //
         // PAYMENT BUTTON - Process Order               //
