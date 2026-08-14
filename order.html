@@ -665,14 +665,14 @@
                 `;
             });
 
-            // Base template data
-            const baseTemplateData = {
-                order_number: orderNumber,
-                order_date: dateStr,
-                customer_name: customerName,
-                customer_email: customerEmail,
-                order_total: orderTotal.toFixed(2),
-                order_items: orderItemsHTML
+              // Base template data
+    const baseTemplateData = {
+        order_number: orderNumber,
+        order_date: dateStr,
+        customer_name: customerName,
+        customer_email: customerEmail,
+        order_total: orderTotal.toFixed(2),
+        order_items: orderItemsHTML  // This is the clean HTML
             };
 
             // ============================================ //
