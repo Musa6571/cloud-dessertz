@@ -1,1 +1,8 @@
-
+{
+  "name": "cloud-dessertz-api",
+  "version": "1.0.0",
+  "description": "Stripe backend for Cloud Dessertz",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
