@@ -188,12 +188,6 @@
             box-shadow: 0 0 0 3px rgba(158, 27, 80, 0.15);
         }
 
-        .checkout-form .card-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 14px;
-        }
-
         .checkout-form .pay-button {
             margin-top: 10px;
             padding: 16px;
@@ -282,12 +276,26 @@
             color: #dc3545;
         }
 
+        /* Secure badge */
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-top: 8px;
+            transition: color 0.4s ease;
+        }
+
+        .secure-badge span {
+            font-size: 18px;
+        }
+
         @media (max-width: 1100px) {
             .order-wrapper {
                 grid-template-columns: 1fr;
-            }
-            .card-row {
-                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -351,7 +359,7 @@
             <div class="menu-hero-content">
                 <span class="hero-emoji">🛍️</span>
                 <h1>Checkout</h1>
-                <p>Review your order and complete your purchase!</p>
+                <p>Review your order and complete your purchase securely!</p>
                 <div class="hero-divider">
                     <span class="divider-icon">✦</span>
                     <span class="divider-icon">✦</span>
@@ -390,7 +398,9 @@
 
                 <div class="checkout-form" id="checkoutForm">
                     <h3>💳 Payment Details</h3>
-                    <p style="font-size:14px; color:var(--text-color); opacity:0.7; transition:color 0.4s ease;">Complete your order and we'll prepare your treats!</p>
+                    <p style="font-size:14px; color:var(--text-color); opacity:0.7; transition:color 0.4s ease;">
+                        You'll be redirected to Stripe's secure payment page to complete your order.
+                    </p>
 
                     <div class="form-group">
                         <label for="fullname">Full Name</label>
@@ -402,23 +412,14 @@
                         <input type="email" id="email" placeholder="your.email@example.com" required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="cardnumber">Card Number</label>
-                        <input type="text" id="cardnumber" placeholder="4242 4242 4242 4242" maxlength="19">
-                    </div>
-
-                    <div class="card-row">
-                        <div class="form-group">
-                            <label for="expiry">Expiry</label>
-                            <input type="text" id="expiry" placeholder="MM/YY">
-                        </div>
-                        <div class="form-group">
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" placeholder="123" maxlength="4">
-                        </div>
-                    </div>
+                    <!-- CARD FIELDS ARE REMOVED - STRIPE HANDLES PAYMENT SECURELY -->
 
                     <button class="pay-button" id="payButton" disabled>Place Order</button>
+
+                    <div class="secure-badge">
+                        <span>🔒</span> Secured by Stripe · Your payment information is encrypted
+                    </div>
+
                     <div class="payment-status" id="paymentStatus"></div>
                 </div>
 
@@ -646,94 +647,75 @@
         }
 
         // ============================================ //
-        // SEND ORDER EMAILS VIA EMAILJS - FIXED!      //
+        // SEND ORDER EMAILS VIA EMAILJS                //
         // ============================================ //
 
         function sendOrderEmails(customerName, customerEmail) {
-    const orderNumber = generateOrderNumber();
-    const dateStr = new Date().toLocaleString();
+            const orderNumber = generateOrderNumber();
+            const dateStr = new Date().toLocaleString();
 
-    // ============================================ //
-    // Build CLEAN text items (no HTML tags)        //
-    // ============================================ //
-    let orderItemsText = '';
-    orderItems.forEach(item => {
-        const itemTotal = (item.price || 0) * item.quantity;
-        orderItemsText += `  • ${item.name} (x${item.quantity}) - £${itemTotal.toFixed(2)}\n`;
-    });
+            let orderItemsText = '';
+            orderItems.forEach(item => {
+                const itemTotal = (item.price || 0) * item.quantity;
+                orderItemsText += `  • ${item.name} (x${item.quantity}) - £${itemTotal.toFixed(2)}\n`;
+            });
 
-    // If no items, show a message
-    if (!orderItemsText) {
-        orderItemsText = '  (No items found)';
-    }
-
-    // ============================================ //
-    // Base template data (plain text)              //
-    // ============================================ //
-    const baseTemplateData = {
-        order_number: orderNumber,
-        order_date: dateStr,
-        customer_name: customerName,
-        customer_email: customerEmail,
-        order_total: orderTotal.toFixed(2),
-        order_items: orderItemsText  // Plain text with bullet points
-    };
-
-    // Customer Email
-    const customerData = {
-        ...baseTemplateData,
-        to_email: customerEmail
-    };
-
-    // Store Email
-    const storeData = {
-        ...baseTemplateData,
-        to_email: 'clouddessertz@gmail.com'
-    };
-
-    // Send Customer Email
-    const customerPromise = emailjs.send(
-        EMAILJS_SERVICE_ID,
-        TEMPLATE_ID_CUSTOMER,
-        customerData
-    );
-
-    // Send Store Email
-    const storePromise = emailjs.send(
-        EMAILJS_SERVICE_ID,
-        TEMPLATE_ID_STORE,
-        storeData
-    );
-
-    return {
-        customerPromise: customerPromise,
-        storePromise: storePromise,
-        orderNumber: orderNumber
-    };
-}
-
-        // ============================================ //
-        // PAYMENT BUTTON - Process Order               //
-        // ============================================ //
-
-        payButton.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            if (orderItems.length === 0) {
-                statusDiv.className = 'payment-status error';
-                statusDiv.textContent = '⚠️ Your cart is empty. Please add items to your order.';
-                return;
+            if (!orderItemsText) {
+                orderItemsText = '  (No items found)';
             }
 
+            const baseTemplateData = {
+                order_number: orderNumber,
+                order_date: dateStr,
+                customer_name: customerName,
+                customer_email: customerEmail,
+                order_total: orderTotal.toFixed(2),
+                order_items: orderItemsText
+            };
+
+            const customerData = {
+                ...baseTemplateData,
+                to_email: customerEmail
+            };
+
+            const storeData = {
+                ...baseTemplateData,
+                to_email: 'clouddessertz@gmail.com'
+            };
+
+            const customerPromise = emailjs.send(
+                EMAILJS_SERVICE_ID,
+                TEMPLATE_ID_CUSTOMER,
+                customerData
+            );
+
+            const storePromise = emailjs.send(
+                EMAILJS_SERVICE_ID,
+                TEMPLATE_ID_STORE,
+                storeData
+            );
+
+            return {
+                customerPromise: customerPromise,
+                storePromise: storePromise,
+                orderNumber: orderNumber
+            };
+        }
+
+        // ============================================ //
+        // NEW STRIPE PAYMENT BUTTON LOGIC              //
+        // ============================================ //
+
+        payButton.addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            // 1. Validate Name and Email
             const name = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
-            const card = document.getElementById('cardnumber').value.trim();
-            const expiry = document.getElementById('expiry').value.trim();
-            const cvv = document.getElementById('cvv').value.trim();
 
-            if (!name || !email || !card || !expiry || !cvv) {
+            if (!name || !email) {
                 statusDiv.className = 'payment-status error';
-                statusDiv.textContent = '⚠️ Please fill in all payment fields.';
+                statusDiv.textContent = '⚠️ Please enter your full name and email address.';
                 return;
             }
 
@@ -743,100 +725,121 @@
                 return;
             }
 
+            // 2. Check if cart is empty
+            if (orderItems.length === 0) {
+                statusDiv.className = 'payment-status error';
+                statusDiv.textContent = '⚠️ Your cart is empty. Please add items.';
+                return;
+            }
+
+            // 3. Disable the button to prevent double-clicks
             payButton.disabled = true;
-            payButton.textContent = '⏳ Processing...';
+            payButton.textContent = '⏳ Redirecting to Stripe...';
             statusDiv.className = 'payment-status loading';
-            statusDiv.textContent = '⏳ Processing your payment...';
-            emailStatus.style.display = 'none';
+            statusDiv.textContent = '⏳ Creating your secure checkout session...';
 
-            setTimeout(() => {
+            // 4. Prepare the data to send to our backend
+            const payload = {
+                items: orderItems,
+                customerName: name,
+                customerEmail: email
+            };
 
+            try {
+                // 5. Call our free Vercel backend
+                const response = await fetch('/api/create-checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to create checkout session.');
+                }
+
+                // 6. Redirect the customer to Stripe's secure payment page!
+                window.location.href = data.url;
+
+            } catch (error) {
+                // If something fails, show the error and re-enable the button
+                statusDiv.className = 'payment-status error';
+                statusDiv.textContent = `❌ Error: ${error.message}`;
+                payButton.disabled = false;
+                payButton.textContent = '💳 Place Order';
+            }
+        });
+
+        // ============================================ //
+        // HANDLE RETURN FROM STRIPE                    //
+        // ============================================ //
+
+        // Check the URL for success or cancel parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentSuccess = urlParams.get('success');
+        const paymentCanceled = urlParams.get('canceled');
+
+        if (paymentSuccess === 'true') {
+            // Payment was successful!
+            // Get the customer details from the inputs
+            const name = document.getElementById('fullname').value.trim() || 'Customer';
+            const email = document.getElementById('email').value.trim() || 'customer@example.com';
+
+            // Send the emails using your existing EmailJS function
+            if (typeof sendOrderEmails === 'function') {
                 const { customerPromise, storePromise, orderNumber } = sendOrderEmails(name, email);
 
-                statusDiv.className = 'payment-status loading';
-                statusDiv.textContent = '📧 Sending order confirmations...';
-
                 Promise.all([customerPromise, storePromise])
-                    .then(([customerResult, storeResult]) => {
+                    .then(() => {
+                        // Display success message
                         statusDiv.className = 'payment-status success';
                         statusDiv.innerHTML = `
-                            ✅ Payment successful! Your order has been placed.
+                            ✅ Payment confirmed! Your order #${orderNumber} is being prepared.
                             <br><br>
-                            <div style="font-size:14px; opacity:0.9; text-align:left; max-width:450px; margin:0 auto;">
-                                <strong>📧 Order Confirmation (#${orderNumber})</strong><br>
-                                📧 Sent to: <strong>${email}</strong><br>
-                                📧 Store notification sent to: <strong>clouddessertz@gmail.com</strong>
-                                <br><br>
-                                <strong>📋 Order Summary:</strong><br>
-                                ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
-                                <br><br>
-                                <strong>💳 Total:</strong> £${orderTotal.toFixed(2)}
-                                <br>
-                                <strong>👤 Customer:</strong> ${name}
-                            </div>
+                            📧 A confirmation email has been sent to <strong>${email}</strong>.
                             <br>
-                            <div style="font-size:13px; padding:10px; background:rgba(255,255,255,0.15); border-radius:8px; text-align:left;">
-                                ✅ Confirmation email sent to <strong>${email}</strong><br>
-                                ✅ Store notified at <strong>clouddessertz@gmail.com</strong>
-                            </div>
+                            📧 The store has been notified at clouddessertz@gmail.com.
                         `;
-
-                        emailStatus.style.display = 'block';
-                        emailStatus.innerHTML = `
-                            📧 Emails sent successfully!
-                            <span class="sent">✅ Customer: ${email}</span><br>
-                            <span class="sent">✅ Store: clouddessertz@gmail.com</span>
-                        `;
-
                         payButton.textContent = '✅ Order Placed';
                         payButton.disabled = true;
-
-                        setTimeout(() => {
-                            clearOrderData();
-                        }, 800);
-
+                        // Clear the cart from localStorage
+                        setTimeout(() => clearOrderData(), 1000);
                     })
-                    .catch((error) => {
-                        console.error('Email error:', error);
-
+                    .catch((err) => {
+                        // Email failed, but order is paid!
                         statusDiv.className = 'payment-status success';
                         statusDiv.innerHTML = `
-                            ✅ Payment successful! Your order has been placed.
+                            ✅ Payment confirmed! Your order #${orderNumber} is being prepared.
                             <br><br>
-                            <div style="font-size:14px; opacity:0.9; text-align:left; max-width:450px; margin:0 auto;">
-                                <strong>📧 Order Confirmation (#${orderNumber})</strong><br>
-                                ⚠️ There was an issue sending email notifications.
-                                <br><br>
-                                <strong>📋 Order Summary:</strong><br>
-                                ${orderItems.map(item => `${item.name} (x${item.quantity})`).join('<br>')}
-                                <br><br>
-                                <strong>💳 Total:</strong> £${orderTotal.toFixed(2)}
-                                <br>
-                                <strong>👤 Customer:</strong> ${name}
-                            </div>
+                            ⚠️ We couldn't send the email, but your order is saved in our system.
                             <br>
-                            <div style="font-size:13px; padding:10px; background:rgba(255,255,255,0.15); border-radius:8px; text-align:left; color:#856404;">
-                                ⚠️ Please contact us directly if you don't receive a confirmation email.
-                            </div>
+                            📧 Please contact us if you don't receive a confirmation shortly.
                         `;
-
-                        emailStatus.style.display = 'block';
-                        emailStatus.innerHTML = `
-                            ⚠️ Email issue detected
-                            <span class="failed">❌ Please check your email address</span><br>
-                            <span style="font-size:12px; opacity:0.7;">The store has been notified of your order.</span>
-                        `;
-
-                        payButton.textContent = '✅ Order Placed';
-                        payButton.disabled = true;
-
-                        setTimeout(() => {
-                            clearOrderData();
-                        }, 800);
+                        setTimeout(() => clearOrderData(), 1000);
                     });
+            } else {
+                // Fallback: just clear the cart and show success
+                statusDiv.className = 'payment-status success';
+                statusDiv.textContent = '✅ Payment successful! Thank you for your order.';
+                setTimeout(() => clearOrderData(), 1000);
+            }
 
-            }, 2000);
-        });
+            // Remove the success parameter from the URL without refreshing the page
+            window.history.replaceState({}, document.title, '/order.html');
+        }
+
+        if (paymentCanceled === 'true') {
+            // Customer canceled the payment on Stripe's page
+            statusDiv.className = 'payment-status error';
+            statusDiv.textContent = '❌ Payment was canceled. You can try again when you are ready.';
+            payButton.disabled = false;
+            payButton.textContent = '💳 Place Order';
+            // Remove the canceled parameter from the URL
+            window.history.replaceState({}, document.title, '/order.html');
+        }
     </script>
 
 </body>
