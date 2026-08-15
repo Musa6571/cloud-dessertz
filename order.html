@@ -524,41 +524,16 @@
             return `${prefix}${dateStr}${random}`;
         }
 
+        // ============================================ //
+        // ✅ FIXED: Cart now clears on every refresh!  //
+        // ============================================ //
         function loadOrder() {
-            const savedItems = localStorage.getItem('cloud-dessertz-order-items');
-            const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
-            const savedSummary = localStorage.getItem('cloud-dessertz-order-summary');
-
-            if (savedItems) {
-                try {
-                    orderItems = JSON.parse(savedItems);
-                } catch (e) {
-                    orderItems = [];
-                }
-            }
-
-            if (savedTotal) {
-                orderTotal = parseFloat(savedTotal) || 0;
-            }
-
-            if (orderItems.length === 0 && savedSummary) {
-                const items = savedSummary.split(' | ');
-                items.forEach(item => {
-                    const match = item.match(/^(.*?)\s*\(x(\d+)\)$/);
-                    if (match) {
-                        orderItems.push({ name: match[1], quantity: parseInt(match[2]), price: 0 });
-                    } else {
-                        orderItems.push({ name: item, quantity: 1, price: 0 });
-                    }
-                });
-                if (orderTotal === 0 && orderItems.length > 0) {
-                    const totalFromStorage = localStorage.getItem('cloud-dessertz-order-total');
-                    if (totalFromStorage) {
-                        orderTotal = parseFloat(totalFromStorage) || 0;
-                    }
-                }
-            }
-
+            // Always start with an empty cart on page load/refresh
+            localStorage.removeItem('cloud-dessertz-order-items');
+            localStorage.removeItem('cloud-dessertz-order-total');
+            localStorage.removeItem('cloud-dessertz-order-summary');
+            orderItems = [];
+            orderTotal = 0;
             renderOrder();
         }
 
