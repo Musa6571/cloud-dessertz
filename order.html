@@ -499,7 +499,7 @@
         emailjs.init(EMAILJS_PUBLIC_KEY);
 
         // ============================================ //
-        // LOAD ORDER FROM localStorage                 //
+        // DOM ELEMENTS                                //
         // ============================================ //
 
         const orderItemsContainer = document.getElementById('orderItemsContainer');
@@ -514,6 +514,10 @@
         let orderItems = [];
         let orderTotal = 0;
 
+        // ============================================ //
+        // GENERATE ORDER NUMBER                        //
+        // ============================================ //
+
         function generateOrderNumber() {
             const prefix = 'CD';
             const date = new Date();
@@ -525,8 +529,9 @@
         }
 
         // ============================================ //
-        // ✅ FIXED: Cart now clears on every refresh!  //
+        // LOAD ORDER - Cart clears on refresh!         //
         // ============================================ //
+
         function loadOrder() {
             // Always start with an empty cart on page load/refresh
             localStorage.removeItem('cloud-dessertz-order-items');
@@ -536,6 +541,10 @@
             orderTotal = 0;
             renderOrder();
         }
+
+        // ============================================ //
+        // RENDER ORDER - Display cart or empty message //
+        // ============================================ //
 
         function renderOrder() {
             if (orderItems.length === 0) {
@@ -569,20 +578,9 @@
                 `;
             });
 
-            if (total === 0 && orderItems.length > 0) {
-                const savedTotal = localStorage.getItem('cloud-dessertz-order-total');
-                if (savedTotal) {
-                    total = parseFloat(savedTotal) || 0;
-                }
-            }
-
             orderTotal = total;
             orderTotalDisplay.textContent = `£${total.toFixed(2)}`;
             totalRow.style.display = 'flex';
-
-            if (total > 0) {
-                localStorage.setItem('cloud-dessertz-order-total', total.toFixed(2));
-            }
 
             orderItemsContainer.innerHTML = html;
 
@@ -591,6 +589,10 @@
             emailNotice.style.display = 'block';
             clearBtn.classList.remove('disabled');
         }
+
+        // ============================================ //
+        // LOAD THE ORDER ON PAGE LOAD                  //
+        // ============================================ //
 
         loadOrder();
 
@@ -612,13 +614,6 @@
             orderItems = [];
             orderTotal = 0;
             renderOrder();
-            const bar = document.getElementById('orderSummaryBar');
-            if (bar) {
-                bar.style.borderColor = '#dc3545';
-                setTimeout(() => {
-                    bar.style.borderColor = 'var(--cta-bg)';
-                }, 500);
-            }
         }
 
         // ============================================ //
@@ -678,7 +673,7 @@
         }
 
         // ============================================ //
-        // NEW STRIPE PAYMENT BUTTON LOGIC              //
+        // STRIPE PAYMENT BUTTON LOGIC                  //
         // ============================================ //
 
         payButton.addEventListener('click', async function(e) {
