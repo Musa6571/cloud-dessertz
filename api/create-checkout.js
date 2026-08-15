@@ -25,7 +25,6 @@ module.exports = async (req, res) => {
                 currency: 'gbp', // Use 'usd' if you are in the US
                 product_data: {
                     name: item.name,
-                    // You can add a description or image here later
                 },
                 // Stripe wants the price in pennies (e.g., £10.00 = 1000)
                 unit_amount: Math.round((item.price || 0) * 100),
