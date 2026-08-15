@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
         // 5. Create the Checkout Session on Stripe's servers
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card', 'apple_pay', 'google_pay'],
+           payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
             // Where to send the customer after payment
